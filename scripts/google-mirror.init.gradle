@@ -1,0 +1,19 @@
+// ONE-OFF, passed with -I on a single command. Not installed in ~/.gradle and not part of the repo.
+// Serves Maven Central artifacts from Google's official mirror because repo.maven.apache.org is slow from here.
+def CENTRAL = ['https://repo.maven.apache.org/maven2', 'https://repo1.maven.org/maven2']
+def MIRROR  = 'https://maven-central.storage-download.googleapis.com/maven2/'
+def swap = { RepositoryHandler repos ->
+  repos.configureEach { repo ->
+    if (repo instanceof MavenArtifactRepository && CENTRAL.any { repo.url.toString().startsWith(it) }) {
+      repo.url = MIRROR
+    }
+  }
+}
+gradle.settingsEvaluated { settings ->
+  swap(settings.pluginManagement.repositories)
+  try { swap(settings.dependencyResolutionManagement.repositories) } catch (Throwable ignored) {}
+}
+gradle.allprojects { p ->
+  swap(p.buildscript.repositories)
+  swap(p.repositories)
+}
