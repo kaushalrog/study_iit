@@ -87,7 +87,18 @@ Use a **development** project and throwaway test users, never the real student's
    npx eas-cli build -p android --profile preview      # prints a download link for the .apk
    ```
    The `.env` file is git-ignored, so the cloud build only sees values you set with `env:create`. Without them the APK works but runs in local-only mode (no sign-in or sync).
-   **Local build** (no account, but needs about 1.5 GB of downloads and a good connection): `npx expo prebuild --platform android`, then in `android/` with Java 21: `./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a`. The APK lands in `android/app/build/outputs/apk/release/` and is signed with a debug key, so it is fine for your own devices but not for the Play Store.
+   **Local build** (no account; first run downloads about 3 GB including the NDK): with Java 21 and the Android SDK installed,
+   ```bash
+   npx expo prebuild --platform android --no-install    # then restore the "android"/"ios" scripts in package.json that prebuild rewrites
+   echo "sdk.dir=$HOME/Library/Android/sdk" > android/local.properties
+   cd android && ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a
+   ```
+   The APK lands in `android/app/build/outputs/apk/release/app-release.apk`. It is signed with a debug key: fine for your own phone and tablet, **not** for the Play Store. Only 64-bit ARM is built (virtually all current devices; not x86 emulators).
+   *Slow Maven Central?* On a connection where `repo.maven.apache.org` crawls, add `-I scripts/google-mirror.init.gradle` to that one command to fetch Maven Central libraries from Google's public mirror instead. It is deliberately a per-command flag, never installed globally. Measured here: about 1 MB/s versus about 64 KB/s.
+
+   **Install the APK:** copy `ORBIT-v1.0.0-arm64.apk` to the device and open it (allow "install unknown apps" for your file manager or browser), or `adb install -r ORBIT-v1.0.0-arm64.apk`. Check the download with `shasum -a 256` against `release-apk/SHA256.txt`.
+
+   **Permissions the APK requests:** camera (to scan questions), internet (sync and tutor), vibrate, and legacy storage access on Android 12 and older (photo import). The microphone and "draw over other apps" permissions are explicitly removed (`app.json` `blockedPermissions`).
 
 ## Backup
 Cloud: Supabase daily backups (enable PITR for production). Device: the SQLite file `orbit.db`; sync status is in Settings.
