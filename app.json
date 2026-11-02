@@ -8,7 +8,10 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "ios": { "supportsTablet": true, "bundleIdentifier": "app.orbit.learning" },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.orbit.learning"
+    },
     "android": {
       "package": "app.orbit.learning",
       "adaptiveIcon": {
@@ -17,13 +20,28 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "permissions": ["CAMERA"]
+      "permissions": [
+        "CAMERA"
+      ],
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.SYSTEM_ALERT_WINDOW"
+      ]
     },
     "plugins": [
       "expo-router",
       "expo-sqlite",
-      ["expo-image-picker", { "cameraPermission": "ORBIT uses the camera to scan questions into your Error Book.", "photosPermission": "ORBIT imports photos of questions you choose." }]
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "ORBIT uses the camera to scan questions into your Error Book.",
+          "photosPermission": "ORBIT imports photos of questions you choose.",
+          "microphonePermission": false
+        }
+      ]
     ],
-    "experiments": { "typedRoutes": false }
+    "experiments": {
+      "typedRoutes": false
+    }
   }
 }
