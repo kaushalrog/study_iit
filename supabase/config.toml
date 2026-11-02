@@ -1,0 +1,4 @@
+project_id = "orbit"
+
+[functions.tutor]
+verify_jwt = true
