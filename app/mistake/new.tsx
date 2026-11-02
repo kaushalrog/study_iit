@@ -2,7 +2,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Image, View } from 'react-native';
-import { AppText, Button, Card, Chip, ErrorState, Field, Group, LoadingState, Page, space, useTheme } from '../../src/components/design-system';
+import { AppText, Button, Card, Chip, ErrorState, Field, Group, Icon, LoadingState, Page, space, useTheme } from '../../src/components/design-system';
 import { useDb } from '../../src/database/DatabaseProvider';
 import { CATEGORY_LABEL, MISTAKE_CATEGORIES, MistakeCategory, mistakeRepo, newMistakeSchema } from '../../src/database/repositories/mistakes';
 import { syllabusRepo } from '../../src/database/repositories/syllabus';
@@ -28,6 +28,7 @@ export default function NewMistake() {
   const [ocrPending, setOcrPending] = useState(false);
   const [ocrMsg, setOcrMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [pickError, setPickError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Partial<Record<'chapter' | 'text' | 'category' | 'general', string>>>({});
 
   if (error) return <ErrorState message={error} onRetry={reload} />;
@@ -36,7 +37,8 @@ export default function NewMistake() {
 
   const pick = async (camera: boolean) => {
     const perm = camera ? await ImagePicker.requestCameraPermissionsAsync() : await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!perm.granted) { setErrors({ general: camera ? 'Camera permission is needed to scan a question.' : 'Photo access is needed to import an image.' }); return; }
+    if (!perm.granted) { setPickError(camera ? 'Camera permission is needed to scan a question. You can allow it in your phone\'s Settings, or type the question instead.' : 'Photo access is needed to import an image. You can allow it in your phone\'s Settings, or type the question instead.'); return; }
+    setPickError(null);
     const res = await (camera ? ImagePicker.launchCameraAsync : ImagePicker.launchImageLibraryAsync)({ allowsEditing: true, quality: 0.7, base64: true });
     if (!res.canceled) { setImage({ uri: res.assets[0].uri, base64: res.assets[0].base64 }); setErrors({}); }
   };
@@ -87,6 +89,11 @@ export default function NewMistake() {
           <Button title="Scan" icon="camera-outline" variant="secondary" onPress={() => pick(true)} style={{ flex: 1 }} />
           <Button title="Import" icon="image-outline" variant="secondary" onPress={() => pick(false)} style={{ flex: 1 }} />
         </View>
+        {pickError ? (
+          <View style={{ flexDirection: 'row', gap: space.sm, alignItems: 'flex-start' }} accessibilityRole="alert" accessibilityLiveRegion="polite">
+            <Icon name="alert-circle" size="md" color={colors.danger} /><AppText variant="caption" color={colors.danger} style={{ flex: 1 }}>{pickError}</AppText>
+          </View>
+        ) : null}
         {image ? (
           <View style={{ gap: space.sm }}>
             <Image source={{ uri: image.uri }} accessibilityLabel="Photo of the question" style={{ width: '100%', height: 180, borderRadius: 12 }} resizeMode="contain" />
