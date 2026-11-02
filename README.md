@@ -51,7 +51,7 @@ ORBIT works fully without this. To turn on sign-in and sync you need a Supabase 
 - Signing out stops syncing but never deletes local data.
 
 ### Known sync limits
-Conflict resolution trusts device clocks (last write wins by `updated_at`). Photos attached to mistakes and questions stay on the device; Supabase Storage upload is not built yet. `study_tasks` and `topic_mastery` have unique keys that two devices could collide on; the app does not write them yet. Screens refresh when you navigate to them, not the instant a sync lands. See "Live tests" for exactly what has and has not been run against a real database.
+Conflict resolution trusts device clocks (last write wins by `updated_at`). Photos attached to mistakes and questions stay on the device; Supabase Storage upload is not built yet. `study_tasks` and `topic_mastery` have unique keys that two devices could collide on; the app does not write them yet. Uploads are one request per row, so a large first sync is slow on a slow network (batching is a planned improvement). Screens refresh when you navigate to them, not the instant a sync lands. See "Live tests" for exactly what has and has not been run against a real database.
 
 ## Live tests (real Postgres)
 `npm run test:live` starts a throwaway local PostgreSQL (needs server binaries, e.g. `brew install postgresql@17`), applies `supabase/test/bootstrap.sql` (a stand-in for Supabase's `auth` schema and roles), all migrations and `seed.sql`, then runs `tests/live` serially and deletes everything. It is separate from `npm test` so the normal suite needs no database.
@@ -71,7 +71,8 @@ Use a **development** project and throwaway test users, never the real student's
 3. Put the project URL and publishable key in `.env` (`EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`).
 4. Copy `.env.cloud-test.example` to `.env.cloud-test` (git-ignored) and fill in the test user's email and password.
 5. `npm run test:cloud`. It covers: signed-out access, wrong-password handling, seed present, RLS through PostgREST (shared data read-only, no self-publishing, no forged owner, second-student isolation), the real sync engine over `supabase-js` with two simulated devices (types, conflicts, no duplicates), and reports whether the `tutor` Edge Function is deployed and configured.
-6. Afterwards: **Authentication → Sign In / Providers → turn off "Allow new users to sign up"**, so only the account you create can ever sign in.
+6. Result of the first real run (2 Nov 2026, a development Supabase project): 9 passed, 1 skipped (second-student isolation needs a second user), tutor function reported `not_deployed`. The two sync scenarios took about 2 minutes each, because the engine uploads one row per request; see "Known sync limits".
+7. Afterwards: **Authentication → Sign In / Providers → turn off "Allow new users to sign up"**, so only the account you create can ever sign in.
 
 ## Deploy
 1. `supabase link`, `supabase db push` (applies `supabase/migrations`).
