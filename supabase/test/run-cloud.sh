@@ -7,4 +7,4 @@ cd "$(dirname "$0")/../.."
 set -a; . ./.env; . ./.env.cloud-test; set +a
 export ORBIT_CLOUD_URL="$EXPO_PUBLIC_SUPABASE_URL" ORBIT_CLOUD_KEY="$EXPO_PUBLIC_SUPABASE_ANON_KEY"
 [ -n "${ORBIT_CLOUD_PASSWORD:-}" ] || { echo "ORBIT_CLOUD_PASSWORD is empty in .env.cloud-test"; exit 2; }
-npx jest tests/cloud --runInBand "$@"
+npx jest -c jest.cloud.config.js --runInBand "$@"
