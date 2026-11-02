@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import { FlatList, KeyboardAvoidingView, Platform, View } from 'react-native';
 import { AppText, Button, Card, Chip, Field, Icon, Tag, space, useBottomInset, useLayout, useTheme } from '../../src/components/design-system';
@@ -7,6 +7,7 @@ import { notesRepo } from '../../src/database/repositories/notes';
 import { syllabusRepo } from '../../src/database/repositories/syllabus';
 import { useAsync } from '../../src/hooks/useAsync';
 import { askTutor, TutorError, TutorTask } from '../../src/services/ai/tutorClient';
+import { useAuth } from '../../src/services/auth/AuthProvider';
 import { cloudConfigured } from '../../src/services/supabase/client';
 
 interface Msg { id: number; role: 'user' | 'assistant' | 'error'; text: string; generated?: boolean; task?: TutorTask }
@@ -15,6 +16,9 @@ export default function Tutor() {
   const { chapterId } = useLocalSearchParams<{ chapterId?: string }>();
   const db = useDb();
   const { colors } = useTheme();
+  const router = useRouter();
+  const auth = useAuth();
+  const signedOut = cloudConfigured && auth.status === 'signed_out';
   const bottom = useBottomInset();
   const { gutter, maxWidth } = useLayout();
   const [lang, setLang] = useState<'en' | 'te'>('en');
@@ -28,7 +32,7 @@ export default function Tutor() {
 
   const send = async (task: TutorTask, text: string) => {
     const message = text.trim();
-    if (!message || busy) return;
+    if (!message || busy || signedOut) return;
     const history = msgs.filter((m) => m.role !== 'error').map((m) => ({ role: m.role as 'user' | 'assistant', content: m.text }));
     setMsgs((p) => [...p, { id: id.current++, role: 'user', text: message }]);
     setInput(''); setBusy(true);
@@ -61,6 +65,15 @@ export default function Tutor() {
           <Chip label="English" selected={lang === 'en'} onPress={() => setLang('en')} />
           <Chip label="తెలుగు" selected={lang === 'te'} onPress={() => setLang('te')} />
         </View>
+        {signedOut && (
+          <Card tone="accent" style={{ gap: space.sm }}>
+            <View style={{ flexDirection: 'row', gap: space.sm }}>
+              <Icon name="log-in-outline" size="md" color={colors.onAccent} />
+              <AppText variant="caption" color={colors.onAccent} style={{ flex: 1 }}>The tutor works over the internet through your ORBIT account, so you need to sign in first. Everything else in ORBIT works without signing in.</AppText>
+            </View>
+            <Button title="Go to Settings to sign in" icon="settings-outline" variant="secondary" onPress={() => router.push('/settings')} />
+          </Card>
+        )}
         {!cloudConfigured && (
           <Card tone="accent" style={{ flexDirection: 'row', gap: space.sm }}>
             <Icon name="cloud-offline-outline" size="md" color={colors.onAccent} />
@@ -103,7 +116,7 @@ export default function Tutor() {
           </View>
           <View style={{ flexDirection: 'row', gap: space.sm, alignItems: 'flex-end' }}>
             <View style={{ flex: 1 }}><Field label="Message" multiline placeholder="Ask the tutor" value={input} onChangeText={setInput} /></View>
-            <Button title="Send" icon="send" onPress={() => send('explain', input)} loading={busy} disabled={!input.trim()} />
+            <Button title="Send" icon="send" onPress={() => send('explain', input)} loading={busy} disabled={!input.trim() || signedOut} />
           </View>
         </View>
       </View>
