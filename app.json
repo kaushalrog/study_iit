@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "ORBIT",
+    "slug": "orbit",
+    "scheme": "orbit",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": { "supportsTablet": true, "bundleIdentifier": "app.orbit.learning" },
+    "android": {
+      "package": "app.orbit.learning",
+      "adaptiveIcon": {
+        "backgroundColor": "#FAF7F0",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "permissions": ["CAMERA"]
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      ["expo-image-picker", { "cameraPermission": "ORBIT uses the camera to scan questions into your Error Book.", "photosPermission": "ORBIT imports photos of questions you choose." }]
+    ],
+    "experiments": { "typedRoutes": false }
+  }
+}
