@@ -47,3 +47,6 @@ supabase/.env.functions
 
 # the generated one-paste Supabase setup file is intentionally tracked
 !supabase/dist/
+
+# built APKs are large binaries; share them, do not commit them
+release-apk/
