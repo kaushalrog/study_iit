@@ -78,7 +78,16 @@ Use a **development** project and throwaway test users, never the real student's
 1. `supabase link`, `supabase db push` (applies `supabase/migrations`).
 2. `supabase secrets set AI_PROVIDER=… AI_MODEL=… AI_API_KEY=… [AI_BASE_URL=…]`; `supabase functions deploy tutor`.
 3. Create the student's auth user in the Supabase dashboard (sign-ups off).
-4. Android build: `npx eas build -p android --profile preview` (APK) / `production` (AAB).
+4. Android build (cloud, recommended on a slow connection). `eas.json` defines `preview` (installable APK) and `production` (Play Store AAB):
+   ```bash
+   npx eas-cli login                                   # your free Expo account
+   npx eas-cli init                                    # links the project, writes the project id
+   npx eas-cli env:create --environment preview --name EXPO_PUBLIC_SUPABASE_URL --value <url> --visibility plaintext
+   npx eas-cli env:create --environment preview --name EXPO_PUBLIC_SUPABASE_ANON_KEY --value <publishable-key> --visibility plaintext
+   npx eas-cli build -p android --profile preview      # prints a download link for the .apk
+   ```
+   The `.env` file is git-ignored, so the cloud build only sees values you set with `env:create`. Without them the APK works but runs in local-only mode (no sign-in or sync).
+   **Local build** (no account, but needs about 1.5 GB of downloads and a good connection): `npx expo prebuild --platform android`, then in `android/` with Java 21: `./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a`. The APK lands in `android/app/build/outputs/apk/release/` and is signed with a debug key, so it is fine for your own devices but not for the Play Store.
 
 ## Backup
 Cloud: Supabase daily backups (enable PITR for production). Device: the SQLite file `orbit.db`; sync status is in Settings.
