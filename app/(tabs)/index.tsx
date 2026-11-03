@@ -3,7 +3,10 @@ import React from 'react';
 import { View } from 'react-native';
 import { ActionTile, AppText, Button, Card, EmptyState, ErrorState, FadeIn, Icon, LoadingState, Page, ProgressBar, SectionHeader, StatTile, SubjectDot, Tag, space, useLayout, useTheme } from '../../src/components/design-system';
 import { useDb } from '../../src/database/DatabaseProvider';
+import { PlanTaskRow } from '../../src/components/content/PlanTaskRow';
+import { plannerRepo } from '../../src/database/repositories/planner';
 import { loadHomeData } from '../../src/features/dashboard/homeData';
+import { useNow } from '../../src/hooks/useNow';
 import { useAsync } from '../../src/hooks/useAsync';
 import { toDateKey } from '../../src/utils/dates';
 
@@ -22,8 +25,18 @@ export default function Home() {
   const today = toDateKey(new Date());
   const { data, error, reload } = useAsync(() => loadHomeData(db, today), [db, today]);
 
+  const now = useNow(!!data?.timer);
   if (error) return <ErrorState message={error} onRetry={reload} />;
   if (!data) return <LoadingState label="Loading your day" />;
+
+  const act = (fn: () => Promise<unknown>) => fn().then(reload).catch(() => reload());
+  const toggleDone = (t: { id: string; status: string }) => act(() => plannerRepo.setStatus(db, t.id, t.status === 'done' ? 'pending' : 'done'));
+  const openTask = (t: { slot: string; unitId: string | null }) => {
+    if (!t.unitId) return undefined;
+    if (t.slot === 'practice') return () => router.push({ pathname: '/quiz/setup', params: { mode: 'practice', chapterId: t.unitId! } });
+    if (t.slot === 'concept') return () => router.push({ pathname: '/chapter/[id]', params: { id: t.unitId! } });
+    return undefined;
+  };
 
   const first = data.student.name.replace(/^S\.\s*/, '');
   const upcoming = data.exams.filter((e) => e.daysLeft >= 0);
@@ -75,28 +88,12 @@ export default function Home() {
           {data.plan.cycle.phase ? <AppText variant="caption">{data.plan.cycle.phase.label}</AppText> : null}
           {data.plan.holiday ? <Tag tone="success" label="Holiday" /> : null}
         </View>
-        {data.plan.tasks.map((t, i) => {
-          const isBreak = t.slot === 'break';
-          return (
-            <View key={t.slot} style={{ flexDirection: 'row', gap: space.md, paddingTop: space.md }} accessible accessibilityLabel={`${t.start} to ${t.end}. ${t.title}.${t.detail ? ' ' + t.detail : ''}`}>
-              <View style={{ width: 52 }}><AppText variant="caption">{t.start}</AppText></View>
-              <View style={{ alignItems: 'center', width: 12 }}>
-                <View style={{ marginTop: 6 }}>{t.subject ? <SubjectDot subject={t.subject} /> : <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: colors.controlBorder, opacity: isBreak ? 0.5 : 1 }} />}</View>
-                {i < data.plan.tasks.length - 1 && <View style={{ flex: 1, width: 2, backgroundColor: colors.border, marginTop: 4 }} />}
-              </View>
-              <View style={{ flex: 1, paddingBottom: space.xs }}>
-                <AppText variant={isBreak ? 'caption' : 'body'} style={isBreak ? undefined : { fontWeight: '600' }}>{t.title}</AppText>
-                {t.detail ? <AppText variant="caption">{t.detail}</AppText> : null}
-                <View style={{ flexDirection: 'row', gap: space.xs, marginTop: space.xs, flexWrap: 'wrap' }}>
-                  <AppText variant="caption">{t.minutes} min</AppText>
-                  {t.difficulty ? <Tag label={t.difficulty.charAt(0).toUpperCase() + t.difficulty.slice(1)} tone="accent" /> : null}
-                  {t.external ? <Tag label="From school" /> : null}
-                  {t.needsSetup ? <Tag label="Needs content" tone="warning" /> : null}
-                </View>
-              </View>
-            </View>
-          );
-        })}
+        {data.planTasks.map((t, i) => (
+          <PlanTaskRow key={t.id} t={t} last={i === data.planTasks.length - 1}
+            running={data.timer?.taskId === t.id} elapsedMs={data.timer?.taskId === t.id ? now - data.timer.startedAt : 0}
+            onToggleDone={() => toggleDone(t)} onStart={() => act(() => plannerRepo.startTimer(db, t))} onStop={() => act(() => plannerRepo.stopTimer(db))}
+            onLater={() => act(() => plannerRepo.setStatus(db, t.id, 'rescheduled'))} onOpen={openTask(t)} />
+        ))}
       </Card>
     </FadeIn>
   );
@@ -131,7 +128,23 @@ export default function Home() {
   const Week = (
     <FadeIn index={4}>
       <SectionHeader title="This week" icon="pulse-outline" />
-      <View style={{ flexDirection: 'row', gap: space.sm, flexWrap: 'wrap' }}>
+      <Card style={{ gap: space.sm }}>
+        <AppText variant="body" style={{ fontWeight: '600' }}>{data.week.message}</AppText>
+        <View style={{ flexDirection: 'row', gap: space.xs, alignItems: 'flex-end', height: 72 }} accessibilityLabel={`Sessions finished each day this week: ${data.week.days.map((d) => `${d.done} of ${d.planned}`).join(', ')}`} accessible>
+          {data.week.days.map((d) => {
+            const h = d.planned === 0 ? 4 : Math.max(4, Math.round((d.done / d.planned) * 56));
+            return (
+              <View key={d.date} style={{ flex: 1, alignItems: 'center', gap: 4 }}>
+                <View style={{ width: '70%', height: h, borderRadius: 4, backgroundColor: d.done > 0 ? colors.success : colors.track }} />
+                <AppText variant="caption" style={{ fontSize: 11, lineHeight: 14 }}>{new Date(d.date + 'T00:00:00').toLocaleDateString(undefined, { weekday: 'narrow' })}</AppText>
+              </View>
+            );
+          })}
+        </View>
+      </Card>
+      <View style={{ flexDirection: 'row', gap: space.sm, flexWrap: 'wrap', marginTop: space.sm }}>
+        <StatTile label="Sessions finished" value={`${data.week.doneTotal}/${data.week.plannedTotal}`} />
+        <StatTile label="Minutes timed" value={String(data.week.minutesTotal)} hint="from the study timer" />
         <StatTile label="Questions answered" value={String(data.attempts7d)} />
         <StatTile label="Overdue revisions" value={String(data.overdueRevisions)} hint={data.overdueRevisions ? 'Do five today' : 'All caught up'} />
       </View>

@@ -1,11 +1,13 @@
 import { attemptRepo } from '../../database/repositories/attempts';
 import { examRepo, ExamRow } from '../../database/repositories/exams';
 import { mistakeRepo } from '../../database/repositories/mistakes';
+import { ActiveTimer, PersistedTask, plannerRepo } from '../../database/repositories/planner';
 import { syllabusRepo } from '../../database/repositories/syllabus';
 import type { SqlDb } from '../../database/sqlite/types';
 import { DateKey, diffDays } from '../../utils/dates';
 import { computeMastery, MasteryResult } from '../analytics/mastery';
 import { generateDailyPlan, DailyPlan, PlanUnit } from '../planner/planner';
+import type { WeekSummary } from '../planner/weekly';
 import { nextBestAction, NextBestAction, TopicSignal } from './nextBestAction';
 
 export interface ChapterMastery { chapterId: string; title: string; subject: 'math' | 'physics' | 'chemistry'; subjectName: string; hasContent: boolean; mastery: MasteryResult }
@@ -14,6 +16,10 @@ export interface HomeData {
   student: { name: string; classLevel: number; programme: string | null };
   exams: (ExamRow & { daysLeft: number })[];
   plan: DailyPlan;
+  /** Today's stored tasks: tick-able, timed, movable. The plan above is only what was generated. */
+  planTasks: PersistedTask[];
+  timer: ActiveTimer | null;
+  week: WeekSummary;
   action: NextBestAction;
   chapters: ChapterMastery[];
   overdueRevisions: number;
@@ -44,7 +50,10 @@ export async function loadHomeData(db: SqlDb, today: DateKey, now = Date.now()):
     hasContent: cm.hasContent,
   }));
 
-  const plan = generateDailyPlan({ today, examDate: nextExam?.examDate ?? today, units, overdueRevisions: overdue });
+  const carryOver = await plannerRepo.carryOver(db, today);
+  const plan = generateDailyPlan({ today, examDate: nextExam?.examDate ?? today, units, overdueRevisions: overdue, carryOver });
+  await plannerRepo.ensureDay(db, plan);
+  const [planTasks, timer, week] = await Promise.all([plannerRepo.tasks(db, today), plannerRepo.activeTimer(db), plannerRepo.week(db, today)]);
   const signals: TopicSignal[] = chapterMastery.map((cm) => ({
     id: cm.chapterId, title: cm.title, subjectLabel: cm.subjectName, mastery: cm.mastery, hasContent: cm.hasContent,
     status: cm.mastery.state === 'assessed' ? 'practising' : 'not_started',
@@ -59,6 +68,6 @@ export async function loadHomeData(db: SqlDb, today: DateKey, now = Date.now()):
 
   return {
     student: { name: profile?.display_name ?? 'Student', classLevel: profile?.class_level ?? 9, programme: profile?.programme ?? null },
-    exams, plan, action, chapters: chapterMastery, overdueRevisions: overdue, attempts7d,
+    exams, plan, planTasks, timer, week, action, chapters: chapterMastery, overdueRevisions: overdue, attempts7d,
   };
 }
