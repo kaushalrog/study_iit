@@ -80,6 +80,12 @@ export default function Practice() {
             {e.status === 'completed' && e.totalScore !== null ? (
               <AppText variant="body" style={{ marginTop: space.sm }}>Scored {e.totalScore} / {e.maxScore}</AppText>
             ) : null}
+            {e.templateId && (
+              <View style={{ gap: space.sm, marginTop: space.sm }}>
+                <Button title="Edit pattern" icon="options-outline" variant="secondary" onPress={() => router.push({ pathname: '/exam/pattern', params: { id: e.templateId! } })} />
+                {sections > 0 && <Button title="Take a timed mock" icon="timer-outline" onPress={() => router.push({ pathname: '/exam/mock', params: { id: e.templateId! } })} />}
+              </View>
+            )}
             <Button variant="secondary" icon="create-outline" title={e.status === 'completed' ? 'Edit recorded result' : 'Record result'} style={{ marginTop: space.sm }}
               onPress={() => router.push({ pathname: '/result/[examId]', params: { examId: e.id } })} />
           </Card>
