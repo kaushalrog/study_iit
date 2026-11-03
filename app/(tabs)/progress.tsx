@@ -5,6 +5,8 @@ import { useDb } from '../../src/database/DatabaseProvider';
 import { examRepo } from '../../src/database/repositories/exams';
 import { mockRepo } from '../../src/database/repositories/mocks';
 import { CATEGORY_LABEL, mistakeRepo } from '../../src/database/repositories/mistakes';
+import { TrendChart } from '../../src/components/TrendChart';
+import { toPoints } from '../../src/features/progress/trend';
 import { loadHomeData } from '../../src/features/dashboard/homeData';
 import { useAsync } from '../../src/hooks/useAsync';
 import { toDateKey } from '../../src/utils/dates';
@@ -38,6 +40,14 @@ export default function Progress() {
           <AppText variant="caption" style={{ marginTop: space.sm }}>A range you reported, not individual tests. It is where you started, not a limit.</AppText>
         </FadeIn>
       )}
+
+      <SectionHeader title="Score trend" icon="analytics-outline" />
+      <Card style={{ gap: space.md, marginBottom: space.md }}>
+        <AppText variant="body" style={{ fontWeight: '600' }}>Recorded exams</AppText>
+        <TrendChart noun="recorded exam" points={toPoints(history.map((h) => ({ label: h.name, at: h.exam_date, total: h.total_score, max: h.max_score })))} />
+        <AppText variant="body" style={{ fontWeight: '600' }}>Practice tests</AppText>
+        <TrendChart noun="practice test" color={colors.physics} points={toPoints(mocks.map((m) => ({ label: m.name, at: m.finished_at, total: m.total_marks, max: m.max_marks })))} />
+      </Card>
 
       <SectionHeader title="Recorded exams" icon="ribbon-outline" />
       {history.length === 0 ? (
