@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { BankQuestion, Difficulty } from '../../features/practice/quiz';
 import type { AnswerKeyEntry, QuestionType, SubjectKey } from '../../features/exam-engine/types';
-import { newId } from '../../utils/ids';
+import { newId, seedId } from '../../utils/ids';
 import type { SqlDb } from '../sqlite/types';
 import { upsertRow } from './base';
 
@@ -45,11 +45,11 @@ export interface PracticeQuestion {
 }
 
 export const questionRepo = {
-  async add(db: SqlDb, input: NewQuestion): Promise<string> {
+  async add(db: SqlDb, input: NewQuestion, fixedId?: string): Promise<string> {
     const v = newQuestionSchema.parse(input);
     const options = v.type === 'integer' ? [] : v.options.filter((o) => o.length > 0);
     const status = v.verified ? 'verified' : 'needs_review';
-    const id = newId();
+    const id = fixedId ?? newId();
     await db.tx(async () => {
       await upsertRow(db, 'questions', {
         id, chapter_id: v.chapterId, type: v.type, stem: v.stem, options_json: JSON.stringify(options), difficulty: v.difficulty,
@@ -57,7 +57,7 @@ export const questionRepo = {
       });
       const answer: AnswerKeyEntry = v.type === 'integer' ? { numeric: v.numeric!, tolerance: v.tolerance } : { correct: Array.from(new Set(v.correct)).sort() };
       await upsertRow(db, 'question_solutions', {
-        id: newId(), question_id: id, answer_json: JSON.stringify(answer), explanation: v.explanation || null, hint: v.hint || null, verification_status: status,
+        id: fixedId ? seedId(`solution:${fixedId}`) : newId(), question_id: id, answer_json: JSON.stringify(answer), explanation: v.explanation || null, hint: v.hint || null, verification_status: status,
       });
     });
     return id;

@@ -23,8 +23,8 @@ export const syllabusRepo = {
     }>(`
       SELECT c.id, c.title, s.key AS subject, s.name AS subject_name, c.verification_status,
         (SELECT COUNT(*) FROM topics t WHERE t.chapter_id = c.id AND t.deleted_at IS NULL) AS topics,
-        (SELECT COUNT(*) FROM learning_content l WHERE l.chapter_id = c.id AND l.verification_status IN ('verified','published') AND l.deleted_at IS NULL) AS lessons,
-        (SELECT COUNT(*) FROM formulas f WHERE f.chapter_id = c.id AND f.verification_status IN ('verified','published') AND f.deleted_at IS NULL) AS formulas,
+        (SELECT COUNT(*) FROM learning_content l WHERE l.chapter_id = c.id AND l.verification_status != 'archived' AND l.deleted_at IS NULL) AS lessons,
+        (SELECT COUNT(*) FROM formulas f WHERE f.chapter_id = c.id AND f.verification_status != 'archived' AND f.deleted_at IS NULL) AS formulas,
         (SELECT COUNT(*) FROM questions q WHERE q.chapter_id = c.id AND q.verification_status IN ('verified','published') AND q.deleted_at IS NULL) AS questions
       FROM chapters c JOIN subjects s ON s.id = c.subject_id
       WHERE c.deleted_at IS NULL
