@@ -131,6 +131,8 @@ export interface PlanInput {
   units: PlanUnit[];
   recentMinutes?: Partial<Record<SubjectKey, number>>;
   overdueRevisions?: number;
+  /** Units whose task was moved from yesterday, by slot. They take the same slot today instead of adding extra work. */
+  carryOver?: Partial<Record<'concept' | 'practice', string>>;
   isHoliday?: boolean;
   phases?: PhaseDef[];
 }
@@ -178,20 +180,22 @@ export function generateDailyPlan(input: PlanInput): DailyPlan {
       tasks.push({ slot: r.key, start: r.start, end: r.end, minutes: r.minutes, title: r.label, needsSetup: 'content', detail: 'Add your syllabus to get a plan.' });
       continue;
     }
-    const unit = pickUnit(units, subject, r.key === 'concept' ? 'learn' : 'practice');
+    const carried = input.carryOver?.[r.key as 'concept' | 'practice'];
+    const carriedUnit = carried ? units.find((u) => u.id === carried && u.status !== 'mastered') : undefined;
+    const unit = carriedUnit ?? pickUnit(units, subject, r.key === 'concept' ? 'learn' : 'practice');
     if (!unit) { tasks.push({ slot: r.key, start: r.start, end: r.end, minutes: r.minutes, subject, title: `${r.label}: all ${subject} units mastered`, detail: 'Use mixed practice.' }); continue; }
 
     if (r.key === 'concept') {
       const noteOnly = cycle.phaseKey === 'mock' || cycle.phaseKey === 'exam';
       tasks.push({
-        slot: r.key, start: r.start, end: r.end, minutes: r.minutes, subject, unitId: unit.id,
+        slot: r.key, start: r.start, end: r.end, minutes: r.minutes, subject: unit.subject, unitId: unit.id,
         title: noteOnly ? `Light revision: ${unit.title}` : `Learn: ${unit.title}`,
         detail: unit.hasContent ? cycle.phase?.focus : 'No lesson content imported yet.',
         needsSetup: unit.hasContent ? undefined : 'content',
       });
     } else {
       tasks.push({
-        slot: r.key, start: r.start, end: r.end, minutes: r.minutes, subject, unitId: unit.id,
+        slot: r.key, start: r.start, end: r.end, minutes: r.minutes, subject: unit.subject, unitId: unit.id,
         title: level === 'mock' ? 'Timed mixed practice' : `Practise: ${unit.title}`,
         difficulty: level,
         detail: cycle.phase?.focus,
