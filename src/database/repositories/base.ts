@@ -6,7 +6,7 @@ const ident = /^[a-z_][a-z0-9_]*$/;
 /** Tables whose rows are student-owned and replicated to Supabase. */
 export const SYNCED_TABLES = [
   'profiles', 'exam_templates', 'exam_sections', 'scoring_rules', 'exams', 'topics', 'questions', 'question_solutions',
-  'exam_subject_results', 'question_attempts', 'mock_attempts', 'study_tasks', 'study_sessions',
+  'learning_content', 'formulas', 'exam_subject_results', 'question_attempts', 'mock_attempts', 'study_tasks', 'study_sessions',
   'mistake_entries', 'revision_schedule', 'topic_mastery', 'ai_conversations', 'ai_messages', 'notes',
 ] as const;
 

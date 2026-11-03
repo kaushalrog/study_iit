@@ -260,6 +260,16 @@ CREATE TABLE sync_conflicts (
 CREATE INDEX idx_conflicts_row ON sync_conflicts(table_name, row_id);
 `,
   },
+  {
+    version: 4,
+    name: 'student_authored_content',
+    sql: `
+-- Lessons and formulas can now be written by the student, so they carry their own source note and sync like other student data.
+ALTER TABLE learning_content ADD COLUMN source_note TEXT;
+ALTER TABLE formulas ADD COLUMN source_note TEXT;
+CREATE INDEX idx_topics_title ON topics(chapter_id, title);
+`,
+  },
 ];
 
 export async function migrate(db: SqlDb): Promise<number> {

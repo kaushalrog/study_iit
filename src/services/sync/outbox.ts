@@ -12,7 +12,7 @@ export const backoffMs = (attempts: number) => Math.min(15 * 60_000, 2_000 * 2 *
 
 /** Parents before children, so foreign keys are satisfied on the server. Also the pull order. */
 export const SYNC_ORDER = [
-  'profiles', 'exam_templates', 'exam_sections', 'scoring_rules', 'exams', 'topics', 'questions', 'question_solutions',
+  'profiles', 'exam_templates', 'exam_sections', 'scoring_rules', 'exams', 'topics', 'learning_content', 'formulas', 'questions', 'question_solutions',
   'exam_subject_results', 'question_attempts', 'mock_attempts', 'study_tasks', 'study_sessions',
   'mistake_entries', 'revision_schedule', 'topic_mastery', 'ai_conversations', 'ai_messages', 'notes',
 ] as const;
@@ -23,7 +23,7 @@ export const NO_OWNER = new Set<string>(['exam_sections', 'scoring_rules']);
 /** SQLite `*_json` text column <-> Postgres jsonb column. */
 export const JSON_ALIAS: Record<string, string> = {
   selected_json: 'selected', syllabus_json: 'syllabus', options_json: 'options', generation_json: 'generation', meta_json: 'meta',
-  answer_json: 'answer', config_json: 'config', result_json: 'result',
+  answer_json: 'answer', config_json: 'config', result_json: 'result', variables_json: 'variables',
 };
 /** 0/1 in SQLite, boolean in Postgres. */
 export const BOOL_COLS = new Set(['hint_used', 'marked_for_review', 'ocr_confirmed', 'review_concept', 'saved_to_notes', 'negative_marking_enabled']);
