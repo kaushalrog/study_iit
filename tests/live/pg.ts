@@ -10,7 +10,7 @@ export interface Who { role: Role; user?: string }
 export const as = (role: Role, user?: string): Who => ({ role, user });
 
 function psql(sql: string): { out: string; err: string; ok: boolean } {
-  const r = spawnSync('psql', ['-h', '127.0.0.1', '-p', PORT, '-U', 'postgres', '-d', DB, '-X', '-q', '-At', '-v', 'ON_ERROR_STOP=1'], { input: sql, encoding: 'utf8', env: { ...process.env, LC_ALL: 'en_US.UTF-8' } });
+  const r = spawnSync('psql', ['-h', '127.0.0.1', '-p', PORT, '-U', 'postgres', '-d', DB, '-X', '-At', '-v', 'ON_ERROR_STOP=1'], { input: sql, encoding: 'utf8', env: { ...process.env, LC_ALL: 'en_US.UTF-8' } });
   return { out: r.stdout ?? '', err: (r.stderr ?? '').trim(), ok: r.status === 0 };
 }
 
@@ -40,7 +40,7 @@ export const newUuid = () => require('crypto').randomUUID() as string;
 /** Remove every student-owned row (child tables first) without touching shared reference rows. */
 export function reset() {
   const tables = ['ai_messages', 'ai_conversations', 'revision_schedule', 'mistake_entries', 'question_attempts', 'mock_attempts', 'exam_subject_results', 'study_sessions', 'study_tasks',
-    'topic_mastery', 'question_solutions', 'scoring_rules', 'exam_sections', 'questions', 'notes', 'exams', 'topics', 'exam_templates', 'profiles'];
+    'topic_mastery', 'question_solutions', 'scoring_rules', 'exam_sections', 'questions', 'notes', 'exams', 'learning_content', 'formulas', 'topics', 'exam_templates', 'profiles'];
   psql(tables.map((t) => `delete from ${t};`).join('\n') + "\ndelete from content_sources where owner_id is not null;");
 }
 export function ensureUser(id: string, email: string) {

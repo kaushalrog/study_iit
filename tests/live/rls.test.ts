@@ -105,6 +105,46 @@ d('live Postgres: schema and row-level security', () => {
     });
   });
 
+  describe('student-authored lessons and formulas', () => {
+    const lesson = (id: string, status: string, owner?: string) =>
+      `insert into learning_content (id, ${owner ? 'owner_id, ' : ''}chapter_id, section, body, verification_status) values ('${id}', ${owner ? `'${owner}', ` : ''}'${chapterId}', 'explanation', 'text', '${status}')`;
+    const formula = (id: string, status: string) =>
+      `insert into formulas (id, chapter_id, name, latex, verification_status) values ('${id}', '${chapterId}', 'F', 'F=ma', '${status}')`;
+
+    it('a student can write, read, edit and delete their own lessons and formulas', () => {
+      const l = newUuid(), f = newUuid();
+      expect(exec(as('authenticated', A), lesson(l, 'verified')).ok).toBe(true);
+      expect(exec(as('authenticated', A), formula(f, 'needs_review')).ok).toBe(true);
+      expect(select(as('authenticated', A), 'select id from learning_content')).toHaveLength(1);
+      expect(exec(as('authenticated', A), `update learning_content set body='edited' where id='${l}'`).count).toBe(1);
+      expect(exec(as('authenticated', A), `delete from formulas where id='${f}'`).count).toBe(1);
+    });
+    it('a student cannot publish content, and cannot write rows owned by someone else', () => {
+      expect(exec(as('authenticated', A), lesson(newUuid(), 'published')).ok).toBe(false);
+      expect(exec(as('authenticated', A), formula(newUuid(), 'published')).ok).toBe(false);
+      expect(exec(as('authenticated', A), lesson(newUuid(), 'verified', B)).ok).toBe(false);
+    });
+    it("another student cannot see or change a student's lessons", () => {
+      const l = newUuid();
+      exec(as('authenticated', A), lesson(l, 'verified'));
+      expect(select(as('authenticated', B), 'select id from learning_content')).toHaveLength(0);
+      expect(exec(as('authenticated', B), `update learning_content set body='hijack' where id='${l}'`).count).toBe(0);
+      expect(exec(as('authenticated', B), `delete from learning_content where id='${l}'`).count).toBe(0);
+    });
+    it('shared published lessons (no owner) are readable by everyone but editable by nobody', () => {
+      const l = newUuid();
+      exec(as('postgres'), lesson(l, 'published'));
+      expect(select(as('authenticated', A), 'select id from learning_content')).toHaveLength(1);
+      expect(exec(as('authenticated', A), `update learning_content set body='x' where id='${l}'`).count).toBe(0);
+      expect(exec(as('authenticated', A), `delete from learning_content where id='${l}'`).count).toBe(0);
+      expect(exec(as('anon'), 'select 1 from learning_content').ok).toBe(false);
+    });
+    it('unverified shared drafts are not visible to students', () => {
+      exec(as('postgres'), lesson(newUuid(), 'needs_review'));
+      expect(select(as('authenticated', A), 'select id from learning_content')).toHaveLength(0);
+    });
+  });
+
   it('updated_at moves forward on every update', () => {
     const id = newUuid();
     exec(as('authenticated', A), mistake(id));
