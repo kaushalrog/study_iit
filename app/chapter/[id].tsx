@@ -1,43 +1,56 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { View } from 'react-native';
-import { AppText, Button, Card, Chip, EmptyState, ErrorState, Field, FadeIn, Icon, LoadingState, Page, SectionHeader, SubjectDot, Tag, space, useTheme } from '../../src/components/design-system';
+import { Alert, Platform, View } from 'react-native';
+import { FormulaCard } from '../../src/components/content/FormulaCard';
+import { AppText, Button, Card, EmptyState, ErrorState, FadeIn, Field, Icon, LoadingState, Page, SectionHeader, SubjectDot, Tag, space, useTheme } from '../../src/components/design-system';
 import { useDb } from '../../src/database/DatabaseProvider';
+import { contentRepo } from '../../src/database/repositories/content';
 import { notesRepo } from '../../src/database/repositories/notes';
 import { syllabusRepo } from '../../src/database/repositories/syllabus';
 import { useAsync } from '../../src/hooks/useAsync';
 
 const STATUS_LABEL: Record<string, string> = {
-  not_started: 'Not started', learning: 'Learning', learning_completed: 'Learning completed',
-  practising: 'Practising', needs_revision: 'Needs revision', mastered: 'Mastered',
+  not_started: 'Not started', learning: 'Learning', learning_completed: 'Lesson completed', practising: 'Practising', needs_revision: 'Needs revision', mastered: 'Mastered',
 };
-const isVerified = (s: string) => s === 'verified' || s === 'published';
 
 export default function ChapterScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const db = useDb();
   const router = useRouter();
   const { colors } = useTheme();
-  const [lang, setLang] = useState<'en' | 'te'>('en');
+  const [topicName, setTopicName] = useState('');
+  const [topicError, setTopicError] = useState<string | null>(null);
   const [draft, setDraft] = useState('');
   const [saveError, setSaveError] = useState<string | null>(null);
 
   const { data, error, loading, reload } = useAsync(async () => {
     const chapter = await syllabusRepo.chapter(db, id);
     if (!chapter) return null;
-    const [topics, lessons, formulas, notes] = await Promise.all([
-      syllabusRepo.topics(db, id), syllabusRepo.lessons(db, id, lang), syllabusRepo.formulas(db, id), notesRepo.list(db, id),
+    const [topics, formulas, notes, overview] = await Promise.all([
+      contentRepo.topics(db, id), contentRepo.formulas(db, id), notesRepo.list(db, id),
+      db.first<{ n: number }>("SELECT COUNT(*) AS n FROM learning_content WHERE chapter_id = ? AND topic_id IS NULL AND deleted_at IS NULL AND verification_status != 'archived'", [id]),
     ]);
-    return { chapter, topics, lessons, formulas, notes };
-  }, [db, id, lang]);
+    const counts = await db.all<{ topic_id: string; n: number }>("SELECT topic_id, COUNT(*) AS n FROM learning_content WHERE chapter_id = ? AND topic_id IS NOT NULL AND deleted_at IS NULL AND verification_status != 'archived' GROUP BY topic_id", [id]);
+    return { chapter, topics, formulas, notes, overviewCount: overview?.n ?? 0, lessonCounts: Object.fromEntries(counts.map((c) => [c.topic_id, c.n])) as Record<string, number> };
+  }, [db, id]);
 
   if (error) return <ErrorState message={error} onRetry={reload} />;
   if (!data) return loading ? <LoadingState /> : <ErrorState message="Chapter not found." />;
-  const { chapter, topics, lessons, formulas, notes } = data;
+  const { chapter, topics, formulas, notes, overviewCount, lessonCounts } = data;
+  const open = (topicId: string) => router.push({ pathname: '/lesson/[chapterId]', params: { chapterId: id, topicId } });
 
+  const addTopic = async () => {
+    try { await contentRepo.ensureTopic(db, id, topicName); setTopicName(''); setTopicError(null); reload(); }
+    catch (e) { setTopicError(e instanceof Error ? e.message : 'Could not add'); }
+  };
   const saveNote = async () => {
     try { await notesRepo.add(db, id, draft); setDraft(''); setSaveError(null); reload(); }
     catch (e) { setSaveError(e instanceof Error ? e.message : 'Could not save'); }
+  };
+  const deleteFormula = (fid: string) => {
+    const go = async () => { await contentRepo.removeFormula(db, fid); reload(); };
+    if (Platform.OS === 'web') return go();
+    Alert.alert('Delete this formula?', 'It will be removed from this device and your other devices.', [{ text: 'Keep it', style: 'cancel' }, { text: 'Delete', style: 'destructive', onPress: go }]);
   };
 
   return (
@@ -51,46 +64,41 @@ export default function ChapterScreen() {
         <Tag label={`${chapter.lessonCount} lessons`} /><Tag label={`${chapter.formulaCount} formulas`} /><Tag label={`${chapter.questionCount} questions`} />
       </View>
 
-      <View style={{ flexDirection: 'row', gap: space.sm, marginTop: space.md }}>
-        <Chip label="English" selected={lang === 'en'} onPress={() => setLang('en')} />
-        <Chip label="తెలుగు" selected={lang === 'te'} onPress={() => setLang('te')} />
-      </View>
-
-      <SectionHeader title="Lessons" icon="book-outline" />
-      {lessons.length === 0 ? (
-        <EmptyState icon="book-outline" title={lang === 'te' ? 'No Telugu lesson yet' : 'No lessons yet'}
-          body="Lessons appear here once they are added from your coaching notes and marked verified. Nothing is made up in the meantime." />
-      ) : lessons.map((l, i) => (
-        <FadeIn key={l.id} index={i}>
-          <Card tone={chapter.subject} style={{ marginBottom: space.sm }}>
-            <AppText variant="label">{l.section.replace(/_/g, ' ')} · {l.level}</AppText>
-            <AppText variant="body" style={{ marginTop: space.xs }}>{l.body}</AppText>
+      <SectionHeader title="Learn" icon="book-outline" />
+      <Card tone={chapter.subject} onPress={() => open('overview')} accessibilityLabel={`Chapter overview, ${overviewCount} lessons`} style={{ marginBottom: space.sm }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.md }}>
+          <View style={{ flex: 1 }}>
+            <AppText variant="heading">Chapter overview</AppText>
+            <AppText variant="caption">{overviewCount === 0 ? 'No lessons yet' : `${overviewCount} lesson${overviewCount === 1 ? '' : 's'}`}</AppText>
+          </View>
+          <Icon name="chevron-forward" size="md" color={colors.textMuted} />
+        </View>
+      </Card>
+      {topics.map((t, i) => (
+        <FadeIn key={t.id} index={i}>
+          <Card onPress={() => open(t.id)} accessibilityLabel={`${t.title}. ${STATUS_LABEL[t.status] ?? t.status}. ${lessonCounts[t.id] ?? 0} lessons`} style={{ marginBottom: space.sm }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.md }}>
+              <View style={{ flex: 1, gap: space.xs }}>
+                <AppText variant="heading">{t.title}</AppText>
+                <View style={{ flexDirection: 'row', gap: space.xs, flexWrap: 'wrap' }}>
+                  <Tag tone={t.status === 'learning_completed' || t.status === 'mastered' ? 'success' : 'accent'} label={STATUS_LABEL[t.status] ?? t.status} />
+                  <Tag label={`${lessonCounts[t.id] ?? 0} lessons`} />
+                </View>
+              </View>
+              <Icon name="chevron-forward" size="md" color={colors.textMuted} />
+            </View>
           </Card>
         </FadeIn>
       ))}
-
-      <SectionHeader title="Topics" icon="git-branch-outline" />
-      {topics.length === 0 ? (
-        <AppText variant="caption">Subtopics are added from your textbook; none have been entered yet.</AppText>
-      ) : topics.map((t) => (
-        <Card key={t.id} style={{ marginBottom: space.sm }}>
-          <AppText variant="body" style={{ fontWeight: '600' }}>{t.title}</AppText>
-          <View style={{ flexDirection: 'row', marginTop: space.xs }}><Tag tone={t.status === 'mastered' ? 'success' : 'accent'} label={STATUS_LABEL[t.status]} /></View>
-        </Card>
-      ))}
+      <Card style={{ gap: space.sm }}>
+        <Field label="Add a topic" placeholder="For example Escape velocity" value={topicName} onChangeText={setTopicName} error={topicError} returnKeyType="done" onSubmitEditing={addTopic} />
+        <Button title="Add topic" icon="add" variant="secondary" onPress={addTopic} disabled={!topicName.trim()} />
+      </Card>
 
       <SectionHeader title="Formula notebook" icon="calculator-outline" />
       {formulas.length === 0 ? (
-        <AppText variant="caption">No formulas recorded yet.</AppText>
-      ) : formulas.map((f) => (
-        <Card key={f.id} style={{ marginBottom: space.sm, gap: space.xs }}>
-          <AppText variant="heading">{f.name}</AppText>
-          <View style={{ backgroundColor: colors.surfaceAlt, borderRadius: 10, padding: space.sm }}>
-            <AppText variant="body" style={{ fontFamily: 'monospace' }} selectable>{f.latex}</AppText>
-          </View>
-          <Tag tone={isVerified(f.verification_status) ? 'success' : 'warning'} label={isVerified(f.verification_status) ? 'Verified' : 'Not yet verified'} />
-        </Card>
-      ))}
+        <EmptyState icon="calculator-outline" title="No formulas yet" body="Add the formulas for this chapter with what every symbol means." action={{ label: 'Add a formula', onPress: () => router.push({ pathname: '/content/formula', params: { chapterId: id } }) }} />
+      ) : formulas.map((f) => <FormulaCard key={f.id} f={f} onDelete={() => deleteFormula(f.id)} />)}
 
       <SectionHeader title="My notes" icon="create-outline" />
       <Field label="New note" multiline minLines={3} placeholder="Write a note for this chapter" value={draft} onChangeText={setDraft} error={saveError} />
@@ -105,9 +113,14 @@ export default function ChapterScreen() {
         </Card>
       ))}
 
-      <View style={{ marginTop: space.lg, gap: space.sm }}>
-        <Button title="Ask the tutor about this chapter" icon="sparkles-outline" variant="secondary" onPress={() => router.push({ pathname: '/tutor', params: { chapterId: id } })} />
-        <Button title="Add a question" icon="help-circle-outline" variant="ghost" onPress={() => router.push({ pathname: '/question/new', params: { chapterId: id } })} />
+      <SectionHeader title="Add material" icon="add-circle-outline" />
+      <View style={{ gap: space.sm }}>
+        <Button title="Import lessons, formulas and questions" icon="cloud-upload-outline" onPress={() => router.push({ pathname: '/import', params: { chapterId: id } })} />
+        <Button title="Add a lesson" icon="book-outline" variant="secondary" onPress={() => router.push({ pathname: '/content/lesson', params: { chapterId: id, topicId: 'overview' } })} />
+        <Button title="Add a formula" icon="calculator-outline" variant="secondary" onPress={() => router.push({ pathname: '/content/formula', params: { chapterId: id } })} />
+        <Button title="Add a question" icon="help-circle-outline" variant="secondary" onPress={() => router.push({ pathname: '/question/new', params: { chapterId: id } })} />
+        <Button title="Practise this chapter" icon="create-outline" onPress={() => router.push({ pathname: '/quiz/setup', params: { mode: 'practice', chapterId: id } })} />
+        <Button title="Ask the tutor about this chapter" icon="sparkles-outline" variant="ghost" onPress={() => router.push({ pathname: '/tutor', params: { chapterId: id } })} />
         <Button title="Add a mistake from this chapter" icon="bookmark-outline" variant="ghost" onPress={() => router.push({ pathname: '/mistake/new', params: { chapterId: id } })} />
       </View>
     </Page>

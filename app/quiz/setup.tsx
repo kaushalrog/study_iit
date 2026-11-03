@@ -14,7 +14,7 @@ type Level = Difficulty | 'progressive';
 const L = (s: string) => <AppText variant="caption" style={{ fontWeight: '600' }}>{s}</AppText>;
 
 export default function QuizSetup() {
-  const params = useLocalSearchParams<{ mode?: 'practice' | 'timed' }>();
+  const params = useLocalSearchParams<{ mode?: 'practice' | 'timed'; chapterId?: string }>();
   const db = useDb();
   const router = useRouter();
   const { colors } = useTheme();
@@ -44,7 +44,7 @@ export default function QuizSetup() {
     return <EmptyState icon="help-circle-outline" title="No verified questions yet" body="Add questions from your coaching papers first, and confirm their answer keys." action={{ label: 'Add a question', onPress: () => router.replace('/question/new') }} />;
   }
 
-  const chosen = picked ?? chapters.map((c) => c.id);
+  const chosen = picked ?? (params.chapterId && chapters.some((c) => c.id === params.chapterId) ? [params.chapterId] : chapters.map((c) => c.id));
   const bank = questionRepo.toBank(data.qs);
   const available = selectQuestions(bank, { count: 999, chapterIds: chosen, difficulty: level === 'progressive' ? undefined : level }).length;
   const n = Math.min(count, available);
