@@ -21,6 +21,10 @@ export default function RootLayout() {
         <Stack.Screen name="quiz/setup" options={{ title: 'Set up' }} />
         <Stack.Screen name="quiz/run" options={{ title: 'Test', gestureEnabled: false }} />
         <Stack.Screen name="question/new" options={{ title: 'Add a question', presentation: 'modal' }} />
+        <Stack.Screen name="lesson/[chapterId]" options={{ title: 'Lesson' }} />
+        <Stack.Screen name="content/lesson" options={{ title: 'Lesson', presentation: 'modal' }} />
+        <Stack.Screen name="content/formula" options={{ title: 'Add a formula', presentation: 'modal' }} />
+        <Stack.Screen name="import/index" options={{ title: 'Import material' }} />
         <Stack.Screen name="tutor/index" options={{ title: 'AI Tutor' }} />
         <Stack.Screen name="settings/index" options={{ title: 'Settings' }} />
       </Stack>

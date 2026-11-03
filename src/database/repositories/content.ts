@@ -85,6 +85,12 @@ export const contentRepo = {
     await updateRow(db, 'learning_content', id, { deleted_at: new Date().toISOString() });
   },
 
+  async lesson(db: SqlDb, id: string): Promise<(LessonRow & { chapterId: string }) | null> {
+    const l = await db.first<{ id: string; chapter_id: string; section: LessonSection; level: string; language: 'en' | 'te'; body: string; topic_id: string | null; verification_status: string; source_note: string | null }>(
+      'SELECT id, chapter_id, section, level, language, body, topic_id, verification_status, source_note FROM learning_content WHERE id = ? AND deleted_at IS NULL', [id]);
+    return l ? { id: l.id, chapterId: l.chapter_id, section: l.section, level: l.level, language: l.language, body: l.body, topicId: l.topic_id, verification: l.verification_status, sourceNote: l.source_note } : null;
+  },
+
   /** Every lesson for the chapter and language, in teaching order. Unverified ones are returned too; the UI labels them. */
   async lessons(db: SqlDb, chapterId: string, language: 'en' | 'te'): Promise<LessonRow[]> {
     const r = await db.all<{ id: string; section: LessonSection; level: string; language: 'en' | 'te'; body: string; topic_id: string | null; verification_status: string; source_note: string | null }>(
