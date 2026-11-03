@@ -117,3 +117,47 @@ export function buildCustomExam(
   questions.sort((a, b) => sections.findIndex((s) => s.id === a.sectionId) - sections.findIndex((s) => s.id === b.sectionId));
   return { config: { name, style: 'main', durationMinutes, negativeMarkingEnabled, sections }, questions };
 }
+
+
+export interface Shortfall { sectionId: string; name: string; need: number; have: number }
+
+/**
+ * Assemble a mock paper from an exam pattern and the verified question bank.
+ * Each section takes questions of its subject and type. Anything the bank cannot supply is reported, never invented.
+ */
+export function buildTemplatePaper(config: ExamConfig, bank: BankQuestion[], seed = 1): { picked: Record<string, BankQuestion[]>; shortfalls: Shortfall[] } {
+  const used = new Set<string>();
+  const picked: Record<string, BankQuestion[]> = {};
+  const shortfalls: Shortfall[] = [];
+  for (const [i, section] of config.sections.entries()) {
+    const pool = bank.filter((q) => q.verified && q.subject === section.subject && q.type === section.questionType);
+    const chosen = selectQuestions(pool, { count: section.questionCount, exclude: [...used], progressive: true, seed: seed + i });
+    chosen.forEach((q) => used.add(q.id));
+    picked[section.id] = chosen;
+    if (chosen.length < section.questionCount) shortfalls.push({ sectionId: section.id, name: section.name, need: section.questionCount, have: chosen.length });
+  }
+  return { picked, shortfalls };
+}
+
+/** The same pattern with each section shrunk to what the bank can supply (empty sections dropped). Clearly a shorter paper. */
+export function shrinkToAvailable(config: ExamConfig, picked: Record<string, BankQuestion[]>): ExamConfig {
+  return {
+    ...config,
+    name: `${config.name} (shorter paper)`,
+    sections: config.sections.map((s) => ({ ...s, questionCount: picked[s.id]?.length ?? 0, attemptLimit: s.attemptLimit === null ? null : Math.min(s.attemptLimit, picked[s.id]?.length ?? 0) || null }))
+      .filter((s) => s.questionCount > 0),
+  };
+}
+
+/** Turn the chosen questions into a scoreable paper: questions in section order, each with its answer key. */
+export function assemblePaper(config: ExamConfig, picked: Record<string, BankQuestion[]>, keys: Record<string, AnswerKeyEntry>): { config: ExamConfig; questions: ExamQuestion[] } {
+  const questions: ExamQuestion[] = [];
+  for (const s of config.sections) {
+    for (const q of picked[s.id] ?? []) {
+      const key = keys[q.id];
+      if (!key) throw new Error(`No answer key for question ${q.id}`);
+      questions.push({ id: q.id, sectionId: s.id, topicId: q.topicId ?? q.chapterId, difficulty: q.difficulty, key });
+    }
+  }
+  return { config, questions };
+}

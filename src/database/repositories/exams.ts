@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { examConfigSchema, ExamConfig, SubjectKey } from '../../features/exam-engine/types';
-import { newId } from '../../utils/ids';
+import { newId, seedId } from '../../utils/ids';
 import type { SqlDb } from '../sqlite/types';
 import { updateRow, upsertRow } from './base';
 
@@ -21,7 +21,48 @@ export const manualResultSchema = z.object({
 }).refine((v) => v.subjects.every((s) => s.marks <= s.maxMarks), { message: 'Marks cannot exceed the maximum.' });
 export type ManualResult = z.infer<typeof manualResultSchema>;
 
+export interface TemplateRow { id: string; name: string; style: 'main' | 'advanced'; durationMinutes: number | null; negativeMarking: boolean; sections: number; verification: string; sourceNote: string | null }
+
 export const examRepo = {
+  async templates(db: SqlDb): Promise<TemplateRow[]> {
+    const r = await db.all<{ id: string; name: string; style: 'main' | 'advanced'; duration_minutes: number | null; negative_marking_enabled: number; verification_status: string; source_note: string | null; n: number }>(
+      `SELECT t.id, t.name, t.style, t.duration_minutes, t.negative_marking_enabled, t.verification_status, t.source_note,
+         (SELECT COUNT(*) FROM exam_sections s WHERE s.template_id = t.id AND s.deleted_at IS NULL) AS n
+       FROM exam_templates t WHERE t.deleted_at IS NULL ORDER BY t.style`);
+    return r.map((t) => ({ id: t.id, name: t.name, style: t.style, durationMinutes: t.duration_minutes, negativeMarking: !!t.negative_marking_enabled, sections: t.n, verification: t.verification_status, sourceNote: t.source_note }));
+  },
+
+  /**
+   * Replace a template's pattern. Sections keep stable ids per (template, key), removed ones are soft-deleted
+   * (so the removal syncs), and "verified" is only ever the student's own statement that she checked the paper.
+   */
+  async saveTemplate(db: SqlDb, templateId: string, config: ExamConfig, opts: { verified: boolean; sourceNote?: string }): Promise<void> {
+    const v = examConfigSchema.parse(config);
+    const now = new Date().toISOString();
+    await db.tx(async () => {
+      await updateRow(db, 'exam_templates', templateId, {
+        name: v.name, duration_minutes: v.durationMinutes, negative_marking_enabled: v.negativeMarkingEnabled ? 1 : 0,
+        verification_status: opts.verified ? 'verified' : 'needs_review', source_note: opts.sourceNote ?? null,
+      });
+      const existing = await db.all<{ id: string; section_key: string; deleted_at: string | null }>('SELECT id, section_key, deleted_at FROM exam_sections WHERE template_id = ?', [templateId]);
+      const byKey = new Map(existing.map((e) => [e.section_key, e]));
+      const keep = new Set(v.sections.map((x) => x.id));
+      for (const e of existing) if (!keep.has(e.section_key) && !e.deleted_at) await updateRow(db, 'exam_sections', e.id, { deleted_at: now });
+      for (const [i, sec] of v.sections.entries()) {
+        const sid = byKey.get(sec.id)?.id ?? seedId(`section:${templateId}:${sec.id}`);
+        await upsertRow(db, 'exam_sections', {
+          id: sid, template_id: templateId, section_key: sec.id, name: sec.name, subject_key: sec.subject, question_type: sec.questionType,
+          question_count: sec.questionCount, attempt_limit: sec.attemptLimit, sort_order: i, deleted_at: null,
+        });
+        const rule = await db.first<{ id: string }>('SELECT id FROM scoring_rules WHERE section_id = ?', [sid]);
+        await upsertRow(db, 'scoring_rules', {
+          id: rule?.id ?? seedId(`rule:${sid}`), section_id: sid, correct: sec.rule.correct, incorrect: sec.rule.incorrect,
+          unanswered: sec.rule.unanswered, partial_per_correct_option: sec.rule.partialPerCorrectOption, deleted_at: null,
+        });
+      }
+    });
+  },
+
   async list(db: SqlDb): Promise<ExamRow[]> {
     const rows = await db.all<Record<string, string | number | null>>('SELECT * FROM exams WHERE deleted_at IS NULL ORDER BY exam_date');
     return rows.map((r) => ({
@@ -40,7 +81,7 @@ export const examRepo = {
       section_key: string; name: string; subject_key: string; question_type: string; question_count: number; attempt_limit: number | null;
       correct: number; incorrect: number; unanswered: number; partial_per_correct_option: number | null;
     }>(`SELECT s.*, r.correct, r.incorrect, r.unanswered, r.partial_per_correct_option
-        FROM exam_sections s JOIN scoring_rules r ON r.section_id = s.id WHERE s.template_id = ? ORDER BY s.sort_order`, [templateId]);
+        FROM exam_sections s JOIN scoring_rules r ON r.section_id = s.id WHERE s.template_id = ? AND s.deleted_at IS NULL ORDER BY s.sort_order`, [templateId]);
     return examConfigSchema.parse({
       name: t.name, style: t.style, durationMinutes: t.duration_minutes, negativeMarkingEnabled: !!t.negative_marking_enabled,
       sections: sections.map((s) => ({
