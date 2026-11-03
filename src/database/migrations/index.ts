@@ -270,6 +270,19 @@ ALTER TABLE formulas ADD COLUMN source_note TEXT;
 CREATE INDEX idx_topics_title ON topics(chapter_id, title);
 `,
   },
+  {
+    version: 5,
+    name: 'persistent_daily_plan',
+    sql: `
+-- A day's plan is stored once so it does not change under the student, and so it can be ticked off, timed and synced.
+ALTER TABLE study_tasks ADD COLUMN start_time TEXT;
+ALTER TABLE study_tasks ADD COLUMN end_time TEXT;
+ALTER TABLE study_tasks ADD COLUMN difficulty TEXT;
+ALTER TABLE study_tasks ADD COLUMN external INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE study_tasks ADD COLUMN needs_setup TEXT;
+CREATE INDEX idx_sessions_task ON study_sessions(task_id);
+`,
+  },
 ];
 
 export async function migrate(db: SqlDb): Promise<number> {
