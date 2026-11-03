@@ -2,8 +2,8 @@ import { DatabaseSync } from 'node:sqlite';
 import type { SqlDb, SqlValue } from '../../src/database/sqlite/types';
 
 /** In-memory SQLite (Node built-in) behind the same SqlDb interface the app uses with expo-sqlite. */
-export function memoryDb(): SqlDb {
-  const db = new DatabaseSync(':memory:');
+export function memoryDb(file = ':memory:'): SqlDb {
+  const db = new DatabaseSync(file);
   db.exec('PRAGMA foreign_keys = ON;');
   let depth = 0;
   return {
