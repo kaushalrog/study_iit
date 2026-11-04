@@ -16,21 +16,23 @@ import { join } from 'node:path';
 const dry = process.argv.includes('--dry-run');
 const printHashes = process.argv.includes('--print-hashes');
 const root = new URL('..', import.meta.url).pathname;
+const dirArg = process.argv.indexOf('--dir');
+const contentDir = dirArg > 0 ? process.argv[dirArg + 1] : join(root, 'content');
 
 /** Same canonical form as src/services/content/sha256.ts: keys sorted at every level. */
 const canon = (v) => Array.isArray(v) ? `[${v.map(canon).join(',')}]` : v && typeof v === 'object' ? `{${Object.keys(v).sort().map((k) => `${JSON.stringify(k)}:${canon(v[k])}`).join(',')}}` : JSON.stringify(v);
 export const hashOf = (payload) => createHash('sha256').update(canon(payload), 'utf8').digest('hex');
 
 const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-const retiredAll = existsSync(join(root, 'content/retired.json')) ? JSON.parse(readFileSync(join(root, 'content/retired.json'), 'utf8')).retired : [];
+const retiredAll = existsSync(join(contentDir, 'retired.json')) ? JSON.parse(readFileSync(join(contentDir, 'retired.json'), 'utf8')).retired : [];
 
 const packs = [];
-for (const f of readdirSync(join(root, 'content')).filter((x) => x.endsWith('.json') && !['retired.json', 'roadmap.json'].includes(x))) {
-  const payload = JSON.parse(readFileSync(join(root, 'content', f), 'utf8'));
+for (const f of readdirSync(contentDir).filter((x) => x.endsWith('.json') && !['retired.json', 'roadmap.json'].includes(x))) {
+  const payload = JSON.parse(readFileSync(join(contentDir, f), 'utf8'));
   if (typeof payload.chapter !== 'string') { console.error(`${f}: not a chapter bundle (no "chapter")`); process.exit(2); }
   packs.push({ id: `chapter:${slug(payload.chapter)}`, kind: 'bundle', title: payload.chapter, payload, retired: retiredAll.filter((r) => r.chapter === payload.chapter) });
 }
-if (existsSync(join(root, 'content/roadmap.json'))) packs.push({ id: 'roadmap', kind: 'roadmap', title: 'IIT roadmap', payload: JSON.parse(readFileSync(join(root, 'content/roadmap.json'), 'utf8')), retired: [] });
+if (existsSync(join(contentDir, 'roadmap.json'))) packs.push({ id: 'roadmap', kind: 'roadmap', title: 'IIT roadmap', payload: JSON.parse(readFileSync(join(contentDir, 'roadmap.json'), 'utf8')), retired: [] });
 
 if (printHashes) { for (const p of packs) console.log(`${p.id} ${hashOf(p.payload)}`); process.exit(0); }
 

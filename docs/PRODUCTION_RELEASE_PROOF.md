@@ -2,7 +2,7 @@
 
 Date: 2026-11-05 (device clock UTC 16:2x–16:4x on 2026-11-04). Expo account `kaushal4599`, project `@kaushal4599/orbit`, project id `f78e0915-c5bd-4cc4-b52c-d1e7bb613267`.
 
-**Status in one line: production OTA through the real Expo EAS service is proven on an installed Android build (two updates delivered and applied). A real Supabase content-pack publication is NOT yet proven: the Supabase project must first be upgraded with one SQL file (step 10).**
+**Status in one line: production OTA through the real Expo EAS service is proven on an installed Android build (two updates delivered and applied), and a real Supabase content-pack publication (two versions) reached the same installed app. Both were tested on an emulator, not a physical phone.**
 
 ## 1. Expo configuration and project id
 - You had run `eas login`, but `eas init` had not completed: `app.json` had no project id and `eas project:info` reported no project. I ran `eas init --account kaushal4599 --non-interactive`, which created `@kaushal4599/orbit` and wrote the project id into `app.json` (`extra.eas.projectId`).
@@ -32,7 +32,7 @@ All four match. The APK manifest (checked with `aapt2`) has `expo.modules.update
 
 ## 6. One-time account setup
 Done for you in this session: Expo login, project, project id, channels, EAS environment variables, production APK.
-Still yours (needs access to the Supabase dashboard): run `supabase/dist/orbit_upgrade_0007_to_0011.sql` once in Supabase → SQL Editor (edit the email on the last statement if the publisher should be a different account).
+Done by you: `supabase/dist/orbit_upgrade_0007_to_0011.sql` run once in Supabase → SQL Editor.
 
 ## 7. The production APK
 `release-apk/ORBIT-production-arm64.apk` (37.6 MB), built with `npm run apk:build` after `eas init`; the script's check that the embedded runtime equals the EAS runtime passed. SHA-256 is in `release-apk/SHA256.txt`. Debug-signed, arm64.
@@ -53,11 +53,18 @@ No reinstall happened between the APK install and either update.
 
 **Caveats on this proof:** it ran on an emulator, not a physical phone, and the emulator's DNS had to be fixed (restarted with `-dns-server 8.8.8.8`) before it could reach `u.expo.dev`; nothing in the app changed for that. Treat a physical-phone check as still worth doing once.
 
-## 10. Real Supabase content-pack publication: NOT DONE
-Blocked on the SQL upgrade above; I have no database credentials for your project and cannot run it. After it is run, the steps are:
-```bash
-set -a; . ./.env; set +a
-CONTENT_PUBLISHER_EMAIL=… CONTENT_PUBLISHER_PASSWORD=… npm run content:publish:dry   # shows 4 chapter packs would be published
-CONTENT_PUBLISHER_EMAIL=… CONTENT_PUBLISHER_PASSWORD=… npm run content:publish
-```
-then sign in on the phone and Settings → Software updates → Refresh content. Until a pack from your Supabase project reaches the installed app, treat content-pack delivery as tested against real Postgres and a device-side stand-in feed only (docs/UPDATES.md), not against Supabase.
+## 10. Real Supabase content-pack publication: PROVEN
+After you ran `supabase/dist/orbit_upgrade_0007_to_0011.sql`:
+- The tables answer (HTTP 401 for the anonymous key = exists but not readable, instead of 404).
+- I published a small test pack to your real Supabase project with `scripts/publish-content.mjs` (new `--dir` option), signing in as `kaushalreddy15@gmail.com`, which the SQL made a publisher: `chapter:gravitation` **v1** (one lesson, "SUPABASE-LESSON-ONE"). Running it again changed nothing ("unchanged").
+- On the installed production build (running EAS update 2) I signed in with that account. Content sync ran on sign-in. The lesson was found by in-app search ("Lesson: Escape velocity · tips. Gravitation") and was in the on-device SQLite as `needs_review`; the stored pack state was `version 1` with its checksum.
+- I published **v2** (a second lesson and one question). *Refresh content* in Settings → Software updates reported "Gravitation · version 2 · 2 new".
+- No APK or OTA update was involved in either content delivery.
+
+Caveats:
+- The cloud pack `chapter:gravitation` currently holds this small test bundle (v2). The real `npm run content:publish` will replace it with the full chapter as v3; devices that already received the test lessons keep them (nothing is deleted).
+- The sign-in used the test account stored in `.env.cloud-test`. Its password appeared in my command output during the UI sign-in. **Change that account's password**, and consider using a separate publisher account.
+- Emulator, not a physical phone.
+
+## Final status
+Production OTA through EAS: proven on an installed build. Real Supabase content packs: proven on an installed build. Not done: a physical phone, and publishing the full four chapters (run `npm run content:publish` when you want them in the cloud).
