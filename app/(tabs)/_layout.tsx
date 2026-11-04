@@ -1,8 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs, useRouter } from 'expo-router';
 import React from 'react';
-import { Pressable } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { fonts, MIN_TOUCH, useTheme } from '../../src/components/design-system';
+import { UpdateBanner } from '../../src/components/UpdateBanner';
 
 type IconName = React.ComponentProps<typeof Ionicons>['name'];
 const TABS: { name: string; title: string; on: IconName; off: IconName }[] = [
@@ -17,6 +18,8 @@ export default function TabsLayout() {
   const { colors } = useTheme();
   const router = useRouter();
   return (
+    <View style={{ flex: 1 }}>
+    <UpdateBanner />
     <Tabs screenOptions={{
       sceneStyle: { backgroundColor: colors.bg },
       headerStyle: { backgroundColor: colors.bg }, headerShadowVisible: false,
@@ -42,5 +45,6 @@ export default function TabsLayout() {
         <Tabs.Screen key={t.name} name={t.name} options={{ title: t.title, tabBarIcon: ({ color, size, focused }) => <Ionicons name={focused ? t.on : t.off} color={String(color)} size={size} /> }} />
       ))}
     </Tabs>
+    </View>
   );
 }

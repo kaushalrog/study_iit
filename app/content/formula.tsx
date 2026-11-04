@@ -1,4 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useUpdateGuard } from '../../src/services/updates/UpdateProvider';
 import React, { useState } from 'react';
 import { Switch, View } from 'react-native';
 import { AppText, Button, Card, Chip, ErrorState, Field, Group, LoadingState, Page, space, useTheme } from '../../src/components/design-system';
@@ -17,6 +18,7 @@ export default function FormulaEditor() {
   const { data, error, reload } = useAsync(() => contentRepo.topics(db, chapterId), [db, chapterId]);
   const [topic, setTopic] = useState<string | null>(topicId && topicId !== 'overview' ? topicId : null);
   const [name, setName] = useState('');
+  useUpdateGuard('an unsaved formula', !!name.trim());
   const [latex, setLatex] = useState('');
   const [rows, setRows] = useState<Row[]>([{ symbol: '', meaning: '', unit: '' }]);
   const [conditions, setConditions] = useState('');

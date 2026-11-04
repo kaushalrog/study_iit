@@ -5,6 +5,8 @@ import { useDb } from '../../src/database/DatabaseProvider';
 import { useAsync } from '../../src/hooks/useAsync';
 import { useAuth } from '../../src/services/auth/AuthProvider';
 import { validateCredentials } from '../../src/services/auth/errors';
+import { useRouter } from 'expo-router';
+import { useUpdateManager } from '../../src/services/updates/UpdateProvider';
 import { useSync } from '../../src/services/sync/SyncProvider';
 
 export default function Settings() {
@@ -12,6 +14,8 @@ export default function Settings() {
   const { colors } = useTheme();
   const auth = useAuth();
   const sync = useSync();
+  const router = useRouter();
+  const upd = useUpdateManager();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
@@ -100,7 +104,12 @@ export default function Settings() {
         </Card>
       )}
 
-      <SectionHeader title="About" icon="information-circle-outline" />
+      <SectionHeader title="About ORBIT" icon="information-circle-outline" />
+      <Card style={{ marginBottom: space.sm, gap: space.sm }}>
+        <AppText variant="body" style={{ fontWeight: '600' }}>Software updates</AppText>
+        <AppText variant="caption">{upd.state === 'ready' ? 'An update is ready.' : upd.enabled ? 'Check for app updates and new academic content.' : 'Updates are not enabled in this build.'}</AppText>
+        <Button title="Software updates" icon="cloud-download-outline" variant="secondary" onPress={() => router.push('/settings/updates')} />
+      </Card>
       <Card><AppText variant="body">ORBIT keeps your study records on this device first, so lessons, practice and the Error Book work without internet. AI answers are always labelled as generated and unverified.</AppText></Card>
     </Page>
   );

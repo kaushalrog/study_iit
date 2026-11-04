@@ -140,3 +140,16 @@ describe('roadmap packs', () => {
     expect((await syncContent(db, r)).failed[0].reason).toMatch(/later stage/);
   });
 });
+
+describe('publisher script', () => {
+  it('computes the same pack hashes as the app, so published packs pass the app\'s checksum', () => {
+    const { execFileSync } = require('child_process') as typeof import('child_process');
+    const out = execFileSync('node', ['scripts/publish-content.mjs', '--print-hashes'], { encoding: 'utf8' }).trim().split('\n');
+    expect(out).toHaveLength(4);
+    for (const line of out) {
+      const [id, hash] = line.split(' ');
+      const file = require(`../../content/${id.replace('chapter:', '')}.json`);
+      expect(hash).toBe(packHash(file));
+    }
+  });
+});

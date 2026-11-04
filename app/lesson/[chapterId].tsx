@@ -1,4 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useUpdateGuard } from '../../src/services/updates/UpdateProvider';
 import React, { useEffect, useState } from 'react';
 import { Alert, Platform, ScrollView, View } from 'react-native';
 import { FormulaCard } from '../../src/components/content/FormulaCard';
@@ -14,6 +15,7 @@ import { videoRepo } from '../../src/database/repositories/videos';
 import { SECTION_LABEL } from '../../src/features/syllabus/importBundle';
 import { richToReadable } from '../../src/features/syllabus/math';
 import { nextTab, ReaderTab, READER_TABS, tabItemCount, TAB_LABEL, TAB_SECTIONS } from '../../src/features/syllabus/readerTabs';
+import { useContentSync } from '../../src/services/content/ContentSyncProvider';
 import { useAsync } from '../../src/hooks/useAsync';
 
 type Level = 'all' | 'foundation' | 'main' | 'advanced';
@@ -27,10 +29,12 @@ export default function Lesson() {
   const db = useDb();
   const router = useRouter();
   const { colors } = useTheme();
+  const content = useContentSync();
   const [lang, setLang] = useState<'en' | 'te'>('en');
   const [level, setLevel] = useState<Level>('all');
   const [tab, setTab] = useState<ReaderTab>('overview');
   const [draft, setDraft] = useState('');
+  useUpdateGuard('an unsaved note', !!draft.trim());
   const [noteErr, setNoteErr] = useState<string | null>(null);
   const [done, setDone] = useState(false);
   const tid = topicId && topicId !== 'overview' ? topicId : null;
@@ -47,7 +51,7 @@ export default function Lesson() {
       lessons: lessons.filter((l) => l.topicId === tid), formulas: formulas.filter((f) => f.topicId === tid),
       videos: videos.filter((v) => v.topicId === tid), pyqs, practice, notes, waitingQuestions: waiting.question,
     };
-  }, [db, chapterId, tid, lang]);
+  }, [db, chapterId, tid, lang, content.contentVersion]);
 
   // Opening a lesson means she has started learning it. This never claims mastery.
   useEffect(() => {

@@ -50,3 +50,7 @@ supabase/.env.functions
 
 # built APKs are large binaries; share them, do not commit them
 release-apk/
+
+# OTA test artefacts
+dist-ota/
+ota-server.log

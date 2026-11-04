@@ -41,7 +41,16 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "test:live": "supabase/test/run-live.sh",
-    "test:cloud": "supabase/test/run-cloud.sh"
+    "test:cloud": "supabase/test/run-cloud.sh",
+    "test:all": "npm run typecheck && jest",
+    "content:validate": "scripts/content-validate.sh",
+    "content:publish": "node scripts/publish-content.mjs",
+    "content:publish:dry": "node scripts/publish-content.mjs --dry-run",
+    "ota:publish": "scripts/ota-publish.sh production",
+    "ota:publish:preview": "scripts/ota-publish.sh preview",
+    "ota:check": "scripts/ota-check.sh",
+    "ota:runtime": "npx expo-updates runtimeversion:resolve --platform android | head -c 120; echo",
+    "apk:build": "scripts/build-apk.sh"
   },
   "private": true
 }

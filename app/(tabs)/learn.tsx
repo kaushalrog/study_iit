@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { AppText, Button, Card, EmptyState, ErrorState, FadeIn, Icon, LoadingState, Page, SubjectDot, Tag, space, useTheme } from '../../src/components/design-system';
 import { useDb } from '../../src/database/DatabaseProvider';
 import { loadStarterLibrary, starterTotals } from '../../src/content/starter';
+import { useContentSync } from '../../src/services/content/ContentSyncProvider';
 import { reviewRepo } from '../../src/database/repositories/review';
 import { syllabusRepo } from '../../src/database/repositories/syllabus';
 import { useAsync } from '../../src/hooks/useAsync';
@@ -12,6 +13,7 @@ export default function Learn() {
   const db = useDb();
   const router = useRouter();
   const { colors } = useTheme();
+  const content = useContentSync();
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState<string | null>(null);
   const { data, error, reload } = useAsync(async () => {
@@ -19,7 +21,7 @@ export default function Learn() {
     let waiting = 0;
     for (const c of chapters) { const n = await reviewRepo.counts(db, c.id); waiting += n.lesson + n.formula + n.question + n.video; }
     return { chapters, waiting };
-  }, [db]);
+  }, [db, content.contentVersion]);
   if (error) return <ErrorState message={error} onRetry={reload} />;
   if (!data) return <LoadingState />;
   const { chapters: all, waiting } = data;

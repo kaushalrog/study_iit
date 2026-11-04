@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import { useUpdateGuard } from '../../src/services/updates/UpdateProvider';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Platform, Pressable, ScrollView, Text, View } from 'react-native';
 import { AnswerInput } from '../../src/components/design-system/AnswerInput';
@@ -26,6 +27,7 @@ export default function QuizRun() {
   const bottom = useBottomInset();
   const { gutter, maxWidth } = useLayout();
   const [loaded, setLoaded] = useState<Loaded | null>(null);
+  useUpdateGuard('a test is in progress', true);
   const [none, setNone] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [now, setNow] = useState(Date.now());

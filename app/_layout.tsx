@@ -5,13 +5,17 @@ import { fonts, useTheme } from '../src/components/design-system';
 import { DatabaseProvider } from '../src/database/DatabaseProvider';
 import { AuthProvider } from '../src/services/auth/AuthProvider';
 import { SyncProvider } from '../src/services/sync/SyncProvider';
+import { ContentSyncProvider } from '../src/services/content/ContentSyncProvider';
+import { UpdateProvider } from '../src/services/updates/UpdateProvider';
 
 export default function RootLayout() {
   const { colors } = useTheme();
   return (
+    <UpdateProvider>
     <DatabaseProvider>
      <AuthProvider>
       <SyncProvider>
+      <ContentSyncProvider>
       <StatusBar style="auto" />
       <Stack screenOptions={{ headerStyle: { backgroundColor: colors.bg }, headerTintColor: colors.text, contentStyle: { backgroundColor: colors.bg }, headerShadowVisible: false, headerTitleStyle: { color: colors.text, fontFamily: fonts.display, fontWeight: '700' } }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -35,9 +39,12 @@ export default function RootLayout() {
         <Stack.Screen name="import/index" options={{ title: 'Import material' }} />
         <Stack.Screen name="tutor/index" options={{ title: 'AI Tutor' }} />
         <Stack.Screen name="settings/index" options={{ title: 'Settings' }} />
+        <Stack.Screen name="settings/updates" options={{ title: 'Software updates' }} />
       </Stack>
+      </ContentSyncProvider>
       </SyncProvider>
      </AuthProvider>
     </DatabaseProvider>
+    </UpdateProvider>
   );
 }

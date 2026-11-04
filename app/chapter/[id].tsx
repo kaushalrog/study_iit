@@ -9,6 +9,7 @@ import { notesRepo } from '../../src/database/repositories/notes';
 import { syllabusRepo } from '../../src/database/repositories/syllabus';
 import { VideoCard } from '../../src/components/content/VideoCard';
 import { videoRepo } from '../../src/database/repositories/videos';
+import { useContentSync } from '../../src/services/content/ContentSyncProvider';
 import { useAsync } from '../../src/hooks/useAsync';
 
 const STATUS_LABEL: Record<string, string> = {
@@ -20,6 +21,7 @@ export default function ChapterScreen() {
   const db = useDb();
   const router = useRouter();
   const { colors } = useTheme();
+  const content = useContentSync();
   const [topicName, setTopicName] = useState('');
   const [topicError, setTopicError] = useState<string | null>(null);
   const [draft, setDraft] = useState('');
@@ -35,7 +37,7 @@ export default function ChapterScreen() {
     ]);
     const counts = await db.all<{ topic_id: string; n: number }>("SELECT topic_id, COUNT(*) AS n FROM learning_content WHERE chapter_id = ? AND topic_id IS NOT NULL AND deleted_at IS NULL AND verification_status != 'archived' GROUP BY topic_id", [id]);
     return { chapter, topics, formulas, notes, videos, overviewCount: overview?.n ?? 0, lessonCounts: Object.fromEntries(counts.map((c) => [c.topic_id, c.n])) as Record<string, number> };
-  }, [db, id]);
+  }, [db, id, content.contentVersion]);
 
   if (error) return <ErrorState message={error} onRetry={reload} />;
   if (!data) return loading ? <LoadingState /> : <ErrorState message="Chapter not found." />;

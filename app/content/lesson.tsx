@@ -1,5 +1,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
+import { useUpdateGuard } from '../../src/services/updates/UpdateProvider';
 import { Switch, View } from 'react-native';
 import { AppText, Button, Card, Chip, ErrorState, Field, Group, LoadingState, Page, space, useTheme } from '../../src/components/design-system';
 import { useDb } from '../../src/database/DatabaseProvider';
@@ -21,6 +22,7 @@ export default function LessonEditor() {
   const [level, setLevel] = useState<'foundation' | 'main' | 'advanced'>('main');
   const [language, setLanguage] = useState<'en' | 'te'>('en');
   const [body, setBody] = useState('');
+  useUpdateGuard('an unsaved lesson', !!body.trim());
   const [source, setSource] = useState('');
   const [verified, setVerified] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);

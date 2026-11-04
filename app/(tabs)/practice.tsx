@@ -7,19 +7,21 @@ import { examRepo } from '../../src/database/repositories/exams';
 import { mockRepo } from '../../src/database/repositories/mocks';
 import { questionRepo } from '../../src/database/repositories/questions';
 import { syllabusRepo } from '../../src/database/repositories/syllabus';
+import { useContentSync } from '../../src/services/content/ContentSyncProvider';
 import { useAsync } from '../../src/hooks/useAsync';
 import { diffDays, toDateKey } from '../../src/utils/dates';
 
 export default function Practice() {
   const db = useDb();
   const router = useRouter();
+  const content = useContentSync();
   const { data, error, reload } = useAsync(async () => {
     const [exams, chapters, active, history, unverified] = await Promise.all([
       examRepo.list(db), syllabusRepo.chapters(db), mockRepo.loadActive(db), mockRepo.history(db), questionRepo.unverifiedCount(db),
     ]);
     const configs = await Promise.all(exams.map(async (e) => (e.templateId ? examRepo.templateConfig(db, e.templateId) : null)));
     return { exams: exams.map((e, i) => ({ ...e, config: configs[i] })), questions: chapters.reduce((a, c) => a + c.questionCount, 0), active, history, unverified };
-  }, [db]);
+  }, [db, content.contentVersion]);
   if (error) return <ErrorState message={error} onRetry={reload} />;
   if (!data) return <LoadingState />;
   const today = toDateKey(new Date());

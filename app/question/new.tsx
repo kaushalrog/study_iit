@@ -1,4 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useUpdateGuard } from '../../src/services/updates/UpdateProvider';
 import React, { useState } from 'react';
 import { Switch, View } from 'react-native';
 import { AppText, Button, Card, Chip, ErrorState, Field, Group, Icon, LoadingState, Page, space, useTheme } from '../../src/components/design-system';
@@ -20,6 +21,7 @@ export default function NewQuestion() {
   const [chapterId, setChapterId] = useState(params.chapterId ?? '');
   const [type, setType] = useState<QuestionType>('single');
   const [stem, setStem] = useState('');
+  useUpdateGuard('an unsaved question', !!stem.trim());
   const [options, setOptions] = useState(['', '', '', '']);
   const [correct, setCorrect] = useState<string[]>([]);
   const [numeric, setNumeric] = useState('');
