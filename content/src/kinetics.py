@@ -58,11 +58,9 @@ $\dfrac{d[NO_2]}{dt}=2\times6.0\times10^{-3}=1.2\times10^{-2}$ and $\dfrac{d[O_2
 c.lesson(T1, 'example', 'main', r"""
 **Example 2 (order from initial rates).** For $A+B\to$ products, the initial rate was measured:
 
-| Experiment | $[A]$ (M) | $[B]$ (M) | Rate (M s⁻¹) |
-|---|---|---|---|
-| 1 | 0.10 | 0.10 | $2.0\times10^{-3}$ |
-| 2 | 0.20 | 0.10 | $8.0\times10^{-3}$ |
-| 3 | 0.10 | 0.20 | $4.0\times10^{-3}$ |
+Experiment 1: $[A]=0.10$ M, $[B]=0.10$ M, rate $=2.0\times10^{-3}$ M s⁻¹.
+Experiment 2: $[A]=0.20$ M, $[B]=0.10$ M, rate $=8.0\times10^{-3}$ M s⁻¹.
+Experiment 3: $[A]=0.10$ M, $[B]=0.20$ M, rate $=4.0\times10^{-3}$ M s⁻¹.
 
 *Method.* Change one concentration at a time. From 1→2, $[A]$ doubles and the rate becomes $4\times$, so the order in $A$ is $2$ ($2^m=4$). From 1→3, $[B]$ doubles and the rate doubles, so the order in $B$ is $1$. The rate law is $\text{rate}=k[A]^2[B]$ and the overall order is $3$.
 $k=\dfrac{2.0\times10^{-3}}{(0.10)^2(0.10)}=2.0\ \mathrm{L^2mol^{-2}s^{-1}}$.

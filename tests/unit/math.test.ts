@@ -55,3 +55,11 @@ describe('richToReadable', () => {
     expect(rich(undefined as unknown as string)).toBe('');
   });
 });
+
+describe('emphasis markers', () => {
+  it('drops ** and * around words but leaves multiplication and maths alone', () => {
+    expect(rich('**Bold start.** Then *italic* text and (*note*).')).toBe('Bold start. Then italic text and (note).');
+    expect(rich('5 * 3 = 15 and 2*4')).toBe('5 * 3 = 15 and 2*4');
+    expect(rich('**Example 1 (basic).** Find $x^2$')).toBe('Example 1 (basic). Find x²');
+  });
+});

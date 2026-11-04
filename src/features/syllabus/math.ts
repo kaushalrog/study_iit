@@ -128,5 +128,8 @@ export function richToReadable(text: string): string {
     .replace(/\$\$([^$]+)\$\$/g, (_, m) => latexToReadable(m))
     .replace(/\$([^$\n]+)\$/g, (_, m) => latexToReadable(m))
     .replace(/\\\(([^]*?)\\\)/g, (_, m) => latexToReadable(m))
-    .replace(/\\\[([^]*?)\\\]/g, (_, m) => latexToReadable(m));
+    .replace(/\\\[([^]*?)\\\]/g, (_, m) => latexToReadable(m))
+    // Lessons are written with light Markdown emphasis; show the words without the marker characters.
+    .replace(/\*\*([^*\n][^*]*?)\*\*/g, '$1')
+    .replace(/(^|[\s(])\*([^\s*][^*\n]*?)\*(?=[\s).,;:!?]|$)/g, '$1$2');
 }
