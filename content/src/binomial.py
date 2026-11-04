@@ -394,13 +394,13 @@ c.formula(T1, 'Binomial theorem', r'(a+b)^n = \sum_{r=0}^{n}\binom{n}{r}a^{n-r}b
 c.formula(T1, 'Pascal’s rule', r'\binom{n}{r}+\binom{n}{r-1}=\binom{n+1}{r}', [('n', 'a non-negative integer'), ('r', 'an integer with 1 ≤ r ≤ n')], '1 ≤ r ≤ n')
 c.formula(T2, 'General term', r'T_{r+1}=\binom{n}{r}a^{n-r}b^{r}', [('T_{r+1}', 'the (r+1)-th term'), ('r', '0, 1, ..., n')], 'The term number is one more than r.')
 c.formula(T2, 'Middle term', r'T_{\frac n2+1}\ (n\text{ even});\quad T_{\frac{n+1}2},\,T_{\frac{n+3}2}\ (n\text{ odd})', [('n', 'the index of the expansion')], 'There are n + 1 terms in total.')
-c.formula(T2, 'Ratio of consecutive terms', r'\dfrac{T_{r+1}}{T_r}=\dfrac{n-r+1}{r}\cdot\dfrac{b}{a}', [('a, b', 'the two terms of the binomial')], 'r ≥ 1')
-c.formula(T3, 'Sum of all binomial coefficients', r'\binom n0+\binom n1+\dots+\binom nn=2^n', [('n', 'a non-negative integer')], 'Put x = 1 in (1 + x)^n')
+c.formula(T2, 'Ratio of consecutive terms', r'\dfrac{T_{r+1}}{T_r}=\dfrac{n-r+1}{r}\cdot\dfrac{b}{a}', [('a, b', 'the two terms of the binomial'), ('r', 'index with 1 ≤ r ≤ n')], '1 ≤ r ≤ n, a ≠ 0')
+c.formula(T3, 'Sum of all binomial coefficients', r'\binom n0+\binom n1+\dots+\binom nn=2^n', [('n', 'a non-negative integer')], 'n ≥ 0', 'Put x = 1 in (1 + x)^n.')
 c.formula(T3, 'Sum of even-indexed coefficients', r'\binom n0+\binom n2+\binom n4+\dots=2^{n-1}', [('n', 'a positive integer')], 'n ≥ 1', 'Equal to the sum of the odd-indexed coefficients.')
-c.formula(T3, 'Sum of r times the coefficient', r'\sum_{r=0}^{n}r\binom nr=n\,2^{n-1}', [('n', 'a positive integer')], 'Uses r·C(n,r) = n·C(n−1, r−1)')
+c.formula(T3, 'Sum of r times the coefficient', r'\sum_{r=0}^{n}r\binom nr=n\,2^{n-1}', [('n', 'a positive integer')], 'n ≥ 1', 'Uses r·C(n,r) = n·C(n−1, r−1).')
 c.formula(T3, 'Sum of r squared times the coefficient', r'\sum_{r=0}^{n}r^2\binom nr=n(n+1)2^{n-2}', [('n', 'an integer, n ≥ 2')], 'n ≥ 2')
-c.formula(T3, 'Sum of squares of coefficients', r'\sum_{r=0}^{n}\binom nr^2=\binom{2n}{n}', [('n', 'a non-negative integer')], 'Coefficient of x^n in (1+x)^(2n)')
-c.formula(T4, 'Numerically greatest term', r'm=\dfrac{(n+1)\,|b/a|}{1+|b/a|}', [('m', 'if not an integer the greatest term is T(floor(m) + 1); if an integer, T(m) = T(m + 1)')], 'For (a + b)^n with given numerical a and b')
+c.formula(T3, 'Sum of squares of coefficients', r'\sum_{r=0}^{n}\binom nr^2=\binom{2n}{n}', [('n', 'a non-negative integer')], 'n ≥ 0', 'Compare the coefficient of x^n in (1+x)^(2n) = (1+x)^n(1+x)^n.')
+c.formula(T4, 'Numerically greatest term', r'm=\dfrac{(n+1)\,|b/a|}{1+|b/a|}', [('m', 'cut-off index'), ('n', 'index of the expansion'), ('a, b', 'the two terms, as numbers (b/a is used as an absolute value)')], 'For (a + b)^n with given numerical a and b. If m is not an integer the greatest term is T(floor(m)+1); if m is an integer, T(m) = T(m+1) are both greatest.')
 
 # ---------- Questions ----------
 c.mcq(T1, r'The coefficient of $x^2$ in the expansion of $(1+x)^6$ is', [('6', 6), ('12', 12), ('15', 15), ('20', 20)], 2, expand(1, 1, 6)[2], 'foundation', r'$\binom62=15$.')

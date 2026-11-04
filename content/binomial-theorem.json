@@ -419,11 +419,15 @@
     {
      "symbol": "a, b",
      "meaning": "the two terms of the binomial"
+    },
+    {
+     "symbol": "r",
+     "meaning": "index with 1 ≤ r ≤ n"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "General term and middle term",
-   "conditions": "r ≥ 1"
+   "conditions": "1 ≤ r ≤ n, a ≠ 0"
   },
   {
    "name": "Sum of all binomial coefficients",
@@ -436,7 +440,8 @@
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Properties of binomial coefficients",
-   "conditions": "Put x = 1 in (1 + x)^n"
+   "conditions": "n ≥ 0",
+   "explanation": "Put x = 1 in (1 + x)^n."
   },
   {
    "name": "Sum of even-indexed coefficients",
@@ -463,7 +468,8 @@
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Properties of binomial coefficients",
-   "conditions": "Uses r·C(n,r) = n·C(n−1, r−1)"
+   "conditions": "n ≥ 1",
+   "explanation": "Uses r·C(n,r) = n·C(n−1, r−1)."
   },
   {
    "name": "Sum of r squared times the coefficient",
@@ -489,7 +495,8 @@
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Properties of binomial coefficients",
-   "conditions": "Coefficient of x^n in (1+x)^(2n)"
+   "conditions": "n ≥ 0",
+   "explanation": "Compare the coefficient of x^n in (1+x)^(2n) = (1+x)^n(1+x)^n."
   },
   {
    "name": "Numerically greatest term",
@@ -497,12 +504,20 @@
    "variables": [
     {
      "symbol": "m",
-     "meaning": "if not an integer the greatest term is T(floor(m) + 1); if an integer, T(m) = T(m + 1)"
+     "meaning": "cut-off index"
+    },
+    {
+     "symbol": "n",
+     "meaning": "index of the expansion"
+    },
+    {
+     "symbol": "a, b",
+     "meaning": "the two terms, as numbers (b/a is used as an absolute value)"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Greatest term and applications",
-   "conditions": "For (a + b)^n with given numerical a and b"
+   "conditions": "For (a + b)^n with given numerical a and b. If m is not an integer the greatest term is T(floor(m)+1); if m is an integer, T(m) = T(m+1) are both greatest."
   }
  ],
  "questions": [

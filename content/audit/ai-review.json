@@ -1,0 +1,11 @@
+{
+  "reviewer": "Claude (AI assistant)",
+  "date": "2026-11-05",
+  "scope": "All 82 generated questions were re-read in full (stem, options, key, explanation) and solved independently by hand on this date; 45 formulas were checked for expression, variable definitions, conditions and units. Lessons were NOT read line by line in this pass: only specific factual claims were checked (two corrections were made). This is not an academic review.",
+  "questionNote": "Re-read and solved by hand: the key matches the stem and the explanation is consistent. Topic mapping looks right. Difficulty label not independently validated.",
+  "formulaFindings": {
+    "Double angle: inverse tangent form": "Split from a single formula that chained three expressions, which are equal only for |x| < 1.",
+    "Gravitational field of a point mass": "Variable definitions and units completed.",
+    "Numerically greatest term": "Rule moved out of the variable list into the conditions."
+  }
+}

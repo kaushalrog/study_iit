@@ -91,9 +91,12 @@ export const reviewsRepo = {
     for (const r of reviews) { const k = `${r.recordKind}:${r.recordId}`; byRecord.set(k, [...(byRecord.get(k) ?? []), r]); }
     const out = new Map<string, StatusResult>();
     for (const kind of Object.keys(TABLE) as ReviewKind[]) {
-      for (const rec of await db.all<{ id: string }>(`SELECT id FROM ${TABLE[kind]} WHERE chapter_id = ?`, [chapterId])) {
+      for (const rec of await db.all<{ id: string; deleted_at: string | null }>(`SELECT id, deleted_at FROM ${TABLE[kind]} WHERE chapter_id = ?`, [chapterId])) {
         const k = `${kind}:${rec.id}`;
-        out.set(k, academicStatus(byRecord.get(k) ?? [], (await this.recordHash(db, kind, rec.id)) ?? '', auth));
+        const st = academicStatus(byRecord.get(k) ?? [], (await this.recordHash(db, kind, rec.id)) ?? '', auth);
+        // Withdrawn or deleted records are not part of the library, unless a reviewer rejected them (those are counted as rejected).
+        if (rec.deleted_at && st.status !== 'rejected') continue;
+        out.set(k, st);
       }
     }
     return out;

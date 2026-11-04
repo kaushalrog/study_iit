@@ -368,21 +368,31 @@
    "variables": [
     {
      "symbol": "k",
-     "meaning": "rate constant"
+     "meaning": "rate constant (units depend on the order)"
+    },
+    {
+     "symbol": "[A], [B]",
+     "meaning": "molar concentrations",
+     "unit": "mol L⁻¹"
     },
     {
      "symbol": "m, n",
-     "meaning": "orders in A and B; found by experiment"
+     "meaning": "orders in A and B, found by experiment"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Rate of reaction, rate law, order and molecularity",
-   "conditions": "m and n equal the coefficients only for an elementary step"
+   "conditions": "m and n equal the coefficients only for an elementary step",
+   "units": "mol L⁻¹ s⁻¹ (rate)"
   },
   {
    "name": "Units of the rate constant",
    "latex": "[k]=(\\mathrm{mol\\,L^{-1}})^{1-n}\\,\\mathrm{s^{-1}}",
    "variables": [
+    {
+     "symbol": "[k]",
+     "meaning": "units of the rate constant"
+    },
     {
      "symbol": "n",
      "meaning": "overall order of the reaction"
@@ -390,6 +400,7 @@
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Rate of reaction, rate law, order and molecularity",
+   "conditions": "Whole-number or fractional order",
    "explanation": "Zero order: mol L⁻¹ s⁻¹; first: s⁻¹; second: L mol⁻¹ s⁻¹"
   },
   {
@@ -397,9 +408,19 @@
    "latex": "[A]=[A]_0-kt,\\qquad t_{1/2}=\\dfrac{[A]_0}{2k}",
    "variables": [
     {
+     "symbol": "[A]",
+     "meaning": "concentration at time t",
+     "unit": "mol L⁻¹"
+    },
+    {
      "symbol": "[A]₀",
      "meaning": "initial concentration",
      "unit": "mol L⁻¹"
+    },
+    {
+     "symbol": "k",
+     "meaning": "zero-order rate constant",
+     "unit": "mol L⁻¹ s⁻¹"
     },
     {
      "symbol": "t",
@@ -409,21 +430,36 @@
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Integrated rate equations and half-life",
-   "conditions": "Zero-order reaction"
+   "conditions": "Zero-order reaction; valid until [A] reaches 0"
   },
   {
    "name": "First-order integrated rate law",
    "latex": "\\ln\\dfrac{[A]_0}{[A]}=kt,\\qquad k=\\dfrac{2.303}{t}\\log\\dfrac{[A]_0}{[A]}",
    "variables": [
     {
+     "symbol": "[A]₀",
+     "meaning": "initial concentration",
+     "unit": "mol L⁻¹"
+    },
+    {
      "symbol": "[A]",
      "meaning": "concentration at time t",
      "unit": "mol L⁻¹"
+    },
+    {
+     "symbol": "k",
+     "meaning": "first-order rate constant",
+     "unit": "s⁻¹"
+    },
+    {
+     "symbol": "t",
+     "meaning": "time",
+     "unit": "s"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Integrated rate equations and half-life",
-   "conditions": "First-order reaction"
+   "conditions": "First-order reaction; same units for [A]₀ and [A]"
   },
   {
    "name": "Half-life of a first-order reaction",
@@ -444,9 +480,19 @@
    "latex": "\\dfrac{1}{[A]}-\\dfrac{1}{[A]_0}=kt,\\qquad t_{1/2}=\\dfrac{1}{k[A]_0}",
    "variables": [
     {
+     "symbol": "[A]₀, [A]",
+     "meaning": "initial concentration and concentration at time t",
+     "unit": "mol L⁻¹"
+    },
+    {
      "symbol": "k",
      "meaning": "second-order rate constant",
      "unit": "L mol⁻¹ s⁻¹"
+    },
+    {
+     "symbol": "t",
+     "meaning": "time",
+     "unit": "s"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
@@ -459,16 +505,27 @@
    "variables": [
     {
      "symbol": "P₀",
-     "meaning": "initial pressure of A"
+     "meaning": "initial pressure of A",
+     "unit": "mm Hg or any pressure unit"
     },
     {
      "symbol": "Pₜ",
-     "meaning": "total pressure at time t"
+     "meaning": "total pressure at time t, same unit"
+    },
+    {
+     "symbol": "t",
+     "meaning": "time",
+     "unit": "s"
+    },
+    {
+     "symbol": "k",
+     "meaning": "first-order rate constant",
+     "unit": "s⁻¹ (matches t)"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Integrated rate equations and half-life",
-   "conditions": "A(g) → B(g) + C(g), first order"
+   "conditions": "A(g) → B(g) + C(g), first order, only A present initially"
   },
   {
    "name": "Half-life and initial concentration",
@@ -477,11 +534,21 @@
     {
      "symbol": "n",
      "meaning": "order of the reaction"
+    },
+    {
+     "symbol": "[A]₀",
+     "meaning": "initial concentration",
+     "unit": "mol L⁻¹"
+    },
+    {
+     "symbol": "t_{1/2}",
+     "meaning": "half-life",
+     "unit": "s"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Determining the order of a reaction",
-   "conditions": "n ≠ 1 for the proportionality; first order is independent of [A]₀"
+   "conditions": "n ≠ 1 for the proportionality; for n = 1 the half-life does not depend on [A]₀"
   },
   {
    "name": "Arrhenius equation",
@@ -517,12 +584,28 @@
    "variables": [
     {
      "symbol": "k₁, k₂",
-     "meaning": "rate constants at T₁ and T₂"
+     "meaning": "rate constants at T₁ and T₂",
+     "unit": "same units"
+    },
+    {
+     "symbol": "Eₐ",
+     "meaning": "activation energy",
+     "unit": "J mol⁻¹"
+    },
+    {
+     "symbol": "R",
+     "meaning": "gas constant, 8.314",
+     "unit": "J mol⁻¹ K⁻¹"
+    },
+    {
+     "symbol": "T₁, T₂",
+     "meaning": "absolute temperatures",
+     "unit": "K"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Temperature, collision theory and the Arrhenius equation",
-   "conditions": "E_a taken as constant over the range",
+   "conditions": "Eₐ taken as constant over the range; T in kelvin",
    "explanation": "With log₁₀: log(k₂/k₁) = (Eₐ/2.303R)(1/T₁ − 1/T₂)"
   }
  ],

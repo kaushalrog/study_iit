@@ -45,7 +45,7 @@ $G=6.67\times10^{-11}\ \mathrm{N\,m^2\,kg^{-2}}$ is the universal gravitational 
 
 **Spheres.** A uniform solid sphere or thin shell attracts outside bodies as if all its mass were at its centre (for $r\ge R$). Inside a thin uniform shell the field is zero.
 
-**Why $G$ is tiny.** For two 1 kg masses 1 m apart, $F=6.67\times10^{-11}$ N, about the weight of a few bacteria. Gravity matters only when at least one mass is astronomical.
+**Why $G$ is tiny.** For two 1 kg masses 1 m apart, $F=6.67\times10^{-11}$ N, roughly a hundred thousand times smaller than the weight of a grain of sand (about a milligram). Gravity matters only when at least one mass is astronomical.
 """)
 c.lesson(T1, 'derivation', 'main', r"""
 **Where the inverse-square law comes from (conceptually).** Imagine the pull of a mass spreading out equally in all directions, like light from a bulb. At distance $r$ it is spread over a sphere of area $4\pi r^2$. If the total "amount of pull" is conserved, its strength per unit area falls as $1/r^2$. Newton also showed it fits Kepler's observations: for circular orbits $T^2\propto r^3$ requires the force to fall as $1/r^2$.
@@ -287,7 +287,7 @@ c.lesson(T4, 'explanation', 'main', r"""
 **Energies in a circular orbit.**
 $K=\dfrac{GMm}{2r}$, $U=-\dfrac{GMm}{r}$, $E=K+U=-\dfrac{GMm}{2r}$. So $K=-E$ and $U=2E$. The total energy is negative: the satellite is bound. To escape it needs extra energy $\dfrac{GMm}{2r}$.
 
-**Weightlessness.** Inside an orbiting satellite everything falls with the same acceleration, so there is no contact force between you and the floor. Gravity has not vanished: at the altitude of the International Space Station, $g$ is still about $90\%$ of its surface value.
+**Weightlessness.** Inside an orbiting satellite everything falls with the same acceleration, so there is no contact force between you and the floor. Gravity has not vanished: at the altitude of the International Space Station, $g$ is still about $88\%$ of its surface value.
 
 **Geostationary satellite.** Its period is one sidereal day ($\approx23$ h $56$ min), it orbits above the equator in the same direction as Earth's rotation, and it hovers over one point. Its orbital radius is about $4.22\times10^7$ m, i.e. a height of about $3.6\times10^7$ m ($36{,}000$ km) above the surface.
 
@@ -361,18 +361,28 @@ assert 0.87 < iss < 0.92
 assert approx(-GMe * 1 / (2 * 1) * -1 * 2, GMe)  # K = -E
 
 # ---------- Formulas ----------
-c.formula(T1, "Newton's law of gravitation", r'F = \dfrac{G\,m_1 m_2}{r^{2}}', [('F', 'attractive force', 'N'), ('G', 'gravitational constant, 6.67 × 10⁻¹¹', 'N m² kg⁻²'), ('m₁, m₂', 'the two masses', 'kg'), ('r', 'distance between the centres', 'm')],
+c.formula(T1, "Newton's law of gravitation", r'F = \dfrac{G\,m_1 m_2}{r^{2}}', [('F', 'attractive force between the two masses', 'N'), ('G', 'universal gravitational constant, 6.67 × 10⁻¹¹', 'N m² kg⁻²'), ('m₁, m₂', 'the two masses', 'kg'), ('r', 'distance between the centres', 'm')],
           'Point masses, or spheres with spherically symmetric mass distribution', 'Inverse-square; equal and opposite on the two bodies.', None, 'N')
-c.formula(T1, 'Gravitational field of a point mass', r'g = \dfrac{G M}{r^{2}}', [('g', 'field (force per unit mass)', 'N kg⁻¹'), ('M', 'the source mass', 'kg'), ('r', 'distance from the centre', 'm')], 'r ≥ R for a sphere; zero inside a thin uniform shell')
-c.formula(T2, 'Surface value of g', r'g = \dfrac{G M}{R^{2}}\ \Longrightarrow\ GM = gR^{2}', [('M', 'mass of the planet', 'kg'), ('R', 'radius of the planet', 'm')], None, 'Used to replace GM whenever g and R are given.')
-c.formula(T2, 'g at height h', r'g_h = g\left(\dfrac{R}{R+h}\right)^{2} \approx g\left(1-\dfrac{2h}{R}\right)', [('h', 'height above the surface', 'm'), ('R', 'radius of the planet', 'm')], 'The approximate form needs h much smaller than R')
-c.formula(T2, 'g at depth d', r'g_d = g\left(1-\dfrac{d}{R}\right)', [('d', 'depth below the surface', 'm')], 'Uniform-density planet')
-c.formula(T2, 'Apparent g at latitude λ', r"g' = g - \omega^{2}R\cos^{2}\lambda", [('ω', 'angular speed of the planet', 'rad s⁻¹'), ('λ', 'latitude', None)], 'Spherical rotating Earth; correction is zero at the poles')
-c.formula(T3, 'Gravitational potential energy', r'U = -\dfrac{G M m}{r}', [('U', 'potential energy', 'J'), ('m', 'the test mass', 'kg')], 'Zero at infinity; r measured from the centre of M')
-c.formula(T3, 'Escape velocity', r'v_e = \sqrt{\dfrac{2GM}{R}} = \sqrt{2gR}', [('v_e', 'escape speed', 'm s⁻¹')], 'Ignores air resistance and other bodies; independent of the body’s mass', '≈ 11.2 km/s for Earth')
-c.formula(T4, 'Orbital speed (circular orbit)', r'v = \sqrt{\dfrac{GM}{r}}', [('r', 'orbital radius, from the centre of the planet', 'm')], 'Circular orbit', 'Near the surface: √(gR) ≈ 7.9 km/s')
-c.formula(T4, 'Time period (circular orbit)', r'T = 2\pi\sqrt{\dfrac{r^{3}}{GM}}', [('T', 'period', 's')], 'Circular orbit; for ellipses use the semi-major axis a in place of r')
-c.formula(T4, 'Energies of a circular orbit', r'K = \dfrac{GMm}{2r},\quad U = -\dfrac{GMm}{r},\quad E = -\dfrac{GMm}{2r}', [('K', 'kinetic energy', 'J'), ('E', 'total energy', 'J')], 'Circular orbit', 'K = −E and U = 2E')
+c.formula(T1, 'Gravitational field of a point mass', r'g = \dfrac{G M}{r^{2}}', [('g', 'field (force per unit mass), directed toward M', 'N kg⁻¹ = m s⁻²'), ('G', 'universal gravitational constant', 'N m² kg⁻²'), ('M', 'the source mass', 'kg'), ('r', 'distance from the centre of M', 'm')],
+          'r ≥ R for a sphere; zero inside a thin uniform shell', None, None, 'N kg⁻¹ (= m s⁻²)')
+c.formula(T2, 'Surface value of g', r'g = \dfrac{G M}{R^{2}}\ \Longrightarrow\ GM = gR^{2}', [('g', 'acceleration due to gravity at the surface', 'm s⁻²'), ('G', 'universal gravitational constant', 'N m² kg⁻²'), ('M', 'mass of the planet', 'kg'), ('R', 'radius of the planet', 'm')],
+          'Evaluated at the surface of a spherically symmetric planet (ignoring rotation)', 'Used to replace GM whenever g and R are given.', None, 'm s⁻²')
+c.formula(T2, 'g at height h', r'g_h = g\left(\dfrac{R}{R+h}\right)^{2} \approx g\left(1-\dfrac{2h}{R}\right)', [('g_h', 'acceleration due to gravity at height h', 'm s⁻²'), ('g', 'value at the surface', 'm s⁻²'), ('h', 'height above the surface', 'm'), ('R', 'radius of the planet', 'm')],
+          'The approximate form needs h much smaller than R (error below about 0.5% for h < R/50)', None, None, 'm s⁻²')
+c.formula(T2, 'g at depth d', r'g_d = g\left(1-\dfrac{d}{R}\right)', [('g_d', 'acceleration due to gravity at depth d', 'm s⁻²'), ('g', 'value at the surface', 'm s⁻²'), ('d', 'depth below the surface', 'm'), ('R', 'radius of the planet', 'm')],
+          'Uniform-density planet (the real Earth’s denser core changes this)', None, None, 'm s⁻²')
+c.formula(T2, 'Apparent g at latitude λ', r"g' = g - \omega^{2}R\cos^{2}\lambda", [("g'", 'apparent value of g at latitude λ', 'm s⁻²'), ('g', 'value without rotation', 'm s⁻²'), ('ω', 'angular speed of the planet', 'rad s⁻¹'), ('R', 'radius of the planet', 'm'), ('λ', 'latitude (0° at the equator, 90° at the poles)', 'degrees or rad')],
+          'Spherical rotating planet at the surface; the correction is zero at the poles', None, None, 'm s⁻²')
+c.formula(T3, 'Gravitational potential energy', r'U = -\dfrac{G M m}{r}', [('U', 'gravitational potential energy of the pair', 'J'), ('G', 'universal gravitational constant', 'N m² kg⁻²'), ('M', 'the large mass', 'kg'), ('m', 'the test mass', 'kg'), ('r', 'distance between the centres', 'm')],
+          'Zero at infinity; r ≥ R for a sphere', None, None, 'J')
+c.formula(T3, 'Escape velocity', r'v_e = \sqrt{\dfrac{2GM}{R}} = \sqrt{2gR}', [('v_e', 'escape speed from the surface', 'm s⁻¹'), ('G', 'universal gravitational constant', 'N m² kg⁻²'), ('M', 'mass of the planet', 'kg'), ('R', 'radius of the planet', 'm'), ('g', 'surface value of g', 'm s⁻²')],
+          'Ignores air resistance, rotation and other bodies; independent of the projectile’s mass', '≈ 11.2 km/s for Earth', None, 'm s⁻¹')
+c.formula(T4, 'Orbital speed (circular orbit)', r'v = \sqrt{\dfrac{GM}{r}}', [('v', 'orbital speed', 'm s⁻¹'), ('G', 'universal gravitational constant', 'N m² kg⁻²'), ('M', 'mass of the planet', 'kg'), ('r', 'orbital radius, measured from the centre of the planet', 'm')],
+          'Circular orbit', 'Near the surface: √(gR) ≈ 7.9 km/s', None, 'm s⁻¹')
+c.formula(T4, 'Time period (circular orbit)', r'T = 2\pi\sqrt{\dfrac{r^{3}}{GM}}', [('T', 'period', 's'), ('r', 'orbital radius, measured from the centre of the planet', 'm'), ('G', 'universal gravitational constant', 'N m² kg⁻²'), ('M', 'mass of the planet', 'kg')],
+          'Circular orbit; for ellipses use the semi-major axis a in place of r', 'Squaring gives Kepler’s third law: T² ∝ r³', None, 's')
+c.formula(T4, 'Energies of a circular orbit', r'K = \dfrac{GMm}{2r},\quad U = -\dfrac{GMm}{r},\quad E = -\dfrac{GMm}{2r}', [('K', 'kinetic energy of the satellite', 'J'), ('U', 'potential energy (zero at infinity)', 'J'), ('E', 'total energy', 'J'), ('m', 'mass of the satellite', 'kg'), ('M', 'mass of the planet', 'kg'), ('r', 'orbital radius', 'm')],
+          'Circular orbit', 'K = −E and U = 2E', None, 'J')
 
 # ---------- Questions ----------
 c.mcq(T1, r'The distance between two masses is doubled and one mass is also doubled. The force becomes', [(r'$\tfrac12$ of the original', 0.5), (r'$\tfrac14$ of the original', 0.25), (r'the same', 1), (r'$2$ times', 2)], 0, 2 / 2**2, 'foundation', r'$F\propto m_1m_2/r^2$: $2/4=1/2$.')

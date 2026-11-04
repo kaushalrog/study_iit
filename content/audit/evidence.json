@@ -1,0 +1,332 @@
+{
+ "generated": "2026-11-05",
+ "method": "content/audit/audit.py",
+ "evidence": {
+  "formula": {
+   "Complementary pair: sine and cosine": [
+    {
+     "check": "Tested at 1000 random points in [-1, 1]; largest error 4.4e-16",
+     "passed": true
+    }
+   ],
+   "Negative argument of the inverse cosine": [
+    {
+     "check": "Tested at 1000 random points in [-1, 1]; largest error 4.4e-16",
+     "passed": true
+    }
+   ],
+   "Negative argument of the inverse sine": [
+    {
+     "check": "Tested at 1000 random points in [-1, 1]; largest error 0.0e+00",
+     "passed": true
+    }
+   ],
+   "Complementary pair: tangent and cotangent": [
+    {
+     "check": "Tested 1000 random reals with cot^-1 taken in (0, pi)",
+     "passed": true
+    },
+    {
+     "check": "Checked atan(x)+acot(x)=pi/2 using the (0, pi) branch of acot at 1000 random reals",
+     "passed": true
+    }
+   ],
+   "Inverse sine of a sine": [
+    {
+     "check": "Compared (-1)^k (x - k pi) with asin(sin x) at 2000 random x in [-60, 60]",
+     "passed": true
+    }
+   ],
+   "Inverse cosine of a cosine on [0, 2π]": [
+    {
+     "check": "Compared with acos(cos x) at 1000 random x in [0, 2 pi]",
+     "passed": true
+    }
+   ],
+   "Sum of inverse tangents": [
+    {
+     "check": "Compared the case-wise formula with atan x + atan y at 5000 random pairs (all three cases)",
+     "passed": true
+    }
+   ],
+   "Double angle: inverse tangent form": [
+    {
+     "check": "1000 random |x|<1 values",
+     "passed": true
+    }
+   ],
+   "Double angle: inverse sine form": [
+    {
+     "check": "1000 random |x|<=1 values",
+     "passed": true
+    }
+   ],
+   "Double angle: inverse cosine form": [
+    {
+     "check": "1000 random x>=0 values; and for x<0 the right side equals -2 atan x",
+     "passed": true
+    }
+   ],
+   "Binomial theorem": [
+    {
+     "check": "Multiplied (a + bx)^n out term by term for 300 random (a, b, n) and compared every coefficient",
+     "passed": true
+    }
+   ],
+   "Pascal’s rule": [
+    {
+     "check": "Checked all n up to 60",
+     "passed": true
+    }
+   ],
+   "General term": [
+    {
+     "check": "Compared T(r+1) with the multiplied-out polynomial, n up to 14",
+     "passed": true
+    }
+   ],
+   "Middle term": [
+    {
+     "check": "Counted terms for n up to 30: one middle for even n, two for odd n, at the stated positions",
+     "passed": true
+    }
+   ],
+   "Ratio of consecutive terms": [
+    {
+     "check": "Ratio of 1500 consecutive coefficient pairs matches (n-r+1)/r * b/a",
+     "passed": true
+    }
+   ],
+   "Sum of all binomial coefficients": [
+    {
+     "check": "n up to 60",
+     "passed": true
+    }
+   ],
+   "Sum of even-indexed coefficients": [
+    {
+     "check": "n from 1 to 60",
+     "passed": true
+    }
+   ],
+   "Sum of r times the coefficient": [
+    {
+     "check": "n from 1 to 60",
+     "passed": true
+    }
+   ],
+   "Sum of r squared times the coefficient": [
+    {
+     "check": "n from 2 to 60",
+     "passed": true
+    }
+   ],
+   "Sum of squares of coefficients": [
+    {
+     "check": "n up to 60",
+     "passed": true
+    }
+   ],
+   "Numerically greatest term": [
+    {
+     "check": "Compared against brute-force maximum for n<=30, a,b in 1..7 (1470 cases); mismatches: 0",
+     "passed": true
+    }
+   ],
+   "Newton's law of gravitation": [
+    {
+     "check": "Dimensions of G m1 m2 / r^2 equal those of force (M L T^-2)",
+     "passed": true
+    }
+   ],
+   "Gravitational field of a point mass": [
+    {
+     "check": "Dimensions of G M / r^2 equal acceleration (L T^-2)",
+     "passed": true
+    }
+   ],
+   "Surface value of g": [
+    {
+     "check": "Dimensions of G M / R^2 equal acceleration",
+     "passed": true
+    },
+    {
+     "check": "With G, M and R of Earth, GM/R^2 = 9.820 m/s^2 (observed 9.81)",
+     "passed": true
+    }
+   ],
+   "Apparent g at latitude λ": [
+    {
+     "check": "Dimensions of omega^2 R equal acceleration",
+     "passed": true
+    }
+   ],
+   "Gravitational potential energy": [
+    {
+     "check": "Dimensions of G M m / r equal energy (M L^2 T^-2)",
+     "passed": true
+    }
+   ],
+   "Escape velocity": [
+    {
+     "check": "Dimensions of sqrt(2 G M / R) and sqrt(2 g R) equal velocity (L T^-1)",
+     "passed": true
+    },
+    {
+     "check": "sqrt(2GM/R) = 11.19 km/s (accepted value 11.19)",
+     "passed": true
+    }
+   ],
+   "Orbital speed (circular orbit)": [
+    {
+     "check": "Dimensions of sqrt(G M / r) equal velocity",
+     "passed": true
+    }
+   ],
+   "Time period (circular orbit)": [
+    {
+     "check": "Dimensions of sqrt(r^3 / G M) equal time",
+     "passed": true
+    },
+    {
+     "check": "Moon: T = 27.5 days from r = 3.844e8 m (sidereal month 27.3 days)",
+     "passed": true
+    }
+   ],
+   "Energies of a circular orbit": [
+    {
+     "check": "Dimensions of G M m / (2 r) equal energy",
+     "passed": true
+    }
+   ],
+   "g at height h": [
+    {
+     "check": "For h = 1 km the approximation differs from the exact value by 7.4e-08 (relative)",
+     "passed": true
+    }
+   ],
+   "g at depth d": [
+    {
+     "check": "Uniform sphere: G*M(r)/r^2 with M(r) = M (r/R)^3 gives g r/R at 100 radii",
+     "passed": true
+    }
+   ],
+   "Half-life of a first-order reaction": [
+    {
+     "check": "Euler simulation of d[A]/dt = -k[A] with k=0.0693: t1/2 = 10.00 (formula 10.00)",
+     "passed": true
+    }
+   ],
+   "Zero-order integrated rate law": [
+    {
+     "check": "Simulated: t1/2 = 200.05 for k=2.5e-4, [A]0=0.1 (formula 200.0)",
+     "passed": true
+    }
+   ],
+   "Second-order integrated rate law": [
+    {
+     "check": "Simulated: t1/2 = 4.762 for k=0.3, [A]0=0.7 (formula 4.762)",
+     "passed": true
+    }
+   ],
+   "Half-life and initial concentration": [
+    {
+     "check": "Simulated half-lives at two concentrations for orders 0, 1, 2, 3 and checked the ratio rule",
+     "passed": true
+    }
+   ],
+   "First-order integrated rate law": [
+    {
+     "check": "Euler simulation of d[A]/dt = -k[A], k = 0.05, to t = 20: ln([A]0/[A]) = 1.0000 (formula k t = 1.0000)",
+     "passed": true
+    }
+   ],
+   "Arrhenius equation at two temperatures": [
+    {
+     "check": "ln(k2/k1) from k = A exp(-Ea/RT) directly, 500 random (Ea, T1, T2)",
+     "passed": true
+    }
+   ],
+   "First-order rate constant from pressures": [
+    {
+     "check": "Pressure of A from total pressure: Pt = P0 + x and PA = P0 - x, so PA = 2 P0 - Pt, for 1000 random cases",
+     "passed": true
+    }
+   ]
+  },
+  "question": {
+   "The domain of $f(x)=\\sin^{-1}(3x-2)$ is": [
+    {
+     "check": "Scanned the real line for where asin(3x-2) is defined: [0.3334, 1.0000]",
+     "passed": true
+    }
+   ],
+   "The domain of $f(x)=\\cos^{-1}(2x)+\\sin^{-1}(x)$ is": [
+    {
+     "check": "Scanned for where acos(2x)+asin(x) is defined: [-0.5000, 0.5000]",
+     "passed": true
+    }
+   ],
+   "The number of integers in the domain of $f(x)=\\sin^{-1}\\!\\left(\\log_2\\dfrac{x}{2}\\right)$ is": [
+    {
+     "check": "Tested every integer from -10 to 19: [1, 2, 3, 4]",
+     "passed": true
+    }
+   ],
+   "The number of real solutions of $\\tan^{-1}(2x)+\\tan^{-1}(3x)=\\tfrac{\\pi}{4}$ is": [
+    {
+     "check": "Counted sign changes of the left side minus pi/4 on [-50, 50]: roots near [0.167]",
+     "passed": true
+    }
+   ],
+   "For $(1+2x)^8$ at $x=1$ the numerically greatest term(s) are": [
+    {
+     "check": "Brute force: greatest term(s) are T[6, 7]",
+     "passed": true
+    }
+   ],
+   "The gravitational field at a point inside a thin uniform spherical shell is": [
+    {
+     "check": "Summed forces from 400,000 random points on a unit shell: inside |g| = 0.0038, outside (r=2) |g| = 0.2503 vs 1/r^2 = 0.25",
+     "passed": true
+    }
+   ],
+   "A body is projected from Earth’s surface with speed $v_e/2$. The maximum height reached is $R/k$. Find $k$.": [
+    {
+     "check": "Integrated the motion numerically (units GM=R=1): max height = 0.3333 R, so k = 3.001",
+     "passed": true
+    }
+   ],
+   "The height $h$ (in km, rounded to the nearest integer) at which $g$ decreases by $1\\%$, using $R=6400$ km and the exact formula, is closest to": [
+    {
+     "check": "Bisection on (R/(R+h))^2 = 0.99: h = 32.24 km",
+     "passed": true
+    }
+   ],
+   "If $g$ is the same at height $h$ and depth $d$ ($h\\ll R$), then": [
+    {
+     "check": "Solved (R/(R+h))^2 = 1 - d/R numerically for h = R/1000: d/h = 1.997",
+     "passed": true
+    }
+   ],
+   "A planet orbits at four times the distance of another planet from the same star. Its period is": [
+    {
+     "check": "Simulated circular orbits (units GM=1): T(4)/T(1) = 8.000 (expected 8)",
+     "passed": true
+    }
+   ],
+   "A first-order reaction is $20\\%$ complete in $10$ min. The time for $80\\%$ completion (min) is closest to": [
+    {
+     "check": "Simulated d[A]/dt=-k[A]: k fixed by 20% at 10 min, time to 20% left = 72.1 min",
+     "passed": true
+    }
+   ],
+   "The unit of the rate constant of a first-order reaction is": [
+    {
+     "check": "Dimension analysis: rate [conc time^-1] = k [conc]^1  =>  [k] = time^-1",
+     "passed": true
+    }
+   ]
+  }
+ }
+}

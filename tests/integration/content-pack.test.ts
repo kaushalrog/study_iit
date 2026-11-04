@@ -1,6 +1,8 @@
 /** @jest-environment node */
 import { migrate } from '../../src/database/migrations';
 import { loadStarterLibrary, starterBundles, starterTotals } from '../../src/content/starter';
+import { contentRepo } from '../../src/database/repositories/content';
+import { reviewsRepo } from '../../src/database/repositories/reviews';
 import { coverageRepo } from '../../src/database/repositories/coverage';
 import { questionRepo } from '../../src/database/repositories/questions';
 import { searchRepo } from '../../src/database/repositories/search';
@@ -66,5 +68,60 @@ describe('starter content pack', () => {
     expect((await searchRepo.search(db, 'escape velocity')).some((h) => h.kind === 'lesson' || h.kind === 'topic')).toBe(true);
     expect((await searchRepo.search(db, 'arrhenius')).length).toBeGreaterThan(0);
     expect((await db.first<{ n: number }>('SELECT COUNT(*) n FROM question_solutions'))!.n).toBe(starterTotals().questions);
+  });
+});
+
+describe('corrections and audit evidence', () => {
+  it('every audit-evidence key matches a real record (no orphaned evidence)', async () => {
+    const ev = require('../../content/audit/evidence.json').evidence as { formula: Record<string, unknown>; question: Record<string, unknown> };
+    const db = await fresh(); await loadStarterLibrary(db);
+    for (const name of Object.keys(ev.formula)) expect(await db.first('SELECT 1 AS x FROM formulas WHERE name = ?', [name])).not.toBeNull();
+    for (const stem of Object.keys(ev.question)) expect(await db.first('SELECT 1 AS x FROM questions WHERE stem = ?', [stem])).not.toBeNull();
+  });
+
+  it('records automated and AI evidence, and none of it approves anything', async () => {
+    const db = await fresh(); await loadStarterLibrary(db);
+    const roles = await db.all<{ reviewer_role: string; n: number }>('SELECT reviewer_role, COUNT(*) n FROM content_reviews GROUP BY reviewer_role');
+    const by = Object.fromEntries(roles.map((r) => [r.reviewer_role, r.n]));
+    expect(by.automated).toBeGreaterThan(40); expect(by.ai_assistant).toBeGreaterThanOrEqual(82);
+    expect(by.academic_reviewer ?? 0).toBe(0);
+    await reviewsRepo.setReviewers(db, ['Claude (AI assistant)', 'ORBIT audit script']);   // even if listed as reviewers, wrong role
+    const t = await reviewsRepo.totals(db);
+    expect(t.question.approved + t.formula.approved + t.lesson.approved + t.video.approved).toBe(0);
+  });
+
+  it('loading twice adds no evidence twice', async () => {
+    const db = await fresh(); await loadStarterLibrary(db);
+    const n = (await db.first<{ n: number }>('SELECT COUNT(*) n FROM content_reviews'))!.n;
+    await loadStarterLibrary(db);
+    expect((await db.first<{ n: number }>('SELECT COUNT(*) n FROM content_reviews'))!.n).toBe(n);
+  });
+
+  it('a device that loaded the earlier pack gets the correction: old lesson withdrawn, new one added, formula details refreshed', async () => {
+    const db = await fresh(); await loadStarterLibrary(db);
+    const retired = (require('../../content/retired.json').retired as { kind: string; chapter: string; body?: string; topic?: string; section?: string; level?: string; language?: string }[]).filter((r) => r.kind === 'lesson');
+    expect(retired.length).toBeGreaterThan(0);
+    // simulate an older install: put the withdrawn lesson back as an unconfirmed lesson, and strip a formula's new details
+    const g = (await contentRepo.resolveChapter(db, retired[0].chapter))!;
+    const old = retired.find((r) => r.chapter === g.title)!;
+    await contentRepo.importBundle(db, g.id, { chapter: g.title, topics: [], lessons: [{ topic: old.topic, section: old.section as never, level: old.level as never, language: 'en', body: old.body!, source: 'old' }], formulas: [], questions: [], videos: [] }, false);
+    const fid = (await db.first<{ id: string }>("SELECT id FROM formulas WHERE name = 'Escape velocity'"))!.id;
+    await db.run("UPDATE formulas SET variables_json = '[]', units = NULL WHERE id = ?", [fid]);
+    const live = async () => (await db.first<{ n: number }>("SELECT COUNT(*) n FROM learning_content WHERE body LIKE '%few bacteria%' AND deleted_at IS NULL"))!.n;
+    expect(await live()).toBe(1);
+    const reports = await loadStarterLibrary(db);
+    expect(await live()).toBe(0);
+    expect((await db.first<{ n: number }>("SELECT COUNT(*) n FROM learning_content WHERE body LIKE '%grain of sand%' AND deleted_at IS NULL"))!.n).toBe(1);
+    expect(reports.reduce((a, r) => a + r.updated, 0)).toBeGreaterThanOrEqual(1);
+    const f = (await db.first<{ variables_json: string; units: string | null }>('SELECT variables_json, units FROM formulas WHERE id = ?', [fid]))!;
+    expect(JSON.parse(f.variables_json).length).toBeGreaterThan(3); expect(f.units).toBe('m s⁻¹');
+  });
+
+  it('never overwrites a formula a person has already confirmed', async () => {
+    const db = await fresh(); await loadStarterLibrary(db);
+    const fid = (await db.first<{ id: string }>("SELECT id FROM formulas WHERE name = 'Escape velocity'"))!.id;
+    await db.run("UPDATE formulas SET verification_status = 'verified', conditions = 'my own edit' WHERE id = ?", [fid]);
+    await loadStarterLibrary(db);
+    expect((await db.first<{ conditions: string }>('SELECT conditions FROM formulas WHERE id = ?', [fid]))!.conditions).toBe('my own edit');
   });
 });

@@ -33,7 +33,7 @@
    "section": "explanation",
    "level": "foundation",
    "language": "en",
-   "body": "**The law.** Two point masses $m_1$ and $m_2$ a distance $r$ apart attract each other with a force\n$$F=\\frac{G\\,m_1m_2}{r^2}.$$\n$G=6.67\\times10^{-11}\\ \\mathrm{N\\,m^2\\,kg^{-2}}$ is the universal gravitational constant.\n\n**What each part says.**\n- The force is proportional to **each** mass: doubling one mass doubles the force.\n- The force falls as the **square of the distance**: doubling the distance cuts the force to a quarter.\n- The force is always **attractive** and acts along the line joining the masses.\n- Forces on the two bodies are equal and opposite (Newton's third law), even if the masses differ.\n\n**Gravitational field.** The field at a point is the force per unit mass on a small test mass placed there: $\\vec g=\\vec F/m$. For a point mass $M$ at distance $r$, $g=\\dfrac{GM}{r^2}$, directed toward $M$. Fields from several masses add as vectors (**superposition**).\n\n**Spheres.** A uniform solid sphere or thin shell attracts outside bodies as if all its mass were at its centre (for $r\\ge R$). Inside a thin uniform shell the field is zero.\n\n**Why $G$ is tiny.** For two 1 kg masses 1 m apart, $F=6.67\\times10^{-11}$ N, about the weight of a few bacteria. Gravity matters only when at least one mass is astronomical.",
+   "body": "**The law.** Two point masses $m_1$ and $m_2$ a distance $r$ apart attract each other with a force\n$$F=\\frac{G\\,m_1m_2}{r^2}.$$\n$G=6.67\\times10^{-11}\\ \\mathrm{N\\,m^2\\,kg^{-2}}$ is the universal gravitational constant.\n\n**What each part says.**\n- The force is proportional to **each** mass: doubling one mass doubles the force.\n- The force falls as the **square of the distance**: doubling the distance cuts the force to a quarter.\n- The force is always **attractive** and acts along the line joining the masses.\n- Forces on the two bodies are equal and opposite (Newton's third law), even if the masses differ.\n\n**Gravitational field.** The field at a point is the force per unit mass on a small test mass placed there: $\\vec g=\\vec F/m$. For a point mass $M$ at distance $r$, $g=\\dfrac{GM}{r^2}$, directed toward $M$. Fields from several masses add as vectors (**superposition**).\n\n**Spheres.** A uniform solid sphere or thin shell attracts outside bodies as if all its mass were at its centre (for $r\\ge R$). Inside a thin uniform shell the field is zero.\n\n**Why $G$ is tiny.** For two 1 kg masses 1 m apart, $F=6.67\\times10^{-11}$ N, roughly a hundred thousand times smaller than the weight of a grain of sand (about a milligram). Gravity matters only when at least one mass is astronomical.",
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Newton's law of gravitation and the gravitational field"
   },
@@ -273,7 +273,7 @@
    "section": "explanation",
    "level": "main",
    "language": "en",
-   "body": "**Circular orbit of radius $r$ around mass $M$.** Gravity provides the centripetal force, so $\\dfrac{GMm}{r^2}=\\dfrac{mv^2}{r}$:\n- Orbital speed $v=\\sqrt{\\dfrac{GM}{r}}$ (independent of the satellite's mass).\n- Period $T=2\\pi\\sqrt{\\dfrac{r^3}{GM}}$, so $T^2\\propto r^3$.\n- Close to the surface, $r\\approx R$ and $v_o=\\sqrt{gR}\\approx7.9$ km/s, $T\\approx84$ minutes.\n\n**Energies in a circular orbit.**\n$K=\\dfrac{GMm}{2r}$, $U=-\\dfrac{GMm}{r}$, $E=K+U=-\\dfrac{GMm}{2r}$. So $K=-E$ and $U=2E$. The total energy is negative: the satellite is bound. To escape it needs extra energy $\\dfrac{GMm}{2r}$.\n\n**Weightlessness.** Inside an orbiting satellite everything falls with the same acceleration, so there is no contact force between you and the floor. Gravity has not vanished: at the altitude of the International Space Station, $g$ is still about $90\\%$ of its surface value.\n\n**Geostationary satellite.** Its period is one sidereal day ($\\approx23$ h $56$ min), it orbits above the equator in the same direction as Earth's rotation, and it hovers over one point. Its orbital radius is about $4.22\\times10^7$ m, i.e. a height of about $3.6\\times10^7$ m ($36{,}000$ km) above the surface.\n\n**Kepler's laws.**\n1. **Orbits:** each planet moves in an ellipse with the Sun at one focus.\n2. **Areas:** the line from the Sun to a planet sweeps equal areas in equal times (this is conservation of angular momentum).\n3. **Periods:** $T^2\\propto a^3$, where $a$ is the semi-major axis.",
+   "body": "**Circular orbit of radius $r$ around mass $M$.** Gravity provides the centripetal force, so $\\dfrac{GMm}{r^2}=\\dfrac{mv^2}{r}$:\n- Orbital speed $v=\\sqrt{\\dfrac{GM}{r}}$ (independent of the satellite's mass).\n- Period $T=2\\pi\\sqrt{\\dfrac{r^3}{GM}}$, so $T^2\\propto r^3$.\n- Close to the surface, $r\\approx R$ and $v_o=\\sqrt{gR}\\approx7.9$ km/s, $T\\approx84$ minutes.\n\n**Energies in a circular orbit.**\n$K=\\dfrac{GMm}{2r}$, $U=-\\dfrac{GMm}{r}$, $E=K+U=-\\dfrac{GMm}{2r}$. So $K=-E$ and $U=2E$. The total energy is negative: the satellite is bound. To escape it needs extra energy $\\dfrac{GMm}{2r}$.\n\n**Weightlessness.** Inside an orbiting satellite everything falls with the same acceleration, so there is no contact force between you and the floor. Gravity has not vanished: at the altitude of the International Space Station, $g$ is still about $88\\%$ of its surface value.\n\n**Geostationary satellite.** Its period is one sidereal day ($\\approx23$ h $56$ min), it orbits above the equator in the same direction as Earth's rotation, and it hovers over one point. Its orbital radius is about $4.22\\times10^7$ m, i.e. a height of about $3.6\\times10^7$ m ($36{,}000$ km) above the surface.\n\n**Kepler's laws.**\n1. **Orbits:** each planet moves in an ellipse with the Sun at one focus.\n2. **Areas:** the line from the Sun to a planet sweeps equal areas in equal times (this is conservation of angular momentum).\n3. **Periods:** $T^2\\propto a^3$, where $a$ is the semi-major axis.",
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Satellites and Kepler's laws"
   },
@@ -349,12 +349,12 @@
    "variables": [
     {
      "symbol": "F",
-     "meaning": "attractive force",
+     "meaning": "attractive force between the two masses",
      "unit": "N"
     },
     {
      "symbol": "G",
-     "meaning": "gravitational constant, 6.67 × 10⁻¹¹",
+     "meaning": "universal gravitational constant, 6.67 × 10⁻¹¹",
      "unit": "N m² kg⁻²"
     },
     {
@@ -380,8 +380,13 @@
    "variables": [
     {
      "symbol": "g",
-     "meaning": "field (force per unit mass)",
-     "unit": "N kg⁻¹"
+     "meaning": "field (force per unit mass), directed toward M",
+     "unit": "N kg⁻¹ = m s⁻²"
+    },
+    {
+     "symbol": "G",
+     "meaning": "universal gravitational constant",
+     "unit": "N m² kg⁻²"
     },
     {
      "symbol": "M",
@@ -390,18 +395,29 @@
     },
     {
      "symbol": "r",
-     "meaning": "distance from the centre",
+     "meaning": "distance from the centre of M",
      "unit": "m"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Newton's law of gravitation and the gravitational field",
-   "conditions": "r ≥ R for a sphere; zero inside a thin uniform shell"
+   "conditions": "r ≥ R for a sphere; zero inside a thin uniform shell",
+   "units": "N kg⁻¹ (= m s⁻²)"
   },
   {
    "name": "Surface value of g",
    "latex": "g = \\dfrac{G M}{R^{2}}\\ \\Longrightarrow\\ GM = gR^{2}",
    "variables": [
+    {
+     "symbol": "g",
+     "meaning": "acceleration due to gravity at the surface",
+     "unit": "m s⁻²"
+    },
+    {
+     "symbol": "G",
+     "meaning": "universal gravitational constant",
+     "unit": "N m² kg⁻²"
+    },
     {
      "symbol": "M",
      "meaning": "mass of the planet",
@@ -415,12 +431,24 @@
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Acceleration due to gravity and its variation",
-   "explanation": "Used to replace GM whenever g and R are given."
+   "conditions": "Evaluated at the surface of a spherically symmetric planet (ignoring rotation)",
+   "explanation": "Used to replace GM whenever g and R are given.",
+   "units": "m s⁻²"
   },
   {
    "name": "g at height h",
    "latex": "g_h = g\\left(\\dfrac{R}{R+h}\\right)^{2} \\approx g\\left(1-\\dfrac{2h}{R}\\right)",
    "variables": [
+    {
+     "symbol": "g_h",
+     "meaning": "acceleration due to gravity at height h",
+     "unit": "m s⁻²"
+    },
+    {
+     "symbol": "g",
+     "meaning": "value at the surface",
+     "unit": "m s⁻²"
+    },
     {
      "symbol": "h",
      "meaning": "height above the surface",
@@ -434,39 +462,73 @@
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Acceleration due to gravity and its variation",
-   "conditions": "The approximate form needs h much smaller than R"
+   "conditions": "The approximate form needs h much smaller than R (error below about 0.5% for h < R/50)",
+   "units": "m s⁻²"
   },
   {
    "name": "g at depth d",
    "latex": "g_d = g\\left(1-\\dfrac{d}{R}\\right)",
    "variables": [
     {
+     "symbol": "g_d",
+     "meaning": "acceleration due to gravity at depth d",
+     "unit": "m s⁻²"
+    },
+    {
+     "symbol": "g",
+     "meaning": "value at the surface",
+     "unit": "m s⁻²"
+    },
+    {
      "symbol": "d",
      "meaning": "depth below the surface",
+     "unit": "m"
+    },
+    {
+     "symbol": "R",
+     "meaning": "radius of the planet",
      "unit": "m"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Acceleration due to gravity and its variation",
-   "conditions": "Uniform-density planet"
+   "conditions": "Uniform-density planet (the real Earth’s denser core changes this)",
+   "units": "m s⁻²"
   },
   {
    "name": "Apparent g at latitude λ",
    "latex": "g' = g - \\omega^{2}R\\cos^{2}\\lambda",
    "variables": [
     {
+     "symbol": "g'",
+     "meaning": "apparent value of g at latitude λ",
+     "unit": "m s⁻²"
+    },
+    {
+     "symbol": "g",
+     "meaning": "value without rotation",
+     "unit": "m s⁻²"
+    },
+    {
      "symbol": "ω",
      "meaning": "angular speed of the planet",
      "unit": "rad s⁻¹"
     },
     {
+     "symbol": "R",
+     "meaning": "radius of the planet",
+     "unit": "m"
+    },
+    {
      "symbol": "λ",
-     "meaning": "latitude"
+     "meaning": "latitude (0° at the equator, 90° at the poles)",
+     "unit": "degrees or rad"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Acceleration due to gravity and its variation",
-   "conditions": "Spherical rotating Earth; correction is zero at the poles"
+   "conditions": "Spherical rotating planet at the surface; the correction is zero at the poles",
+   "units": "m s⁻²"
   },
   {
    "name": "Gravitational potential energy",
@@ -474,18 +536,34 @@
    "variables": [
     {
      "symbol": "U",
-     "meaning": "potential energy",
+     "meaning": "gravitational potential energy of the pair",
      "unit": "J"
+    },
+    {
+     "symbol": "G",
+     "meaning": "universal gravitational constant",
+     "unit": "N m² kg⁻²"
+    },
+    {
+     "symbol": "M",
+     "meaning": "the large mass",
+     "unit": "kg"
     },
     {
      "symbol": "m",
      "meaning": "the test mass",
      "unit": "kg"
+    },
+    {
+     "symbol": "r",
+     "meaning": "distance between the centres",
+     "unit": "m"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Gravitational potential energy and escape velocity",
-   "conditions": "Zero at infinity; r measured from the centre of M"
+   "conditions": "Zero at infinity; r ≥ R for a sphere",
+   "units": "J"
   },
   {
    "name": "Escape velocity",
@@ -493,29 +571,66 @@
    "variables": [
     {
      "symbol": "v_e",
-     "meaning": "escape speed",
+     "meaning": "escape speed from the surface",
      "unit": "m s⁻¹"
+    },
+    {
+     "symbol": "G",
+     "meaning": "universal gravitational constant",
+     "unit": "N m² kg⁻²"
+    },
+    {
+     "symbol": "M",
+     "meaning": "mass of the planet",
+     "unit": "kg"
+    },
+    {
+     "symbol": "R",
+     "meaning": "radius of the planet",
+     "unit": "m"
+    },
+    {
+     "symbol": "g",
+     "meaning": "surface value of g",
+     "unit": "m s⁻²"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Gravitational potential energy and escape velocity",
-   "conditions": "Ignores air resistance and other bodies; independent of the body’s mass",
-   "explanation": "≈ 11.2 km/s for Earth"
+   "conditions": "Ignores air resistance, rotation and other bodies; independent of the projectile’s mass",
+   "explanation": "≈ 11.2 km/s for Earth",
+   "units": "m s⁻¹"
   },
   {
    "name": "Orbital speed (circular orbit)",
    "latex": "v = \\sqrt{\\dfrac{GM}{r}}",
    "variables": [
     {
+     "symbol": "v",
+     "meaning": "orbital speed",
+     "unit": "m s⁻¹"
+    },
+    {
+     "symbol": "G",
+     "meaning": "universal gravitational constant",
+     "unit": "N m² kg⁻²"
+    },
+    {
+     "symbol": "M",
+     "meaning": "mass of the planet",
+     "unit": "kg"
+    },
+    {
      "symbol": "r",
-     "meaning": "orbital radius, from the centre of the planet",
+     "meaning": "orbital radius, measured from the centre of the planet",
      "unit": "m"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Satellites and Kepler's laws",
    "conditions": "Circular orbit",
-   "explanation": "Near the surface: √(gR) ≈ 7.9 km/s"
+   "explanation": "Near the surface: √(gR) ≈ 7.9 km/s",
+   "units": "m s⁻¹"
   },
   {
    "name": "Time period (circular orbit)",
@@ -525,11 +640,28 @@
      "symbol": "T",
      "meaning": "period",
      "unit": "s"
+    },
+    {
+     "symbol": "r",
+     "meaning": "orbital radius, measured from the centre of the planet",
+     "unit": "m"
+    },
+    {
+     "symbol": "G",
+     "meaning": "universal gravitational constant",
+     "unit": "N m² kg⁻²"
+    },
+    {
+     "symbol": "M",
+     "meaning": "mass of the planet",
+     "unit": "kg"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Satellites and Kepler's laws",
-   "conditions": "Circular orbit; for ellipses use the semi-major axis a in place of r"
+   "conditions": "Circular orbit; for ellipses use the semi-major axis a in place of r",
+   "explanation": "Squaring gives Kepler’s third law: T² ∝ r³",
+   "units": "s"
   },
   {
    "name": "Energies of a circular orbit",
@@ -537,19 +669,40 @@
    "variables": [
     {
      "symbol": "K",
-     "meaning": "kinetic energy",
+     "meaning": "kinetic energy of the satellite",
+     "unit": "J"
+    },
+    {
+     "symbol": "U",
+     "meaning": "potential energy (zero at infinity)",
      "unit": "J"
     },
     {
      "symbol": "E",
      "meaning": "total energy",
      "unit": "J"
+    },
+    {
+     "symbol": "m",
+     "meaning": "mass of the satellite",
+     "unit": "kg"
+    },
+    {
+     "symbol": "M",
+     "meaning": "mass of the planet",
+     "unit": "kg"
+    },
+    {
+     "symbol": "r",
+     "meaning": "orbital radius",
+     "unit": "m"
     }
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Satellites and Kepler's laws",
    "conditions": "Circular orbit",
-   "explanation": "K = −E and U = 2E"
+   "explanation": "K = −E and U = 2E",
+   "units": "J"
   }
  ],
  "questions": [

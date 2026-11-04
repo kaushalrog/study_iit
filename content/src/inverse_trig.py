@@ -389,8 +389,9 @@ c.formula(T3, 'Inverse sine of a sine', r'\sin^{-1}(\sin x) = (-1)^k (x - k\pi)'
 c.formula(T3, 'Inverse cosine of a cosine on [0, 2π]', r'\cos^{-1}(\cos x) = \begin{cases} x & 0 \le x \le \pi \\ 2\pi - x & \pi \le x \le 2\pi \end{cases}', [('x', 'angle in radians')], 'x in [0, 2π]')
 c.formula(T4, 'Sum of inverse tangents', r'\tan^{-1}x + \tan^{-1}y = \tan^{-1}\dfrac{x+y}{1-xy}', [('x', 'real number'), ('y', 'real number')],
           'Only when xy < 1. If xy > 1 and x, y > 0 add π; if xy > 1 and x, y < 0 subtract π.')
-c.formula(T4, 'Double angle form of inverse tangent', r'2\tan^{-1}x = \tan^{-1}\dfrac{2x}{1-x^2} = \sin^{-1}\dfrac{2x}{1+x^2}', [('x', 'real number')],
-          'First form for |x| < 1; second for |x| ≤ 1')
+c.formula(T4, 'Double angle: inverse tangent form', r'2\tan^{-1}x = \tan^{-1}\dfrac{2x}{1-x^2}', [('x', 'real number')], 'Only for |x| < 1 (for x > 1 add π, for x < −1 subtract π)')
+c.formula(T4, 'Double angle: inverse sine form', r'2\tan^{-1}x = \sin^{-1}\dfrac{2x}{1+x^2}', [('x', 'real number')], 'Only for |x| ≤ 1', 'For |x| > 1 the right side gives a different angle.')
+c.formula(T4, 'Double angle: inverse cosine form', r'2\tan^{-1}x = \cos^{-1}\dfrac{1-x^2}{1+x^2}', [('x', 'real number')], 'Only for x ≥ 0 (for x < 0 the right side equals −2 tan⁻¹ x)')
 
 # ---------- Questions (original; answer keys validated above) ----------
 D = lambda x: x

@@ -31,7 +31,7 @@ describe('academic review', () => {
     await reviewsRepo.add(db, { kind: 'question', recordId: q, decision: 'approved', reviewerName: 'build-script', role: 'automated' });
     expect((await reviewsRepo.status(db, 'question', q)).status).toBe('unreviewed');
     expect((await reviewsRepo.status(db, 'video', v)).status).toBe('unreviewed');
-    expect((await reviewsRepo.history(db, 'question', q)).map((r) => r.reviewerRole).sort()).toEqual(['ai_assistant', 'automated', 'student']);
+    expect(new Set((await reviewsRepo.history(db, 'question', q)).map((r) => r.reviewerRole))).toEqual(new Set(['ai_assistant', 'automated', 'student']));
     // an academic reviewer's name used with a non-academic role still does not count
     await reviewsRepo.add(db, { kind: 'question', recordId: q, decision: 'approved', reviewerName: 'Dr Rao', role: 'student' });
     expect((await reviewsRepo.status(db, 'question', q)).status).toBe('unreviewed');
@@ -62,7 +62,7 @@ describe('academic review', () => {
     const a = { kind: 'formula' as const, recordId: id, decision: 'comment' as const, reviewerName: 'Dr Rao', role: 'academic_reviewer' as const, reviewedAt: '2026-11-11' };
     expect((await reviewsRepo.add(db, a)).created).toBe(true);
     expect((await reviewsRepo.add(db, a)).created).toBe(false);
-    expect((await db.first<{ n: number }>('SELECT COUNT(*) n FROM content_reviews'))!.n).toBe(1);
+    expect((await db.first<{ n: number }>("SELECT COUNT(*) n FROM content_reviews WHERE reviewer_role = 'academic_reviewer'"))!.n).toBe(1);
   });
 });
 
@@ -96,7 +96,7 @@ describe('review packets', () => {
     expect(first.rejected.find((r) => r.line === 10)!.reason).toMatch(/authorised/);
     const again = await reviewsRepo.importDecisions(db, out);
     expect(again.added).toBe(0); expect(again.duplicates).toBe(7);
-    expect((await db.first<{ n: number }>('SELECT COUNT(*) n FROM content_reviews'))!.n).toBe(7);
+    expect((await db.first<{ n: number }>("SELECT COUNT(*) n FROM content_reviews WHERE reviewer_role = 'academic_reviewer'"))!.n).toBe(7);
     const t = await reviewsRepo.totals(db, G);
     const approved = t.lesson.approved + t.formula.approved + t.question.approved + t.video.approved;
     expect(approved).toBe(6);

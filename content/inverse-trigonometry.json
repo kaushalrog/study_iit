@@ -525,8 +525,8 @@
    "conditions": "Only when xy < 1. If xy > 1 and x, y > 0 add π; if xy > 1 and x, y < 0 subtract π."
   },
   {
-   "name": "Double angle form of inverse tangent",
-   "latex": "2\\tan^{-1}x = \\tan^{-1}\\dfrac{2x}{1-x^2} = \\sin^{-1}\\dfrac{2x}{1+x^2}",
+   "name": "Double angle: inverse tangent form",
+   "latex": "2\\tan^{-1}x = \\tan^{-1}\\dfrac{2x}{1-x^2}",
    "variables": [
     {
      "symbol": "x",
@@ -535,7 +535,34 @@
    ],
    "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
    "topic": "Sums of inverse tangents and equations",
-   "conditions": "First form for |x| < 1; second for |x| ≤ 1"
+   "conditions": "Only for |x| < 1 (for x > 1 add π, for x < −1 subtract π)"
+  },
+  {
+   "name": "Double angle: inverse sine form",
+   "latex": "2\\tan^{-1}x = \\sin^{-1}\\dfrac{2x}{1+x^2}",
+   "variables": [
+    {
+     "symbol": "x",
+     "meaning": "real number"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Sums of inverse tangents and equations",
+   "conditions": "Only for |x| ≤ 1",
+   "explanation": "For |x| > 1 the right side gives a different angle."
+  },
+  {
+   "name": "Double angle: inverse cosine form",
+   "latex": "2\\tan^{-1}x = \\cos^{-1}\\dfrac{1-x^2}{1+x^2}",
+   "variables": [
+    {
+     "symbol": "x",
+     "meaning": "real number"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Sums of inverse tangents and equations",
+   "conditions": "Only for x ≥ 0 (for x < 0 the right side equals −2 tan⁻¹ x)"
   }
  ],
  "questions": [

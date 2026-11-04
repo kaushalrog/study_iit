@@ -41,7 +41,7 @@ export interface FormulaRow {
 }
 
 export interface ImportCounts { topics: number; lessons: number; formulas: number; questions: number; videos: number }
-export interface ImportReport { added: ImportCounts; skipped: ImportCounts; chapterTitle: string }
+export interface ImportReport { added: ImportCounts; skipped: ImportCounts; /** Unconfirmed items whose text was improved by a newer version of the pack. */ updated: number; chapterTitle: string }
 
 const zero = (): ImportCounts => ({ topics: 0, lessons: 0, formulas: 0, questions: 0, videos: 0 });
 const norm = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
@@ -135,6 +135,7 @@ export const contentRepo = {
    */
   async importBundle(db: SqlDb, chapterId: string, bundle: ParsedBundle, verified: boolean): Promise<ImportReport> {
     const added = zero(), skipped = zero();
+    let updated = 0;
     const chapter = await db.first<{ title: string }>('SELECT title FROM chapters WHERE id = ?', [chapterId]);
     if (!chapter) throw new Error('Chapter not found.');
 
@@ -156,7 +157,11 @@ export const contentRepo = {
       }
       for (const f of bundle.formulas) {
         const id = seedId(`imp:formula:${chapterId}:${norm(f.name)}:${hash(f.latex.replace(/\s+/g, ''))}`);
-        if (await exists('formulas', id)) { skipped.formulas++; continue; }
+        if (await exists('formulas', id)) {
+          // Same formula, possibly with better variable definitions. Only overwrite while nobody has confirmed the old version.
+          if (await this.refreshFormula(db, id, f)) updated++; else skipped.formulas++;
+          continue;
+        }
         await this.addFormula(db, { chapterId, topicId: await topicId(f.topic), name: f.name, latex: f.latex, variables: f.variables, units: f.units ?? '', conditions: f.conditions ?? '',
           explanation: f.explanation ?? '', example: f.example ?? '', sourceNote: f.source ?? '', verified }, id);
         added.formulas++;
@@ -179,7 +184,35 @@ export const contentRepo = {
         had ? skipped.videos++ : added.videos++;
       }
     });
-    return { added, skipped, chapterTitle: chapter.title };
+    return { added, skipped, updated, chapterTitle: chapter.title };
+  },
+
+  /** Update an unconfirmed formula in place when a newer pack has better details. Returns true if it changed. */
+  async refreshFormula(db: SqlDb, id: string, f: ParsedBundle['formulas'][number]): Promise<boolean> {
+    const cur = await db.first<{ variables_json: string; units: string | null; conditions: string | null; explanation: string | null; example: string | null; verification_status: string }>(
+      'SELECT variables_json, units, conditions, explanation, example, verification_status FROM formulas WHERE id = ? AND deleted_at IS NULL', [id]);
+    if (!cur || !['draft', 'extracted', 'needs_review'].includes(cur.verification_status)) return false;
+    const next = { variables_json: JSON.stringify(f.variables), units: f.units ?? null, conditions: f.conditions ?? null, explanation: f.explanation ?? null, example: f.example ?? null };
+    const same = cur.variables_json === next.variables_json && (cur.units ?? null) === next.units && (cur.conditions ?? null) === next.conditions && (cur.explanation ?? null) === next.explanation && (cur.example ?? null) === next.example;
+    if (same) return false;
+    await db.tx(async () => {
+      await updateRow(db, 'formulas', id, next);
+      await reviewsRepo.add(db, { kind: 'formula', recordId: id, decision: 'edited', reviewerName: 'ORBIT content update', role: 'automated', feedback: 'Details improved by a newer version of the starter pack.',
+        evidence: `Previous details: variables ${cur.variables_json}; units ${cur.units ?? '-'}; conditions ${cur.conditions ?? '-'}; note ${cur.explanation ?? '-'}` });
+    });
+    return true;
+  },
+
+  /** Withdraw a lesson that a newer pack replaced (for example after a correction), unless someone has already confirmed it. */
+  async retireLesson(db: SqlDb, chapterId: string, e: { topic?: string | null; section: string; level: string; language: string; body: string; reason: string }): Promise<boolean> {
+    const id = seedId(`imp:lesson:${chapterId}:${norm(e.topic ?? '')}:${e.section}:${e.level}:${e.language}:${hash(norm(e.body))}`);
+    const cur = await db.first<{ verification_status: string }>('SELECT verification_status FROM learning_content WHERE id = ? AND deleted_at IS NULL', [id]);
+    if (!cur || !['draft', 'extracted', 'needs_review'].includes(cur.verification_status)) return false;
+    await db.tx(async () => {
+      await reviewsRepo.add(db, { kind: 'lesson', recordId: id, decision: 'comment', reviewerName: 'ORBIT content update', role: 'automated', feedback: `Replaced by a corrected version. ${e.reason}`, evidence: `Withdrawn text:\n${e.body}` });
+      await updateRow(db, 'learning_content', id, { deleted_at: new Date().toISOString() });
+    });
+    return true;
   },
 
   /** Match the chapter named in an import to a registered chapter (case-insensitive). */
