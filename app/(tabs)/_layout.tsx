@@ -25,6 +25,12 @@ export default function TabsLayout() {
       tabBarLabelStyle: { fontSize: 12, fontWeight: '600' },
       tabBarAllowFontScaling: false,
       tabBarActiveTintColor: colors.accentStrong, tabBarInactiveTintColor: colors.textMuted,
+      headerLeft: () => (
+        <Pressable accessibilityRole="button" accessibilityLabel="Search your library" onPress={() => router.push('/search')} android_ripple={{ color: colors.border, borderless: true, radius: 24 }}
+          style={{ minWidth: MIN_TOUCH, minHeight: MIN_TOUCH, alignItems: 'center', justifyContent: 'center', marginLeft: 8 }}>
+          <Ionicons name="search-outline" size={22} color={colors.accentStrong} />
+        </Pressable>
+      ),
       headerRight: () => (
         <Pressable accessibilityRole="button" accessibilityLabel="Ask the AI tutor" onPress={() => router.push('/tutor')} android_ripple={{ color: colors.border, borderless: true, radius: 24 }}
           style={{ minWidth: MIN_TOUCH, minHeight: MIN_TOUCH, alignItems: 'center', justifyContent: 'center', marginRight: 8 }}>
