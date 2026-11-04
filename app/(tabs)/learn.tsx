@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
-import { AppText, Card, EmptyState, ErrorState, FadeIn, Icon, LoadingState, Page, SubjectDot, Tag, space, useTheme } from '../../src/components/design-system';
+import { AppText, Button, Card, EmptyState, ErrorState, FadeIn, Icon, LoadingState, Page, SubjectDot, Tag, space, useTheme } from '../../src/components/design-system';
 import { useDb } from '../../src/database/DatabaseProvider';
 import { syllabusRepo } from '../../src/database/repositories/syllabus';
 import { useAsync } from '../../src/hooks/useAsync';
@@ -21,6 +21,7 @@ export default function Learn() {
   return (
     <Page>
       <AppText variant="caption">2026–2027 · Class 9 · Sri Chaitanya IPL</AppText>
+      <Button title="IIT roadmap: the long view" icon="map-outline" variant="secondary" onPress={() => router.push('/roadmap')} style={{ marginTop: space.sm }} />
       {groups.map(({ s, chapters }, gi) => (
         <FadeIn key={s} index={gi} style={{ marginTop: space.lg }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.sm, marginBottom: space.sm }}>
