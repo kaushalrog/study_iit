@@ -3,6 +3,7 @@ import type { BankQuestion, Difficulty } from '../../features/practice/quiz';
 import type { AnswerKeyEntry, QuestionType, SubjectKey } from '../../features/exam-engine/types';
 import { newId, seedId } from '../../utils/ids';
 import type { SqlDb } from '../sqlite/types';
+import { provenanceIssues } from '../../features/content/provenance';
 import { upsertRow } from './base';
 
 export const OPTION_KEYS = ['A', 'B', 'C', 'D', 'E', 'F'] as const;
@@ -21,10 +22,18 @@ export const newQuestionSchema = z
     explanation: z.string().default(''),
     hint: z.string().default(''),
     sourceNote: z.string().default(''),
+    /** Provenance. A question only counts as a previous-year question with all of exam, year and citation. */
+    examCategory: z.enum(['jee_main', 'jee_advanced', 'other_official']).nullable().default(null),
+    examYear: z.number().int().nullable().default(null),
+    examSession: z.string().default(''),
+    citation: z.string().default(''),
+    citationUrl: z.string().default(''),
+    license: z.enum(['open', 'permission', 'personal_use', 'unknown']).default('unknown'),
     /** The student confirms the answer key against a trusted source (book / teacher / answer key). */
     verified: z.boolean().default(false),
   })
   .superRefine((q, ctx) => {
+    for (const m of provenanceIssues(q)) ctx.addIssue({ code: 'custom', message: m });
     if (q.type === 'integer') {
       if (q.numeric === null) ctx.addIssue({ code: 'custom', message: 'Enter the numerical answer.' });
       return;
@@ -54,6 +63,8 @@ export const questionRepo = {
       await upsertRow(db, 'questions', {
         id, chapter_id: v.chapterId, type: v.type, stem: v.stem, options_json: JSON.stringify(options), difficulty: v.difficulty,
         origin: v.origin, verification_status: status, source_note: v.sourceNote || null,
+        exam_category: v.origin === 'official' ? v.examCategory : null, exam_year: v.origin === 'official' ? v.examYear : null,
+        exam_session: v.examSession || null, citation: v.citation.trim() || null, citation_url: v.citationUrl.trim() || null, license: v.license,
       });
       const answer: AnswerKeyEntry = v.type === 'integer' ? { numeric: v.numeric!, tolerance: v.tolerance } : { correct: Array.from(new Set(v.correct)).sort() };
       await upsertRow(db, 'question_solutions', {
