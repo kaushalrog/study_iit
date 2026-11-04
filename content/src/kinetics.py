@@ -19,7 +19,7 @@ c.lesson(None, 'introduction', 'foundation', r"""
 c.lesson(None, 'why_it_matters', 'main', r"""
 Chemical kinetics is one of the highest-scoring physical-chemistry chapters because the ideas are few and the numerical methods are standard: initial rates, integrated rate laws, half-lives and the Arrhenius equation. JEE Main asks mostly direct numerical questions and "which graph is correct" questions; JEE Advanced adds multi-step reasoning, mechanisms with a rate-determining step, and pressure-based data. The skills (logarithm handling, working with ratios, careful units) carry over to equilibrium and electrochemistry.
 
-**Syllabus note.** The official JEE syllabus lists rate of reaction, rate law and rate constant, order and molecularity, integrated rate equations and half-life for zero and first order, concept of collision theory and activation energy, and the Arrhenius equation. Kinetics at Class 9 level in a coaching programme may be introduced more lightly. The four-topic split here is ORBIT's provisional crosswalk, not the confirmed Chaitanya IPL scheme.
+**Syllabus note.** (The official syllabus PDF could not be retrieved when this was written, so the wording below comes from published summaries and has not been checked against it.) Published summaries of the JEE syllabus lists rate of reaction, rate law and rate constant, order and molecularity, integrated rate equations and half-life for zero and first order, concept of collision theory and activation energy, and the Arrhenius equation. Kinetics at Class 9 level in a coaching programme may be introduced more lightly. The four-topic split here is ORBIT's provisional crosswalk, not the confirmed Chaitanya IPL scheme.
 """)
 
 # ---------- Topic 1 ----------

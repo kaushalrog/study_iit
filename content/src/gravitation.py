@@ -23,7 +23,7 @@ c.lesson(None, 'introduction', 'foundation', r"""
 c.lesson(None, 'why_it_matters', 'main', r"""
 Gravitation is one of the most predictable chapters in JEE mechanics: almost every question reduces to Newton's law of gravitation, energy conservation, or circular-orbit equations. The same few expressions are combined in different ways, so a student who understands where $v_{orbit}=\sqrt{GM/r}$ and $v_{escape}=\sqrt{2GM/R}$ come from can rebuild any variant instead of memorising each one. Gravitation also trains habits needed in later chapters: choosing a reference for potential energy, using ratios to avoid numbers, and checking dimensions.
 
-**Syllabus note.** The official JEE syllabus lists universal law of gravitation, acceleration due to gravity and its variation with altitude and depth, Kepler's laws, gravitational potential energy and potential, escape velocity, and orbital velocity of a satellite. The four-topic grouping is ORBIT's provisional crosswalk, not the confirmed Chaitanya IPL scheme.
+**Syllabus note.** (The official syllabus PDF could not be retrieved when this was written, so the wording below comes from published summaries and has not been checked against it.) Published summaries of the JEE syllabus lists universal law of gravitation, acceleration due to gravity and its variation with altitude and depth, Kepler's laws, gravitational potential energy and potential, escape velocity, and orbital velocity of a satellite. The four-topic grouping is ORBIT's provisional crosswalk, not the confirmed Chaitanya IPL scheme.
 """)
 
 # ---------- Topic 1 ----------

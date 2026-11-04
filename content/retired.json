@@ -1,6 +1,36 @@
 {
  "retired": [
   {
+   "chapter": "Inverse Trigonometry",
+   "kind": "lesson",
+   "topic": null,
+   "section": "why_it_matters",
+   "level": "main",
+   "language": "en",
+   "body": "Inverse trigonometric functions appear in JEE Main and Advanced in three ways: direct evaluation and simplification (almost always involving principal values), domain and range questions that combine them with logarithms and quadratics, and integration and differentiation later (for example $\\int \\frac{dx}{1+x^2} = \\tan^{-1}x + C$). In physics they appear whenever you need an angle from a ratio, such as the angle of a resultant vector or the launch angle for a given range. The chapter is short, but almost every mark is lost to the same few causes: forgetting the principal range, ignoring the condition $xy<1$, or keeping an extraneous root. The four topics below are ordered to remove those causes one at a time.\n\n**Syllabus note.** The official JEE syllabi list inverse trigonometric functions under Trigonometry. The topic split here is ORBIT's own provisional crosswalk. The Chaitanya IPL scheme for the school year may order or group these differently, so confirm the exact scope with her teacher.",
+   "reason": "Replaced by a corrected or clarified version (review of 2026-11-05)"
+  },
+  {
+   "chapter": "Binomial Theorem",
+   "kind": "lesson",
+   "topic": null,
+   "section": "why_it_matters",
+   "level": "main",
+   "language": "en",
+   "body": "Binomial theorem questions in JEE are reliably scoring: they test careful algebra with powers rather than deep ideas. Typical questions ask for a specific term (often the term independent of $x$), a coefficient, the sum of coefficients, the greatest term, or a remainder or last digits. The same machinery appears later in probability (binomial distribution), in series (approximations such as $(1+x)^n\\approx1+nx$ for small $x$), and in calculus (the proof that $\\frac{d}{dx}x^n=nx^{n-1}$).\n\n**Syllabus note.** The official JEE syllabi cover the binomial theorem for a positive integral index, general and middle terms, and simple applications. Expansions for negative or fractional index are not part of that statement. The grouping into four topics is ORBIT's provisional crosswalk and may differ from Chaitanya's order for Class 9.",
+   "reason": "Replaced by a corrected or clarified version (review of 2026-11-05)"
+  },
+  {
+   "chapter": "Gravitation",
+   "kind": "lesson",
+   "topic": null,
+   "section": "why_it_matters",
+   "level": "main",
+   "language": "en",
+   "body": "Gravitation is one of the most predictable chapters in JEE mechanics: almost every question reduces to Newton's law of gravitation, energy conservation, or circular-orbit equations. The same few expressions are combined in different ways, so a student who understands where $v_{orbit}=\\sqrt{GM/r}$ and $v_{escape}=\\sqrt{2GM/R}$ come from can rebuild any variant instead of memorising each one. Gravitation also trains habits needed in later chapters: choosing a reference for potential energy, using ratios to avoid numbers, and checking dimensions.\n\n**Syllabus note.** The official JEE syllabus lists universal law of gravitation, acceleration due to gravity and its variation with altitude and depth, Kepler's laws, gravitational potential energy and potential, escape velocity, and orbital velocity of a satellite. The four-topic grouping is ORBIT's provisional crosswalk, not the confirmed Chaitanya IPL scheme.",
+   "reason": "Replaced by a corrected or clarified version (review of 2026-11-05)"
+  },
+  {
    "chapter": "Gravitation",
    "kind": "lesson",
    "topic": "Newton's law of gravitation and the gravitational field",
@@ -8,7 +38,7 @@
    "level": "foundation",
    "language": "en",
    "body": "**The law.** Two point masses $m_1$ and $m_2$ a distance $r$ apart attract each other with a force\n$$F=\\frac{G\\,m_1m_2}{r^2}.$$\n$G=6.67\\times10^{-11}\\ \\mathrm{N\\,m^2\\,kg^{-2}}$ is the universal gravitational constant.\n\n**What each part says.**\n- The force is proportional to **each** mass: doubling one mass doubles the force.\n- The force falls as the **square of the distance**: doubling the distance cuts the force to a quarter.\n- The force is always **attractive** and acts along the line joining the masses.\n- Forces on the two bodies are equal and opposite (Newton's third law), even if the masses differ.\n\n**Gravitational field.** The field at a point is the force per unit mass on a small test mass placed there: $\\vec g=\\vec F/m$. For a point mass $M$ at distance $r$, $g=\\dfrac{GM}{r^2}$, directed toward $M$. Fields from several masses add as vectors (**superposition**).\n\n**Spheres.** A uniform solid sphere or thin shell attracts outside bodies as if all its mass were at its centre (for $r\\ge R$). Inside a thin uniform shell the field is zero.\n\n**Why $G$ is tiny.** For two 1 kg masses 1 m apart, $F=6.67\\times10^{-11}$ N, about the weight of a few bacteria. Gravity matters only when at least one mass is astronomical.",
-   "reason": "Corrected during review on 2026-11-05"
+   "reason": "Replaced by a corrected or clarified version (review of 2026-11-05)"
   },
   {
    "chapter": "Gravitation",
@@ -18,15 +48,27 @@
    "level": "main",
    "language": "en",
    "body": "**Circular orbit of radius $r$ around mass $M$.** Gravity provides the centripetal force, so $\\dfrac{GMm}{r^2}=\\dfrac{mv^2}{r}$:\n- Orbital speed $v=\\sqrt{\\dfrac{GM}{r}}$ (independent of the satellite's mass).\n- Period $T=2\\pi\\sqrt{\\dfrac{r^3}{GM}}$, so $T^2\\propto r^3$.\n- Close to the surface, $r\\approx R$ and $v_o=\\sqrt{gR}\\approx7.9$ km/s, $T\\approx84$ minutes.\n\n**Energies in a circular orbit.**\n$K=\\dfrac{GMm}{2r}$, $U=-\\dfrac{GMm}{r}$, $E=K+U=-\\dfrac{GMm}{2r}$. So $K=-E$ and $U=2E$. The total energy is negative: the satellite is bound. To escape it needs extra energy $\\dfrac{GMm}{2r}$.\n\n**Weightlessness.** Inside an orbiting satellite everything falls with the same acceleration, so there is no contact force between you and the floor. Gravity has not vanished: at the altitude of the International Space Station, $g$ is still about $90\\%$ of its surface value.\n\n**Geostationary satellite.** Its period is one sidereal day ($\\approx23$ h $56$ min), it orbits above the equator in the same direction as Earth's rotation, and it hovers over one point. Its orbital radius is about $4.22\\times10^7$ m, i.e. a height of about $3.6\\times10^7$ m ($36{,}000$ km) above the surface.\n\n**Kepler's laws.**\n1. **Orbits:** each planet moves in an ellipse with the Sun at one focus.\n2. **Areas:** the line from the Sun to a planet sweeps equal areas in equal times (this is conservation of angular momentum).\n3. **Periods:** $T^2\\propto a^3$, where $a$ is the semi-major axis.",
-   "reason": "Corrected during review on 2026-11-05"
+   "reason": "Replaced by a corrected or clarified version (review of 2026-11-05)"
   },
   {
-   "chapter": "Inverse Trigonometry",
-   "kind": "formula",
-   "topic": "Sums of inverse tangents and equations",
-   "name": "Double angle form of inverse tangent",
-   "latex": "2\\tan^{-1}x = \\tan^{-1}\\dfrac{2x}{1-x^2} = \\sin^{-1}\\dfrac{2x}{1+x^2}",
-   "reason": "Rewritten during review on 2026-11-05"
+   "chapter": "Chemical Kinetics",
+   "kind": "lesson",
+   "topic": null,
+   "section": "why_it_matters",
+   "level": "main",
+   "language": "en",
+   "body": "Chemical kinetics is one of the highest-scoring physical-chemistry chapters because the ideas are few and the numerical methods are standard: initial rates, integrated rate laws, half-lives and the Arrhenius equation. JEE Main asks mostly direct numerical questions and \"which graph is correct\" questions; JEE Advanced adds multi-step reasoning, mechanisms with a rate-determining step, and pressure-based data. The skills (logarithm handling, working with ratios, careful units) carry over to equilibrium and electrochemistry.\n\n**Syllabus note.** The official JEE syllabus lists rate of reaction, rate law and rate constant, order and molecularity, integrated rate equations and half-life for zero and first order, concept of collision theory and activation energy, and the Arrhenius equation. Kinetics at Class 9 level in a coaching programme may be introduced more lightly. The four-topic split here is ORBIT's provisional crosswalk, not the confirmed Chaitanya IPL scheme.",
+   "reason": "Replaced by a corrected or clarified version (review of 2026-11-05)"
+  },
+  {
+   "chapter": "Chemical Kinetics",
+   "kind": "lesson",
+   "topic": "Rate of reaction, rate law, order and molecularity",
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2 (order from initial rates).** For $A+B\\to$ products, the initial rate was measured:\n\n| Experiment | $[A]$ (M) | $[B]$ (M) | Rate (M s⁻¹) |\n|---|---|---|---|\n| 1 | 0.10 | 0.10 | $2.0\\times10^{-3}$ |\n| 2 | 0.20 | 0.10 | $8.0\\times10^{-3}$ |\n| 3 | 0.10 | 0.20 | $4.0\\times10^{-3}$ |\n\n*Method.* Change one concentration at a time. From 1→2, $[A]$ doubles and the rate becomes $4\\times$, so the order in $A$ is $2$ ($2^m=4$). From 1→3, $[B]$ doubles and the rate doubles, so the order in $B$ is $1$. The rate law is $\\text{rate}=k[A]^2[B]$ and the overall order is $3$.\n$k=\\dfrac{2.0\\times10^{-3}}{(0.10)^2(0.10)}=2.0\\ \\mathrm{L^2mol^{-2}s^{-1}}$.\n\n**Example 3 (units).** What are the units of $k$ for a second-order reaction? $\\mathrm{L\\,mol^{-1}s^{-1}}$ (from $(\\mathrm{mol\\,L^{-1}})^{1-2}\\mathrm{s^{-1}}$).",
+   "reason": "Replaced by a corrected or clarified version (review of 2026-11-05)"
   }
  ]
 }

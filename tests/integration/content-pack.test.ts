@@ -102,8 +102,8 @@ describe('corrections and audit evidence', () => {
     const retired = (require('../../content/retired.json').retired as { kind: string; chapter: string; body?: string; topic?: string; section?: string; level?: string; language?: string }[]).filter((r) => r.kind === 'lesson');
     expect(retired.length).toBeGreaterThan(0);
     // simulate an older install: put the withdrawn lesson back as an unconfirmed lesson, and strip a formula's new details
-    const g = (await contentRepo.resolveChapter(db, retired[0].chapter))!;
-    const old = retired.find((r) => r.chapter === g.title)!;
+    const old = retired.find((r) => r.body?.includes('few bacteria'))!;
+    const g = (await contentRepo.resolveChapter(db, old.chapter))!;
     await contentRepo.importBundle(db, g.id, { chapter: g.title, topics: [], lessons: [{ topic: old.topic, section: old.section as never, level: old.level as never, language: 'en', body: old.body!, source: 'old' }], formulas: [], questions: [], videos: [] }, false);
     const fid = (await db.first<{ id: string }>("SELECT id FROM formulas WHERE name = 'Escape velocity'"))!.id;
     await db.run("UPDATE formulas SET variables_json = '[]', units = NULL WHERE id = ?", [fid]);
