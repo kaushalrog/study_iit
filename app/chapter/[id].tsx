@@ -7,6 +7,8 @@ import { useDb } from '../../src/database/DatabaseProvider';
 import { contentRepo } from '../../src/database/repositories/content';
 import { notesRepo } from '../../src/database/repositories/notes';
 import { syllabusRepo } from '../../src/database/repositories/syllabus';
+import { VideoCard } from '../../src/components/content/VideoCard';
+import { videoRepo } from '../../src/database/repositories/videos';
 import { useAsync } from '../../src/hooks/useAsync';
 
 const STATUS_LABEL: Record<string, string> = {
@@ -26,17 +28,25 @@ export default function ChapterScreen() {
   const { data, error, loading, reload } = useAsync(async () => {
     const chapter = await syllabusRepo.chapter(db, id);
     if (!chapter) return null;
-    const [topics, formulas, notes, overview] = await Promise.all([
+    const [topics, formulas, notes, overview, videos] = await Promise.all([
       contentRepo.topics(db, id), contentRepo.formulas(db, id), notesRepo.list(db, id),
       db.first<{ n: number }>("SELECT COUNT(*) AS n FROM learning_content WHERE chapter_id = ? AND topic_id IS NULL AND deleted_at IS NULL AND verification_status != 'archived'", [id]),
+      videoRepo.forChapter(db, id),
     ]);
     const counts = await db.all<{ topic_id: string; n: number }>("SELECT topic_id, COUNT(*) AS n FROM learning_content WHERE chapter_id = ? AND topic_id IS NOT NULL AND deleted_at IS NULL AND verification_status != 'archived' GROUP BY topic_id", [id]);
-    return { chapter, topics, formulas, notes, overviewCount: overview?.n ?? 0, lessonCounts: Object.fromEntries(counts.map((c) => [c.topic_id, c.n])) as Record<string, number> };
+    return { chapter, topics, formulas, notes, videos, overviewCount: overview?.n ?? 0, lessonCounts: Object.fromEntries(counts.map((c) => [c.topic_id, c.n])) as Record<string, number> };
   }, [db, id]);
 
   if (error) return <ErrorState message={error} onRetry={reload} />;
   if (!data) return loading ? <LoadingState /> : <ErrorState message="Chapter not found." />;
-  const { chapter, topics, formulas, notes, overviewCount, lessonCounts } = data;
+  const { chapter, topics, formulas, notes, videos, overviewCount, lessonCounts } = data;
+  const topicName0 = (tid: string | null) => topics.find((t) => t.id === tid)?.title;
+  const videoActions = {
+    onWatched: async (v: (typeof videos)[number]) => { await videoRepo.markWatched(db, v.id, !v.watchedAt); reload(); },
+    onSaved: async (v: (typeof videos)[number]) => { await videoRepo.setSaved(db, v.id, !v.saved); reload(); },
+    onVerified: async (v: (typeof videos)[number]) => { await videoRepo.setVerified(db, v.id, v.verification !== 'verified'); reload(); },
+    onRemove: async (v: (typeof videos)[number]) => { await videoRepo.remove(db, v.id); reload(); },
+  };
   const open = (topicId: string) => router.push({ pathname: '/lesson/[chapterId]', params: { chapterId: id, topicId } });
 
   const addTopic = async () => {
@@ -94,6 +104,15 @@ export default function ChapterScreen() {
         <Field label="Add a topic" placeholder="For example Escape velocity" value={topicName} onChangeText={setTopicName} error={topicError} returnKeyType="done" onSubmitEditing={addTopic} />
         <Button title="Add topic" icon="add" variant="secondary" onPress={addTopic} disabled={!topicName.trim()} />
       </Card>
+
+      <SectionHeader title="Video lessons" icon="play-circle-outline" />
+      {videos.length === 0 ? (
+        <EmptyState icon="play-circle-outline" title="No video lessons yet" body="Add a link to a specific video or playlist that teaches this chapter. ORBIT never guesses videos for you."
+          action={{ label: 'Add a lesson video', onPress: () => router.push({ pathname: '/content/video', params: { chapterId: id } }) }} />
+      ) : (<>
+        {videos.map((v) => <VideoCard key={v.id} v={v} topic={topicName0(v.topicId)} actions={videoActions} />)}
+        <Button title="Add a lesson video" icon="add-circle-outline" variant="secondary" onPress={() => router.push({ pathname: '/content/video', params: { chapterId: id } })} />
+      </>)}
 
       <SectionHeader title="Formula notebook" icon="calculator-outline" />
       {formulas.length === 0 ? (

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import { AppText, Card, EmptyState, ErrorState, FadeIn, LoadingState, Page, ProgressBar, SectionHeader, StatTile, Tag, space, useTheme } from '../../src/components/design-system';
+import { useRouter } from 'expo-router';
+import { AppText, Button, Card, EmptyState, ErrorState, FadeIn, LoadingState, Page, ProgressBar, SectionHeader, StatTile, Tag, space, useTheme } from '../../src/components/design-system';
 import { useDb } from '../../src/database/DatabaseProvider';
 import { examRepo } from '../../src/database/repositories/exams';
 import { mockRepo } from '../../src/database/repositories/mocks';
@@ -17,6 +18,7 @@ const COMPONENT_LABEL = { concept: 'concept understanding', practice: 'practice 
 export default function Progress() {
   const db = useDb();
   const { colors } = useTheme();
+  const router = useRouter();
   const { data, error, reload } = useAsync(async () => {
     const [history, mocks, counts, home, base] = await Promise.all([
       examRepo.history(db), mockRepo.history(db), mistakeRepo.categoryCounts(db), loadHomeData(db, toDateKey(new Date())),
@@ -30,6 +32,7 @@ export default function Progress() {
 
   return (
     <Page>
+      <Button title="What is in my library? Content coverage" icon="layers-outline" variant="secondary" onPress={() => router.push('/coverage')} style={{ marginBottom: space.md }} />
       {baseline && (
         <FadeIn index={0}>
           <SectionHeader title="Where you started" icon="flag-outline" />

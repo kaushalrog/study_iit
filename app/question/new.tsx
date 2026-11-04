@@ -29,6 +29,11 @@ export default function NewQuestion() {
   const [hint, setHint] = useState('');
   const [sourceNote, setSourceNote] = useState('');
   const [verified, setVerified] = useState(false);
+  const [examCategory, setExamCategory] = useState<'jee_main' | 'jee_advanced' | 'other_official' | null>(null);
+  const [examYear, setExamYear] = useState('');
+  const [examSession, setExamSession] = useState('');
+  const [citation, setCitation] = useState('');
+  const [citationUrl, setCitationUrl] = useState('');
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [saved, setSaved] = useState(0);
 
@@ -38,7 +43,8 @@ export default function NewQuestion() {
   const toggleCorrect = (k: string) => setCorrect((c) => (type === 'multi' ? (c.includes(k) ? c.filter((x) => x !== k) : [...c, k]) : [k]));
 
   const save = async () => {
-    const input = { chapterId, type, stem, options, correct, numeric: numeric.trim() === '' || !Number.isFinite(Number(numeric)) ? null : Number(numeric), difficulty, origin, explanation, hint, sourceNote, verified };
+    const input = { chapterId, type, stem, options, correct, numeric: numeric.trim() === '' || !Number.isFinite(Number(numeric)) ? null : Number(numeric), difficulty, origin, explanation, hint, sourceNote, verified,
+      examCategory: origin === 'official' ? examCategory : null, examYear: origin === 'official' && examYear.trim() ? Number(examYear) : null, examSession, citation, citationUrl };
     const v = newQuestionSchema.safeParse(input);
     if (!v.success) { setMsg({ ok: false, text: v.error.issues[0].message }); return; }
     try {
@@ -94,6 +100,18 @@ export default function NewQuestion() {
             {([['official', 'Official paper'], ['coaching', 'Coaching material'], ['student', 'My own']] as const).map(([o, l]) => <Chip key={o} label={l} selected={origin === o} onPress={() => setOrigin(o)} />)}
           </View>
         </View>
+        {origin === 'official' && (
+          <View style={{ gap: space.sm }}>
+            <AppText variant="caption" color={colors.textMuted}>An official question needs a trace. Without exam, year and where you found it, it is not counted as a previous-year question.</AppText>
+            <View style={{ flexDirection: 'row', gap: space.sm, flexWrap: 'wrap' }}>
+              {([['jee_main', 'JEE Main'], ['jee_advanced', 'JEE Advanced'], ['other_official', 'Other exam']] as const).map(([k, l]) => <Chip key={k} label={l} selected={examCategory === k} onPress={() => setExamCategory(k)} />)}
+            </View>
+            <Field label="Exam year" keyboardType="number-pad" value={examYear} onChangeText={setExamYear} />
+            <Field label="Session or shift (optional)" value={examSession} onChangeText={setExamSession} />
+            <Field label="Where did you find it?" placeholder="Paper name, shift, question number" value={citation} onChangeText={setCitation} />
+            <Field label="Link to the paper (optional)" autoCapitalize="none" value={citationUrl} onChangeText={setCitationUrl} />
+          </View>
+        )}
         <Field label="Source" placeholder="Book name and page" value={sourceNote} onChangeText={setSourceNote} />
         <Field label="Explanation (optional)" multiline minLines={3} value={explanation} onChangeText={setExplanation} />
         <Field label="Hint (optional)" hint="A nudge that doesn't give the answer away" multiline value={hint} onChangeText={setHint} />
