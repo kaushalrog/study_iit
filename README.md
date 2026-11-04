@@ -122,5 +122,8 @@ Cloud: Supabase daily backups (enable PITR for production). Device: the SQLite f
 ## Starter content
 `content/` holds 170 lessons, 45 formulas, 82 generated practice questions and 19 video links for the four current chapters, in the importer's JSON format (see `content/README.md`). It is loaded from Learn → *Load the starter library* and arrives as *needs review*: nothing is verified until a person confirms it in *Check material*. There are no PYQs yet. See `docs/CONTENT_COVERAGE.md` for exact counts and limits.
 
+## Updating the installed app
+Install the OTA-enabled APK once. JavaScript changes then go out with `npm run ota:publish`, and lessons, questions, videos and the roadmap with `npm run content:publish`; only native changes need a new APK. The one-time Expo setup, the exact commands and what has and has not been proven are in `docs/UPDATES.md`. The APK installed before this change cannot receive updates.
+
 ## Known limitations
 Not yet implemented: Supabase Storage for photos; matching/assertion-reason have answer entry but no special rendering; KaTeX-quality math (Unicode approximation only); diagrams in questions; PDF/image content import; crop/rotate; reminders and notifications; Maestro E2E; tablet-specific layouts; the `solve-question`, `generate-practice`, `import-content` functions. The AI `tutor` function is written but **not deployed**, so the tutor asks for sign-in/setup until it is. Sync passed the real-Supabase test with one test account; a second-student isolation check and a real-device (not emulator) run are still outstanding. Public Supabase sign-ups should be disabled for a one-student project. Logic is covered by 200+ automated tests plus 37 live-Postgres tests.

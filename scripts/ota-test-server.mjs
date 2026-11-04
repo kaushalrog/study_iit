@@ -20,7 +20,8 @@ const channel = args.channel ?? 'preview';
 const logFile = args.log ?? 'ota-server.log';
 if (!args.runtime) { console.error('Pass --runtime <runtime version of the build that may receive this update>'); process.exit(2); }
 const runtime = args.runtime;
-const host = args.host ?? '10.0.2.2';          // how the Android emulator reaches this computer
+const host = args.host ?? '10.0.2.2';
+const skipRuntimeCheck = args['ignore-runtime-check'] === 'true';   // TEST ONLY: offer the update to any runtime, to prove the app itself refuses an incompatible one          // how the Android emulator reaches this computer
 
 const b64url = (buf) => buf.toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const sha = (buf) => b64url(createHash('sha256').update(buf).digest());
@@ -59,7 +60,7 @@ createServer((req, res) => {
     const rt = String(h('expo-runtime-version')), cur = String(h('expo-current-update-id')), platform = String(h('expo-platform')), ch = String(h('expo-channel-name'));
     let outcome;
     if (platform !== 'android') outcome = 'noUpdateAvailable (platform)';
-    else if (rt !== runtime) outcome = 'noUpdateAvailable (runtime mismatch)';
+    else if (rt !== runtime && !skipRuntimeCheck) outcome = 'noUpdateAvailable (runtime mismatch)';
     else if (ch && ch !== channel) outcome = `noUpdateAvailable (channel ${ch} != ${channel})`;
     else if (cur === updateId) outcome = 'noUpdateAvailable (already running this update)';
     else outcome = 'manifest';

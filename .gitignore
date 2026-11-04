@@ -54,3 +54,5 @@ release-apk/
 # OTA test artefacts
 dist-ota/
 ota-server.log
+content-feed/
+content-feed.log

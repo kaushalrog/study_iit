@@ -74,3 +74,34 @@ insert into content_publishers (user_id, display_name) select id, 'Publisher' fr
 
 ## 6. What has and has not been proven
 See the "Proof" section at the end of this file.
+
+## Proof (what was actually run)
+Test build: an OTA-enabled release APK installed on an Android emulator (same application id and signing as before). Its update URL pointed at `scripts/ota-test-server.mjs`, a small server that speaks Expo's update protocol, run on the development computer. **This proves the installed app receives, downloads and runs new JavaScript without a reinstall. It does not prove EAS Update itself**, because that needs your Expo account (section 3). The logs are in `docs/ota-proof/`.
+
+| # | Step | Result |
+|---|---|---|
+| 1 | Audit of the earlier APK | No OTA support (updates disabled, no URL, no runtime version, no project id) |
+| 2 | Built OTA-enabled APK (runtime `3552acc6…`, channel `preview`) | Installed; Settings → Software updates showed the runtime and "Built into the app" |
+| 3 | Published a text change ("UPDATE 1") | App downloaded it in the background (server log: `GET /manifest` → manifest, `GET /assets` bundle) and said "An update is ready" |
+| 4 | Tapped *Restart to apply* | Current update became `ac31ecab…`; the label read "UPDATE 1: text change delivered over the air" |
+| 5 | Published a UI change ("UPDATE 2": a screen heading changed) | Same runtime, downloaded, applied: current update `c417bafc…`, new heading visible |
+| 6 | Added a native permission to the config | The fingerprint runtime changed (`3552acc6…` → `d2b02d03…`) |
+| 7 | Published JS built for the new runtime | Server refused it for the installed runtime (`noUpdateAvailable (runtime mismatch)`); the app stayed on update 2 |
+| 8 | Forced the server to offer the mismatched update anyway | The app downloaded it but **still ran update 2** after *Restart to apply*: Android's updater refuses an incompatible update on its own |
+| 9 | Published update 3 (JS that can read a content feed) over the air | Delivered and applied like the others |
+| 10 | Published a lesson to a stand-in content feed after install | On next open the app applied it ("2 new"); searching found the lesson: no APK change |
+| 11 | Published version 2 with 2 questions and a video; *Refresh content* | "version 2, 3 new"; the SQLite file on the device held the questions (as needs review) and the video |
+| 12 | Switched off networking; *Refresh content* | "Offline … your downloaded content is unchanged"; the lesson was still found and opened |
+
+Automated tests: content sync (11 integration tests with a fake server: versions, checksum failures, corrected lessons, withdrawn packs, offline, roadmap validation, hash agreement with the publish script), 4 live-Postgres tests of the real `content_packs` table (publisher-only writes, version guard, tamper rejection, publish → sync → update → sync → offline), update-manager rules (14), SHA-256 (3).
+
+### Not proven, and why
+- **EAS Update itself and the `production`/`preview` channels on EAS.** They need your Expo login (`eas login`, `eas init`). Until the first `npm run ota:publish` reaches a phone, treat production delivery as configured but unproven.
+- **Content packs against your real Supabase project.** The tests used real Postgres locally and an HTTP stand-in on the device. Your project needs migration 0011 and a publisher row first (section 4).
+- **A real phone.** Everything ran on an emulator.
+- **Practice library on the device.** On the device the new questions arrived in the database as "needs review"; that they reach practice after a student check is covered by the integration test, not by a tap-through on the device.
+
+### Things to know
+- **Fingerprint pitfall, fixed:** a local Gradle build and `eas update` must compute the same runtime. They differed until `.fingerprintignore` excluded the generated `android/` and `ios/` folders. `npm run apk:build` now stops if the APK's embedded runtime differs from what `eas update` would use.
+- Expo reports an update as "ready" once downloaded, even if it was built for a different runtime and will never run. With EAS this should not happen (it only serves matching runtimes); it was only seen in the forced test.
+- `apk:build` rebuilds the native project with `expo prebuild`, which recreates `android/local.properties`; set `ANDROID_HOME` or recreate it.

@@ -16,6 +16,11 @@ npm run test:all
 npx expo prebuild --platform android --no-install
 ( cd android && ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a )
 mkdir -p release-apk
+EMBEDDED="$(unzip -p android/app/build/outputs/apk/release/app-release.apk assets/fingerprint)"
+if [ "$EMBEDDED" != "$RUNTIME" ]; then
+  echo "STOP: the APK embeds runtime $EMBEDDED but 'eas update' would publish for $RUNTIME, so updates would not reach it."
+  echo "Fix: make sure .fingerprintignore exists, then rerun with: (cd android && ./gradlew :app:createReleaseUpdatesResources --rerun) and build again."; exit 3
+fi
 cp android/app/build/outputs/apk/release/app-release.apk "release-apk/ORBIT-$PROFILE-arm64.apk"
 echo "$RUNTIME" > release-apk/RUNTIME.txt
 ( cd release-apk && shasum -a 256 "ORBIT-$PROFILE-arm64.apk" > SHA256.txt && cat SHA256.txt )

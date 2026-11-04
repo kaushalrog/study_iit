@@ -5,6 +5,7 @@ import { useDb } from '../../database/DatabaseProvider';
 import { useAuth } from '../auth/AuthProvider';
 import { supabase } from '../supabase/client';
 import { ContentSyncResult, loadState, pendingPacks, syncContent } from './contentSync';
+import { httpContentRemote } from './httpContentRemote';
 import { supabaseContentRemote } from './supabaseContentRemote';
 
 interface Value {
@@ -33,14 +34,17 @@ export function ContentSyncProvider({ children }: { children: React.ReactNode })
   const [contentVersion, setContentVersion] = useState(0);
   const running = useRef(false);
   const lastRun = useRef(0);
-  const available = Boolean(supabase) && status === 'signed_in';
+  // A plain HTTP feed (EXPO_PUBLIC_CONTENT_FEED_URL) exists only so content delivery can be tested on a real installed build
+  // without a Supabase project. In normal builds it is unset and content comes from Supabase for a signed-in student.
+  const feed = process.env.EXPO_PUBLIC_CONTENT_FEED_URL;
+  const available = feed ? true : Boolean(supabase) && status === 'signed_in';
   const appVersion = Constants.expoConfig?.version ?? '1.0.0';
 
   const refresh = useCallback(async () => {
-    if (!supabase || running.current) return;
+    const remote = feed ? httpContentRemote(feed) : supabase ? supabaseContentRemote(supabase) : null;
+    if (!remote || running.current) return;
     running.current = true; setSyncing(true);
     try {
-      const remote = supabaseContentRemote(supabase);
       const res = await syncContent(db, remote, appVersion);
       setLast(res);
       const st = await loadState(db);
@@ -49,7 +53,7 @@ export function ContentSyncProvider({ children }: { children: React.ReactNode })
       try { setPending(res.status === 'offline' ? pending : pendingPacks(await remote.manifest(), st).length); } catch { /* keep the old number */ }
     } finally { lastRun.current = Date.now(); running.current = false; setSyncing(false); }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [db, appVersion]);
+  }, [db, appVersion, feed]);
 
   useEffect(() => { loadState(db).then((s) => setLastSuccessAt(s.lastSuccessAt)).catch(() => {}); }, [db]);
   useEffect(() => {
