@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { newQuestionSchema } from '../../database/repositories/questions';
+import { newVideoSchema } from '../../database/repositories/videos';
 
 export const LESSON_SECTIONS = ['introduction', 'why_it_matters', 'explanation', 'derivation', 'example', 'common_mistakes', 'tips', 'summary', 'mini_assessment'] as const;
 export type LessonSection = (typeof LESSON_SECTIONS)[number];
@@ -30,7 +31,17 @@ const questionSchema = z.object({
   correct: z.array(z.string()).default([]), numeric: z.number().nullable().optional(), tolerance: z.number().optional(),
   difficulty: z.enum(['foundation', 'main', 'advanced']).default('main'),
   explanation: z.string().optional(), hint: z.string().optional(), source: z.string().optional(),
-  origin: z.enum(['official', 'coaching', 'student']).optional(),
+  origin: z.enum(['official', 'coaching', 'generated', 'student']).optional(),
+  // Provenance. A question is a previous-year question only with all of exam, year and citation.
+  examCategory: z.enum(['jee_main', 'jee_advanced', 'other_official']).nullable().optional(), examYear: z.number().int().nullable().optional(),
+  session: z.string().optional(), citation: z.string().optional(), citationUrl: z.string().optional(), license: z.enum(['open', 'permission', 'personal_use', 'unknown']).optional(),
+});
+const videoSchema = z.object({
+  topic: z.string().trim().optional(),
+  url: z.string(), title: z.string(), channel: z.string(),
+  purpose: z.enum(['concept', 'classroom', 'examples', 'main', 'advanced', 'revision']),
+  level, language: z.enum(['en', 'te', 'hi']).default('en'),
+  why: z.string().optional(), source: z.string().optional(), durationSeconds: z.number().int().positive().nullable().optional(),
 });
 const topicSchema = z.union([z.string().trim().min(1), z.object({ title: z.string().trim().min(1) })]);
 
@@ -40,6 +51,7 @@ const bundleSchema = z.object({
   lessons: z.array(z.unknown()).default([]),
   formulas: z.array(z.unknown()).default([]),
   questions: z.array(z.unknown()).default([]),
+  videos: z.array(z.unknown()).default([]),
 });
 
 export interface ImportIssue { where: string; message: string }
@@ -49,6 +61,7 @@ export interface ParsedBundle {
   lessons: z.infer<typeof lessonSchema>[];
   formulas: z.infer<typeof formulaSchema>[];
   questions: z.infer<typeof questionSchema>[];
+  videos: z.infer<typeof videoSchema>[];
 }
 export interface ParseResult {
   bundles: ParsedBundle[];
@@ -73,14 +86,20 @@ export function parseImport(text: string): ParseResult {
     const tag = list.length > 1 ? `Bundle ${bi + 1}` : 'File';
     const b = bundleSchema.safeParse(entry);
     if (!b.success) { issues.push({ where: tag, message: firstIssue(b.error) }); return; }
-    const out: ParsedBundle = { chapter: b.data.chapter, topics: b.data.topics.map((t) => (typeof t === 'string' ? t : t.title)), lessons: [], formulas: [], questions: [] };
+    const out: ParsedBundle = { chapter: b.data.chapter, topics: b.data.topics.map((t) => (typeof t === 'string' ? t : t.title)), lessons: [], formulas: [], questions: [], videos: [] };
     b.data.lessons.forEach((l, i) => { const r = lessonSchema.safeParse(l); r.success ? out.lessons.push(r.data) : issues.push({ where: `${tag} · lesson ${i + 1}`, message: firstIssue(r.error) }); });
     b.data.formulas.forEach((f, i) => { const r = formulaSchema.safeParse(f); r.success ? out.formulas.push(r.data) : issues.push({ where: `${tag} · formula ${i + 1}`, message: firstIssue(r.error) }); });
+    b.data.videos.forEach((v, i) => {
+      const r = videoSchema.safeParse(v);
+      if (!r.success) { issues.push({ where: `${tag} · video ${i + 1}`, message: firstIssue(r.error) }); return; }
+      const full = newVideoSchema.safeParse({ chapterId: 'x', ...r.data, topicId: null, sourceNote: r.data.source ?? '', durationSeconds: r.data.durationSeconds ?? null, verified: false });
+      full.success ? out.videos.push(r.data) : issues.push({ where: `${tag} · video ${i + 1}`, message: firstIssue(full.error) });
+    });
     b.data.questions.forEach((q, i) => {
       const r = questionSchema.safeParse(q);
       if (!r.success) { issues.push({ where: `${tag} · question ${i + 1}`, message: firstIssue(r.error) }); return; }
       // Full answer-key validation (option letters, single vs multi, integer present) uses the same rules as the add-question form.
-      const full = newQuestionSchema.safeParse({ chapterId: 'x', ...r.data, numeric: r.data.numeric ?? null, sourceNote: r.data.source ?? '', verified: false });
+      const full = newQuestionSchema.safeParse({ chapterId: 'x', ...r.data, numeric: r.data.numeric ?? null, sourceNote: r.data.source ?? '', examCategory: r.data.examCategory ?? null, examYear: r.data.examYear ?? null, examSession: r.data.session ?? '', citation: r.data.citation ?? '', citationUrl: r.data.citationUrl ?? '', license: r.data.license ?? 'unknown', verified: false });
       full.success ? out.questions.push(r.data) : issues.push({ where: `${tag} · question ${i + 1}`, message: firstIssue(full.error) });
     });
     bundles.push(out);

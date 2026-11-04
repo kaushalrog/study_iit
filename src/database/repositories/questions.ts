@@ -18,7 +18,7 @@ export const newQuestionSchema = z
     numeric: z.number().finite().nullable().default(null),
     tolerance: z.number().min(0).default(0),
     difficulty: z.enum(['foundation', 'main', 'advanced']).default('main'),
-    origin: z.enum(['official', 'coaching', 'student']).default('coaching'),
+    origin: z.enum(['official', 'coaching', 'generated', 'student']).default('coaching'),
     explanation: z.string().default(''),
     hint: z.string().default(''),
     sourceNote: z.string().default(''),
@@ -57,7 +57,8 @@ export const questionRepo = {
   async add(db: SqlDb, input: NewQuestion, fixedId?: string): Promise<string> {
     const v = newQuestionSchema.parse(input);
     const options = v.type === 'integer' ? [] : v.options.filter((o) => o.length > 0);
-    const status = v.verified ? 'verified' : 'needs_review';
+    // Generated questions can never be self-verified: a person must confirm them in the app first.
+    const status = v.verified && v.origin !== 'generated' ? 'verified' : 'needs_review';
     const id = fixedId ?? newId();
     await db.tx(async () => {
       await upsertRow(db, 'questions', {

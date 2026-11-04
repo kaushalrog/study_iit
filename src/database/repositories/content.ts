@@ -4,6 +4,8 @@ import { newId, seedId } from '../../utils/ids';
 import type { SqlDb } from '../sqlite/types';
 import { updateRow, upsertRow } from './base';
 import { questionRepo } from './questions';
+import { parseYoutube } from '../../features/content/youtube';
+import { videoRepo } from './videos';
 
 const status = (verified: boolean) => (verified ? 'verified' : 'needs_review');
 
@@ -37,10 +39,10 @@ export interface FormulaRow {
   units: string | null; conditions: string | null; explanation: string | null; example: string | null; sourceNote: string | null; verification: string;
 }
 
-export interface ImportCounts { topics: number; lessons: number; formulas: number; questions: number }
+export interface ImportCounts { topics: number; lessons: number; formulas: number; questions: number; videos: number }
 export interface ImportReport { added: ImportCounts; skipped: ImportCounts; chapterTitle: string }
 
-const zero = (): ImportCounts => ({ topics: 0, lessons: 0, formulas: 0, questions: 0 });
+const zero = (): ImportCounts => ({ topics: 0, lessons: 0, formulas: 0, questions: 0, videos: 0 });
 const norm = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
 const hash = (s: string) => seedId(s).slice(0, 18);
 
@@ -158,8 +160,18 @@ export const contentRepo = {
         const id = seedId(`imp:question:${chapterId}:${hash(norm(q.stem))}:${q.type}`);
         if (await exists('questions', id)) { skipped.questions++; continue; }
         await questionRepo.add(db, { chapterId, type: q.type, stem: q.stem, options: q.options, correct: q.correct, numeric: q.numeric ?? null, tolerance: q.tolerance ?? 0,
-          difficulty: q.difficulty, origin: q.origin ?? 'coaching', explanation: q.explanation ?? '', hint: q.hint ?? '', sourceNote: q.source ?? '', verified }, id);
+          difficulty: q.difficulty, origin: q.origin ?? 'coaching', explanation: q.explanation ?? '', hint: q.hint ?? '', sourceNote: q.source ?? '', verified,
+          examCategory: q.examCategory ?? null, examYear: q.examYear ?? null, examSession: q.session ?? '', citation: q.citation ?? '', citationUrl: q.citationUrl ?? '', license: q.license ?? 'unknown' }, id);
         added.questions++;
+      }
+      for (const v of bundle.videos) {
+        const tid = await topicId(v.topic);
+        // videoRepo.add keys on (link, place), so a second import updates the same row. Count it as skipped when it already exists.
+        const ref = parseYoutube(v.url)!;
+        const id = seedId(`video:${ref.kind}:${ref.id}:${tid ?? chapterId}`);
+        const had = await exists('video_resources', id);
+        await videoRepo.add(db, { chapterId, topicId: tid, url: v.url, title: v.title, channel: v.channel, purpose: v.purpose, level: v.level, language: v.language, why: v.why ?? '', sourceNote: v.source ?? '', durationSeconds: v.durationSeconds ?? null, verified: false });
+        had ? skipped.videos++ : added.videos++;
       }
     });
     return { added, skipped, chapterTitle: chapter.title };

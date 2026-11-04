@@ -57,14 +57,14 @@ export default function ImportScreen() {
   };
 
   if (report) {
-    const sum = report.reduce((a, r) => ({ topics: a.topics + r.added.topics, lessons: a.lessons + r.added.lessons, formulas: a.formulas + r.added.formulas, questions: a.questions + r.added.questions }), { topics: 0, lessons: 0, formulas: 0, questions: 0 });
-    const skipped = report.reduce((a, r) => a + r.skipped.lessons + r.skipped.formulas + r.skipped.questions, 0);
+    const sum = report.reduce((a, r) => ({ topics: a.topics + r.added.topics, lessons: a.lessons + r.added.lessons, formulas: a.formulas + r.added.formulas, questions: a.questions + r.added.questions, videos: a.videos + r.added.videos }), { topics: 0, lessons: 0, formulas: 0, questions: 0, videos: 0 });
+    const skipped = report.reduce((a, r) => a + r.skipped.lessons + r.skipped.formulas + r.skipped.questions + r.skipped.videos, 0);
     return (
       <Page>
         <Card tone="hero" style={{ gap: space.sm }}>
           <Icon name="checkmark-circle" size="lg" color={colors.accent} />
           <AppText variant="title" color={colors.onPrimary}>Imported</AppText>
-          <AppText variant="body" color={colors.onPrimary}>{sum.lessons} lessons · {sum.formulas} formulas · {sum.questions} questions · {sum.topics} new topics</AppText>
+          <AppText variant="body" color={colors.onPrimary}>{sum.lessons} lessons · {sum.formulas} formulas · {sum.questions} questions · {sum.videos} videos · {sum.topics} new topics</AppText>
           {skipped > 0 && <AppText variant="caption" color={colors.accent}>{skipped} item{skipped === 1 ? ' was' : 's were'} already there and were left alone.</AppText>}
         </Card>
         {!checked && sum.questions > 0 && (

@@ -90,9 +90,9 @@ describe('bulk import', () => {
     const db = await fresh();
     const parsed = parseImport(IMPORT_EXAMPLE).bundles[0];
     const first = await contentRepo.importBundle(db, G, parsed, true);
-    expect(first.added).toEqual({ topics: 2, lessons: 1, formulas: 1, questions: 2 });
+    expect(first.added).toEqual({ topics: 2, lessons: 1, formulas: 1, questions: 2, videos: 0 });
     const second = await contentRepo.importBundle(db, G, parsed, true);
-    expect(second.added).toEqual({ topics: 0, lessons: 0, formulas: 0, questions: 0 });
+    expect(second.added).toEqual({ topics: 0, lessons: 0, formulas: 0, questions: 0, videos: 0 });
     expect(second.skipped).toMatchObject({ lessons: 1, formulas: 1, questions: 2 });
     for (const [t, n] of [['topics', 2], ['learning_content', 1], ['formulas', 1], ['questions', 2], ['question_solutions', 2]] as const) {
       expect([t, (await db.first<{ n: number }>(`SELECT COUNT(*) n FROM ${t}`))!.n]).toEqual([t, n]);
