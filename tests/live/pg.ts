@@ -41,7 +41,7 @@ export const newUuid = () => require('crypto').randomUUID() as string;
 export function reset() {
   const tables = ['ai_messages', 'ai_conversations', 'revision_schedule', 'mistake_entries', 'content_reviews', 'question_attempts', 'mock_attempts', 'exam_subject_results', 'study_sessions', 'study_tasks',
     'topic_mastery', 'question_solutions', 'scoring_rules', 'exam_sections', 'questions', 'notes', 'exams', 'learning_content', 'formulas', 'video_resources', 'topics', 'exam_templates', 'profiles'];
-  psql(tables.map((t) => `delete from ${t};`).join('\n') + "\ndelete from content_sources where owner_id is not null;");
+  psql(tables.map((t) => `delete from ${t};`).join('\n') + "\ndelete from content_sources where owner_id is not null;\ndelete from content_packs;\ndelete from content_publishers;");
 }
 export function ensureUser(id: string, email: string) {
   psql(`insert into auth.users (id, email) values ('${id}', '${email}') on conflict do nothing;`);

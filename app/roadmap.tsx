@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { AppText, Card, Chip, ErrorState, Icon, LoadingState, Page, ProgressBar, SectionHeader, Tag, space, useLayout, useTheme } from '../src/components/design-system';
 import { useDb } from '../src/database/DatabaseProvider';
 import { loadHomeData } from '../src/features/dashboard/homeData';
+import { storedRoadmap } from '../src/services/content/contentSync';
 import { nodeStatus, NodeEvidence, NodeStatus, prereqInfo, stageProgress, weeklyGoals } from '../src/features/roadmap/roadmap';
 import { ROADMAP, RoadmapNode, STAGES } from '../src/features/roadmap/syllabus';
 import { useAsync } from '../src/hooks/useAsync';
@@ -21,28 +22,29 @@ export default function Roadmap() {
   const { colors } = useTheme();
   const { isTablet } = useLayout();
   const [stage, setStage] = useState<number | null>(null);
-  const { data, error, reload } = useAsync(() => loadHomeData(db, toDateKey(new Date())), [db]);
+  const { data, error, reload } = useAsync(async () => ({ home: await loadHomeData(db, toDateKey(new Date())), nodes: ((await storedRoadmap(db)) as RoadmapNode[] | null) ?? ROADMAP }), [db]);
   if (error) return <ErrorState message={error} onRetry={reload} />;
   if (!data) return <LoadingState />;
 
-  const byTitle = new Map(data.chapters.map((c) => [c.title, c]));
+  const { home, nodes: ALL } = data;
+  const byTitle = new Map(home.chapters.map((c) => [c.title, c]));
   const ev: Record<string, NodeEvidence> = {};
-  for (const n of ROADMAP) {
+  for (const n of ALL) {
     const c = n.chapter ? byTitle.get(n.chapter) : undefined;
     if (c) ev[n.key] = { linked: true, hasMaterial: c.hasContent, score: c.mastery.state === 'assessed' ? c.mastery.score : null };
   }
-  const progress = stageProgress(ev);
-  const goals = weeklyGoals(ev);
+  const progress = stageProgress(ev, ALL);
+  const goals = weeklyGoals(ev, 3, ALL);
   const current = stage ?? (progress.find((p) => p.withMaterial > 0)?.stage ?? 1);
   const info = STAGES[current - 1];
   const p = progress[current - 1];
-  const nodes = ROADMAP.filter((n) => n.stage === current);
+  const nodes = ALL.filter((n) => n.stage === current);
   const chapterId = (n: RoadmapNode) => (n.chapter ? byTitle.get(n.chapter)?.chapterId : undefined);
 
   const NodeCard = ({ n }: { n: RoadmapNode }) => {
     const e = ev[n.key];
     const st = STATUS[nodeStatus(e)];
-    const pre = prereqInfo(n, ev);
+    const pre = prereqInfo(n, ev, ALL);
     const weak = pre.filter((x) => x.state === 'weak');
     const cid = chapterId(n);
     return (
@@ -77,7 +79,7 @@ export default function Roadmap() {
 
       <SectionHeader title="Readiness, kept separate" icon="analytics-outline" />
       <Card style={{ gap: space.xs, marginBottom: space.md }}>
-        <AppText variant="body">Coaching syllabus: {data.chapters.length} chapters in your library, {data.chapters.filter((c) => c.mastery.state === 'assessed').length} assessed.</AppText>
+        <AppText variant="body">Coaching syllabus: {home.chapters.length} chapters in your library, {home.chapters.filter((c) => c.mastery.state === 'assessed').length} assessed.</AppText>
         <AppText variant="body">IIT foundation (stages 1 to 3): {progress.slice(0, 3).reduce((a, s) => a + s.assessed, 0)} of {progress.slice(0, 3).reduce((a, s) => a + s.total, 0)} topics assessed.</AppText>
         <AppText variant="body" color={colors.textMuted}>JEE Main and Advanced readiness: not assessed. It needs scored full-syllabus mocks.</AppText>
       </Card>

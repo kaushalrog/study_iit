@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { ROADMAP, RoadmapNode, STAGES } from './syllabus';
 
 /** What the app knows about a node. Only evidence from verified attempts ever sets a score. */
@@ -53,3 +54,30 @@ export function weeklyGoals(ev: Record<string, NodeEvidence>, max = 3, all: Road
   }
   return goals.slice(0, max);
 }
+
+const nodeSchema = z.object({
+  key: z.string().regex(/^[a-z][a-z0-9-]{1,40}$/), subject: z.enum(['math', 'physics', 'chemistry']), area: z.string().min(1), title: z.string().min(2),
+  stage: z.number().int().min(1).max(5), prereqs: z.array(z.string()).default([]), chapter: z.string().optional(),
+});
+export const roadmapPayloadSchema = z.object({ nodes: z.array(nodeSchema).min(1) });
+
+/** Problems that make a roadmap unsafe to use. Prerequisites must exist, never point to a later stage, and never loop. */
+export function validateRoadmap(nodes: RoadmapNode[]): string[] {
+  const out: string[] = [];
+  const byKey = new Map(nodes.map((n) => [n.key, n]));
+  if (byKey.size !== nodes.length) out.push('Topic keys must be unique.');
+  for (const n of nodes) for (const p of n.prereqs) {
+    const q = byKey.get(p);
+    if (!q) out.push(`${n.key}: prerequisite "${p}" does not exist.`); else if (q.stage > n.stage) out.push(`${n.key}: prerequisite "${p}" is in a later stage.`);
+  }
+  const state = new Map<string, 0 | 1 | 2>();
+  const visit = (k: string): boolean => {
+    if (state.get(k) === 2) return false; if (state.get(k) === 1) return true;
+    state.set(k, 1);
+    for (const p of byKey.get(k)?.prereqs ?? []) if (byKey.has(p) && visit(p)) return true;
+    state.set(k, 2); return false;
+  };
+  for (const n of nodes) if (visit(n.key)) { out.push(`Prerequisites loop through "${n.key}".`); break; }
+  return out;
+}
+export const BUILTIN_ROADMAP: RoadmapNode[] = ROADMAP;
