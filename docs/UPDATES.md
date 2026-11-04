@@ -105,3 +105,6 @@ Automated tests: content sync (11 integration tests with a fake server: versions
 - **Fingerprint pitfall, fixed:** a local Gradle build and `eas update` must compute the same runtime. They differed until `.fingerprintignore` excluded the generated `android/` and `ios/` folders. `npm run apk:build` now stops if the APK's embedded runtime differs from what `eas update` would use.
 - Expo reports an update as "ready" once downloaded, even if it was built for a different runtime and will never run. With EAS this should not happen (it only serves matching runtimes); it was only seen in the forced test.
 - `apk:build` rebuilds the native project with `expo prebuild`, which recreates `android/local.properties`; set `ANDROID_HOME` or recreate it.
+
+## Production status
+See `docs/PRODUCTION_RELEASE_PROOF.md`. Expo project, channels, EAS environment variables and the production APK are set up and two EAS updates have reached an installed app. Run `supabase/dist/orbit_upgrade_0007_to_0011.sql` once, then `npm run content:publish`.

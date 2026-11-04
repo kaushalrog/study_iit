@@ -14,7 +14,9 @@ fi
 [ -n "${EXPO_PUBLIC_EAS_PROJECT_ID:-}" ] || grep -q '"projectId"' app.json || { echo "No EAS project id: updates would be switched off in this build. Run npx eas-cli init first."; exit 2; }
 npm run test:all
 npx expo prebuild --platform android --no-install
-( cd android && ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a )
+if [ -n "${ANDROID_HOME:-}" ]; then echo "sdk.dir=$ANDROID_HOME" > android/local.properties; fi
+# GRADLE_ARGS is for environment-specific flags (for example a Maven mirror); leave it empty normally.
+( cd android && ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a ${GRADLE_ARGS:-} )
 mkdir -p release-apk
 EMBEDDED="$(unzip -p android/app/build/outputs/apk/release/app-release.apk assets/fingerprint)"
 if [ "$EMBEDDED" != "$RUNTIME" ]; then

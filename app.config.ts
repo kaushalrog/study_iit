@@ -23,7 +23,11 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     slug: config.slug ?? 'orbit',
     runtimeVersion: { policy: 'fingerprint' },
     updates: url
-      ? { url, enabled: true, checkAutomatically: 'ON_LOAD', fallbackToCacheTimeout: 0, ...(testBuild ? { requestHeaders: { 'expo-channel-name': process.env.ORBIT_UPDATES_CHANNEL ?? 'preview' } } : {}) }
+      ? {
+          url, enabled: true, checkAutomatically: 'ON_LOAD', fallbackToCacheTimeout: 0,
+          // The channel this build listens to. `eas build` sets it from eas.json; a local Gradle build needs it written here.
+          requestHeaders: { 'expo-channel-name': process.env.ORBIT_UPDATES_CHANNEL ?? (testBuild ? 'preview' : 'production') },
+        }
       : { enabled: false },
     extra: { ...(config.extra ?? {}), ...(projectId ? { eas: { projectId } } : {}) },
     plugins: [

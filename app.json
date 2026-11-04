@@ -42,6 +42,17 @@
     ],
     "experiments": {
       "typedRoutes": false
-    }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "f78e0915-c5bd-4cc4-b52c-d1e7bb613267"
+      }
+    },
+    "owner": "kaushal4599"
   }
 }

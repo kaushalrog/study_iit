@@ -11,5 +11,5 @@ fi
 echo "1/4 Typecheck and tests"; npm run test:all
 echo "2/4 This update will only reach builds with this runtime version:"; npm run -s ota:runtime
 echo "    If that differs from the runtime of the app on the phone, the phone will NOT receive it (and needs a new APK)."
-echo "3/4 Publishing to channel '$CHANNEL'"; npx eas-cli update --channel "$CHANNEL" --environment "$CHANNEL" --message "$MSG" --non-interactive
+echo "3/4 Publishing to channel '$CHANNEL'"; npx eas-cli update --platform android --channel "$CHANNEL" --environment "$CHANNEL" --message "$MSG" --non-interactive
 echo "4/4 Done. The phone downloads it the next time ORBIT opens and uses it on the launch after that (or Settings > Software updates > Restart to apply)."
