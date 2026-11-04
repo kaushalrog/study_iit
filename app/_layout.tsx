@@ -24,6 +24,7 @@ export default function RootLayout() {
         <Stack.Screen name="lesson/[chapterId]" options={{ title: 'Lesson' }} />
         <Stack.Screen name="content/lesson" options={{ title: 'Lesson', presentation: 'modal' }} />
         <Stack.Screen name="content/formula" options={{ title: 'Add a formula', presentation: 'modal' }} />
+        <Stack.Screen name="review-desk" options={{ title: 'Reviewer tools' }} />
         <Stack.Screen name="review" options={{ title: 'Check material' }} />
         <Stack.Screen name="search" options={{ title: 'Search' }} />
         <Stack.Screen name="roadmap" options={{ title: 'IIT roadmap' }} />

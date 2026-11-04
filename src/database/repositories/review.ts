@@ -17,27 +17,28 @@ export const reviewRepo = {
     return out;
   },
 
-  async list(db: SqlDb, chapterId: string, kind: ReviewKind, limit = 20, offset = 0): Promise<ReviewItem[]> {
+  async list(db: SqlDb, chapterId: string, kind: ReviewKind, limit = 20, offset = 0, scope: 'pending' | 'all' = 'pending'): Promise<ReviewItem[]> {
+    const where = (a: string) => (scope === 'pending' ? pending(a) : `${a}.deleted_at IS NULL`);
     const topic = 'COALESCE((SELECT title FROM topics t WHERE t.id = x.topic_id), NULL)';
     if (kind === 'lesson') {
       return (await db.all<{ id: string; section: string; level: string; body: string; topic: string | null }>(
-        `SELECT x.id, x.section, x.level, x.body, ${topic} AS topic FROM learning_content x WHERE x.chapter_id = ? AND ${pending('x')} ORDER BY x.sort_order, x.created_at LIMIT ? OFFSET ?`, [chapterId, limit, offset]))
+        `SELECT x.id, x.section, x.level, x.body, ${topic} AS topic FROM learning_content x WHERE x.chapter_id = ? AND ${where('x')} ORDER BY x.sort_order, x.created_at LIMIT ? OFFSET ?`, [chapterId, limit, offset]))
         .map((r) => ({ kind, id: r.id, title: r.section.replace(/_/g, ' '), detail: richToReadable(r.body), topic: r.topic, meta: r.level }));
     }
     if (kind === 'formula') {
       return (await db.all<{ id: string; name: string; latex: string; conditions: string | null; topic: string | null }>(
-        `SELECT x.id, x.name, x.latex, x.conditions, ${topic} AS topic FROM formulas x WHERE x.chapter_id = ? AND ${pending('x')} ORDER BY x.name LIMIT ? OFFSET ?`, [chapterId, limit, offset]))
+        `SELECT x.id, x.name, x.latex, x.conditions, ${topic} AS topic FROM formulas x WHERE x.chapter_id = ? AND ${where('x')} ORDER BY x.name LIMIT ? OFFSET ?`, [chapterId, limit, offset]))
         .map((r) => ({ kind, id: r.id, title: r.name, detail: `${richToReadable(`$${r.latex}$`)}${r.conditions ? `\nCondition: ${r.conditions}` : ''}`, topic: r.topic, meta: '' }));
     }
     if (kind === 'video') {
       return (await db.all<{ id: string; title: string; channel: string; url: string; why: string | null; topic: string | null }>(
-        `SELECT x.id, x.title, x.channel, x.url, x.why, ${topic} AS topic FROM video_resources x WHERE x.chapter_id = ? AND ${pending('x')} ORDER BY x.title LIMIT ? OFFSET ?`, [chapterId, limit, offset]))
+        `SELECT x.id, x.title, x.channel, x.url, x.why, ${topic} AS topic FROM video_resources x WHERE x.chapter_id = ? AND ${where('x')} ORDER BY x.title LIMIT ? OFFSET ?`, [chapterId, limit, offset]))
         .map((r) => ({ kind, id: r.id, title: r.title, detail: `${r.channel}\n${r.url}${r.why ? `\n${r.why}` : ''}`, topic: r.topic, meta: 'Open the link and watch before confirming' }));
     }
     // Questions are shown WITH their answer key, because checking the key is the point of this screen.
     const rows = await db.all<{ id: string; stem: string; type: string; options_json: string | null; origin: string; answer_json: string; explanation: string | null; topic: string | null }>(
       `SELECT x.id, x.stem, x.type, x.options_json, x.origin, qs.answer_json, qs.explanation, ${topic} AS topic FROM questions x JOIN question_solutions qs ON qs.question_id = x.id
-       WHERE x.chapter_id = ? AND ${pending('x')} ORDER BY x.created_at LIMIT ? OFFSET ?`, [chapterId, limit, offset]);
+       WHERE x.chapter_id = ? AND ${where('x')} ORDER BY x.created_at LIMIT ? OFFSET ?`, [chapterId, limit, offset]);
     return rows.map((r) => {
       const opts: string[] = r.options_json ? JSON.parse(r.options_json) : [];
       const ans = JSON.parse(r.answer_json) as { correct?: string[]; numeric?: number };

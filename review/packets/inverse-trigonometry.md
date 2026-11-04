@@ -62,30 +62,6 @@ The value of $\cot^{-1}(-\sqrt3)$ is (use the range $(0,\pi)$)
 **Key:** C
 **Solution:** $\cot\tfrac{5\pi}{6}=-\sqrt3$ and $\tfrac{5\pi}{6}\in(0,\pi)$.
 
-### [Q-5e26fe65] Question (single, main, origin: generated)
-
-The domain of $f(x)=\sin^{-1}(3x-2)$ is
-
-   A. $[\tfrac13,1]$
-   B. $[-1,1]$
-   C. $[0,1]$
-   D. $[\tfrac13,\tfrac53]$
-
-**Key:** A
-**Solution:** $-1\le3x-2\le1\Rightarrow\tfrac13\le x\le1$.
-
-### [Q-45bb6640] Question (single, main, origin: generated)
-
-The domain of $f(x)=\cos^{-1}(2x)+\sin^{-1}(x)$ is
-
-   A. $[-1,1]$
-   B. $[-\tfrac12,\tfrac12]$
-   C. $[0,\tfrac12]$
-   D. $[-\tfrac12,1]$
-
-**Key:** B
-**Solution:** $|2x|\le1$ gives $|x|\le\tfrac12$ and $|x|\le1$ is weaker, so the domain is $[-\tfrac12,\tfrac12]$.
-
 ### [Q-187491f4] Question (integer, advanced, origin: generated)
 
 The number of integers in the domain of $f(x)=\sin^{-1}\!\left(\log_2\dfrac{x}{2}\right)$ is
@@ -117,12 +93,60 @@ $\tan^{-1}3+\cot^{-1}3$ equals
 **Key:** A
 **Solution:** True for all real $x$.
 
+### [Q-5e26fe65] Question (single, main, origin: generated)
+
+The domain of $f(x)=\sin^{-1}(3x-2)$ is
+
+   A. $[\tfrac13,1]$
+   B. $[-1,1]$
+   C. $[0,1]$
+   D. $[\tfrac13,\tfrac53]$
+
+**Key:** A
+**Solution:** $-1\le3x-2\le1\Rightarrow\tfrac13\le x\le1$.
+
+### [Q-45bb6640] Question (single, main, origin: generated)
+
+The domain of $f(x)=\cos^{-1}(2x)+\sin^{-1}(x)$ is
+
+   A. $[-1,1]$
+   B. $[-\tfrac12,\tfrac12]$
+   C. $[0,\tfrac12]$
+   D. $[-\tfrac12,1]$
+
+**Key:** B
+**Solution:** $|2x|\le1$ gives $|x|\le\tfrac12$ and $|x|\le1$ is weaker, so the domain is $[-\tfrac12,\tfrac12]$.
+
 ### [Q-00cb0aa1] Question (integer, main, origin: generated)
 
 If $\sin^{-1}a+\sin^{-1}b+\sin^{-1}c=\tfrac{3\pi}{2}$, find $a^2+b^2+c^2$.
 
 **Key:** 3
 **Solution:** Each term is at most $\tfrac{\pi}{2}$, so all equal $\tfrac{\pi}{2}$ and $a=b=c=1$.
+
+### [Q-27e7c97e] Question (single, advanced, origin: generated)
+
+$\sin^{-1}(\sin 10)$ (in radians) equals
+
+   A. $10-3\pi$
+   B. $3\pi-10$
+   C. $10-2\pi$
+   D. $10$
+
+**Key:** B
+**Solution:** $10\in[\tfrac{5\pi}{2},\tfrac{7\pi}{2}]$ ($k=3$), so $(-1)^3(10-3\pi)=3\pi-10$.
+
+### [Q-1a9d1f04] Question (single, foundation, origin: generated)
+
+$\tan^{-1}\tfrac{1}{2}+\tan^{-1}\tfrac{1}{3}$ equals
+
+   A. $\tfrac{\pi}{4}$
+   B. $\tfrac{\pi}{3}$
+   C. $\tfrac{\pi}{2}$
+   D. $\tan^{-1}\tfrac{5}{6}$
+
+**Key:** A
+**Solution:** $xy=\tfrac16<1$, so the sum is $\tan^{-1}\tfrac{5/6}{5/6}=\tfrac{\pi}{4}$.
 
 ### [Q-cad7f064] Question (single, main, origin: generated)
 
@@ -160,37 +184,6 @@ $\sin^{-1}(\sin 4)$ (in radians) equals
 **Key:** B
 **Solution:** $4\in[\tfrac{\pi}{2},\tfrac{3\pi}{2}]\approx[1.57,4.71]$, so the result is $\pi-4\approx-0.858$.
 
-### [Q-27e7c97e] Question (single, advanced, origin: generated)
-
-$\sin^{-1}(\sin 10)$ (in radians) equals
-
-   A. $10-3\pi$
-   B. $3\pi-10$
-   C. $10-2\pi$
-   D. $10$
-
-**Key:** B
-**Solution:** $10\in[\tfrac{5\pi}{2},\tfrac{7\pi}{2}]$ ($k=3$), so $(-1)^3(10-3\pi)=3\pi-10$.
-
-### [Q-c4da8b93] Question (integer, advanced, origin: generated)
-
-If $\tan^{-1}\tfrac13+\tan^{-1}\tfrac15+\tan^{-1}\tfrac17+\tan^{-1}\tfrac18=k\cdot\tfrac{\pi}{4}$, find $k$.
-
-**Key:** 1
-**Solution:** Pairing gives $\tan^{-1}\tfrac47+\tan^{-1}\tfrac3{11}=\tan^{-1}1=\tfrac{\pi}{4}$.
-
-### [Q-1a9d1f04] Question (single, foundation, origin: generated)
-
-$\tan^{-1}\tfrac{1}{2}+\tan^{-1}\tfrac{1}{3}$ equals
-
-   A. $\tfrac{\pi}{4}$
-   B. $\tfrac{\pi}{3}$
-   C. $\tfrac{\pi}{2}$
-   D. $\tan^{-1}\tfrac{5}{6}$
-
-**Key:** A
-**Solution:** $xy=\tfrac16<1$, so the sum is $\tan^{-1}\tfrac{5/6}{5/6}=\tfrac{\pi}{4}$.
-
 ### [Q-d874783d] Question (single, main, origin: generated)
 
 $\sin\!\left(\cos^{-1}\tfrac{5}{13}\right)$ equals
@@ -202,6 +195,25 @@ $\sin\!\left(\cos^{-1}\tfrac{5}{13}\right)$ equals
 
 **Key:** A
 **Solution:** $\theta\in[0,\pi]$ so $\sin\theta\ge0$: $\sqrt{1-\tfrac{25}{169}}=\tfrac{12}{13}$.
+
+### [Q-c4da8b93] Question (integer, advanced, origin: generated)
+
+If $\tan^{-1}\tfrac13+\tan^{-1}\tfrac15+\tan^{-1}\tfrac17+\tan^{-1}\tfrac18=k\cdot\tfrac{\pi}{4}$, find $k$.
+
+**Key:** 1
+**Solution:** Pairing gives $\tan^{-1}\tfrac47+\tan^{-1}\tfrac3{11}=\tan^{-1}1=\tfrac{\pi}{4}$.
+
+### [Q-f53cfab0] Question (single, advanced, origin: generated)
+
+$\tan^{-1}1+\tan^{-1}2+\tan^{-1}3$ equals
+
+   A. $\tfrac{\pi}{2}$
+   B. $\pi$
+   C. $\tfrac{3\pi}{2}$
+   D. $2\pi$
+
+**Key:** B
+**Solution:** $\tan^{-1}2+\tan^{-1}3=\tfrac{3\pi}{4}$ and $\tan^{-1}1=\tfrac{\pi}{4}$.
 
 ### [Q-3c8edfd8] Question (single, main, origin: generated)
 
@@ -221,18 +233,6 @@ The number of real solutions of $\tan^{-1}(2x)+\tan^{-1}(3x)=\tfrac{\pi}{4}$ is
 
 **Key:** 1
 **Solution:** The quadratic gives $x=\tfrac16$ and $x=-1$; $x=-1$ is rejected because $xy>1$ with both negative. One solution remains.
-
-### [Q-f53cfab0] Question (single, advanced, origin: generated)
-
-$\tan^{-1}1+\tan^{-1}2+\tan^{-1}3$ equals
-
-   A. $\tfrac{\pi}{2}$
-   B. $\pi$
-   C. $\tfrac{3\pi}{2}$
-   D. $2\pi$
-
-**Key:** B
-**Solution:** $\tan^{-1}2+\tan^{-1}3=\tfrac{3\pi}{4}$ and $\tan^{-1}1=\tfrac{\pi}{4}$.
 
 ## Definition, domain, range and principal values
 

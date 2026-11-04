@@ -26,6 +26,18 @@ Gravitation is one of the most predictable chapters in JEE mechanics: almost eve
 
 **Syllabus note.** (The official syllabus PDF could not be retrieved when this was written, so the wording below comes from published summaries and has not been checked against it.) Published summaries of the JEE syllabus lists universal law of gravitation, acceleration due to gravity and its variation with altitude and depth, Kepler's laws, gravitational potential energy and potential, escape velocity, and orbital velocity of a satellite. The four-topic grouping is ORBIT's provisional crosswalk, not the confirmed Chaitanya IPL scheme.
 
+### [Q-79506b44] Question (single, advanced, origin: generated)
+
+Four equal masses $m$ at the corners of a square of side $a$. The net force on one is
+
+   A. $\dfrac{Gm^2}{a^2}\left(\sqrt2+\tfrac12\right)$
+   B. $\dfrac{Gm^2}{a^2}\left(2+\tfrac12\right)$
+   C. $\dfrac{4Gm^2}{a^2}$
+   D. $\dfrac{Gm^2}{a^2}\left(\tfrac{1}{\sqrt2}+\tfrac12\right)$
+
+**Key:** A
+**Solution:** Two side forces resolve to $\sqrt2\,Gm^2/a^2$ along the diagonal; the diagonal mass adds $Gm^2/2a^2$.
+
 ### [Q-56bdbf6d] Question (single, foundation, origin: generated)
 
 The distance between two masses is doubled and one mass is also doubled. The force becomes
@@ -37,6 +49,18 @@ The distance between two masses is doubled and one mass is also doubled. The for
 
 **Key:** A
 **Solution:** $F\propto m_1m_2/r^2$: $2/4=1/2$.
+
+### [Q-a39f6bfd] Question (single, foundation, origin: generated)
+
+The gravitational field at a point inside a thin uniform spherical shell is
+
+   A. zero
+   B. $GM/R^2$
+   C. $GM/r^2$ with $r$ the distance from the centre
+   D. maximum at the centre
+
+**Key:** A
+**Solution:** By symmetry the pulls of the shell cancel everywhere inside.
 
 ### [Q-f7b05014] Question (single, main, origin: generated)
 
@@ -50,29 +74,12 @@ Two masses $M$ and $4M$ are $3$ m apart. The gravitational field is zero at a di
 **Key:** B
 **Solution:** $\dfrac{1}{x^2}=\dfrac{4}{(3-x)^2}\Rightarrow x=1$ m.
 
-### [Q-79506b44] Question (single, advanced, origin: generated)
+### [Q-3657625c] Question (integer, advanced, origin: generated)
 
-Four equal masses $m$ at the corners of a square of side $a$. The net force on one is
+The height $h$ (in km, rounded to the nearest integer) at which $g$ decreases by $1\%$, using $R=6400$ km and the exact formula, is closest to
 
-   A. $\dfrac{Gm^2}{a^2}\left(\sqrt2+\tfrac12\right)$
-   B. $\dfrac{Gm^2}{a^2}\left(2+\tfrac12\right)$
-   C. $\dfrac{4Gm^2}{a^2}$
-   D. $\dfrac{Gm^2}{a^2}\left(\tfrac{1}{\sqrt2}+\tfrac12\right)$
-
-**Key:** A
-**Solution:** Two side forces resolve to $\sqrt2\,Gm^2/a^2$ along the diagonal; the diagonal mass adds $Gm^2/2a^2$.
-
-### [Q-a39f6bfd] Question (single, foundation, origin: generated)
-
-The gravitational field at a point inside a thin uniform spherical shell is
-
-   A. zero
-   B. $GM/R^2$
-   C. $GM/r^2$ with $r$ the distance from the centre
-   D. maximum at the centre
-
-**Key:** A
-**Solution:** By symmetry the pulls of the shell cancel everywhere inside.
+**Key:** 32
+**Solution:** $(R/(R+h))^2=0.99\Rightarrow h=R(1/\sqrt{0.99}-1)=0.005038R\approx32$ km.
 
 ### [Q-24be76b6] Question (single, foundation, origin: generated)
 
@@ -98,32 +105,6 @@ At a depth $d=R/2$ the value of $g$ (uniform Earth) is
 **Key:** B
 **Solution:** $g_d=g(1-d/R)=g/2$.
 
-### [Q-eed0d472] Question (single, main, origin: generated)
-
-For small height $h$ the fractional decrease in $g$ is approximately
-
-   A. $h/R$
-   B. $2h/R$
-   C. $h/2R$
-   D. $h^2/R^2$
-
-**Key:** B
-**Solution:** $g_h\approx g(1-2h/R)$.
-
-### [Q-3657625c] Question (integer, advanced, origin: generated)
-
-The height $h$ (in km, rounded to the nearest integer) at which $g$ decreases by $1\%$, using $R=6400$ km and the exact formula, is closest to
-
-**Key:** 32
-**Solution:** $(R/(R+h))^2=0.99\Rightarrow h=R(1/\sqrt{0.99}-1)=0.005038R\approx32$ km.
-
-### [Q-19725eee] Question (integer, advanced, origin: generated)
-
-A body is projected from Earth’s surface with speed $v_e/2$. The maximum height reached is $R/k$. Find $k$.
-
-**Key:** 3
-**Solution:** Energy conservation gives $R+h=\tfrac43R$, so $h=R/3$.
-
 ### [Q-c58934da] Question (single, foundation, origin: generated)
 
 The escape velocity from Earth is closest to
@@ -135,6 +116,18 @@ The escape velocity from Earth is closest to
 
 **Key:** B
 **Solution:** $\sqrt{2gR}=11.2$ km/s.
+
+### [Q-eed0d472] Question (single, main, origin: generated)
+
+For small height $h$ the fractional decrease in $g$ is approximately
+
+   A. $h/R$
+   B. $2h/R$
+   C. $h/2R$
+   D. $h^2/R^2$
+
+**Key:** B
+**Solution:** $g_h\approx g(1-2h/R)$.
 
 ### [Q-58268e46] Question (single, main, origin: generated)
 
@@ -148,17 +141,12 @@ If $g$ is the same at height $h$ and depth $d$ ($h\ll R$), then
 **Key:** B
 **Solution:** $1-2h/R=1-d/R\Rightarrow d=2h$.
 
-### [Q-4ac5cc69] Question (single, main, origin: generated)
+### [Q-19725eee] Question (integer, advanced, origin: generated)
 
-A planet has $\tfrac14$ of Earth’s mass and $\tfrac14$ of Earth’s radius. Its escape velocity is
+A body is projected from Earth’s surface with speed $v_e/2$. The maximum height reached is $R/k$. Find $k$.
 
-   A. same as Earth’s
-   B. $\tfrac12$ of Earth’s
-   C. twice Earth’s
-   D. $\tfrac14$ of Earth’s
-
-**Key:** A
-**Solution:** $v_e\propto\sqrt{M/R}$, ratio $=1$.
+**Key:** 3
+**Solution:** Energy conservation gives $R+h=\tfrac43R$, so $h=R/3$.
 
 ### [Q-a9a03c2d] Question (single, advanced, origin: generated)
 
@@ -184,6 +172,18 @@ The orbital speed of a satellite close to Earth’s surface is about
 **Key:** A
 **Solution:** $\sqrt{gR}=7.9$ km/s.
 
+### [Q-4ac5cc69] Question (single, main, origin: generated)
+
+A planet has $\tfrac14$ of Earth’s mass and $\tfrac14$ of Earth’s radius. Its escape velocity is
+
+   A. same as Earth’s
+   B. $\tfrac12$ of Earth’s
+   C. twice Earth’s
+   D. $\tfrac14$ of Earth’s
+
+**Key:** A
+**Solution:** $v_e\propto\sqrt{M/R}$, ratio $=1$.
+
 ### [Q-6251dcfc] Question (single, main, origin: generated)
 
 The energy needed to raise $1$ kg from the surface to height $R$ is closest to
@@ -195,30 +195,6 @@ The energy needed to raise $1$ kg from the surface to height $R$ is closest to
 
 **Key:** B
 **Solution:** $\Delta U=mgR/2=3.1\times10^7$ J.
-
-### [Q-0de12d0d] Question (single, main, origin: generated)
-
-A planet orbits at four times the distance of another planet from the same star. Its period is
-
-   A. $2$ times
-   B. $4$ times
-   C. $8$ times
-   D. $16$ times
-
-**Key:** C
-**Solution:** $T\propto r^{3/2}$: $4^{3/2}=8$.
-
-### [Q-3d5aeef5] Question (single, main, origin: generated)
-
-The total energy of a satellite is $-4\times10^9$ J. Its kinetic energy is
-
-   A. $-4\times10^9$ J
-   B. $+4\times10^9$ J
-   C. $-8\times10^9$ J
-   D. $+8\times10^9$ J
-
-**Key:** B
-**Solution:** $K=-E$ for a circular orbit.
 
 ### [Q-4e1fd59b] Question (single, advanced, origin: generated)
 
@@ -243,6 +219,30 @@ A satellite moves to an orbit of twice the radius. Which statements are correct?
 
 **Key:** A, B, D
 **Solution:** $v\propto r^{-1/2}$, $T\propto r^{3/2}$, $K\propto1/r$ halves, and $E=-GMm/2r$ rises toward zero.
+
+### [Q-0de12d0d] Question (single, main, origin: generated)
+
+A planet orbits at four times the distance of another planet from the same star. Its period is
+
+   A. $2$ times
+   B. $4$ times
+   C. $8$ times
+   D. $16$ times
+
+**Key:** C
+**Solution:** $T\propto r^{3/2}$: $4^{3/2}=8$.
+
+### [Q-3d5aeef5] Question (single, main, origin: generated)
+
+The total energy of a satellite is $-4\times10^9$ J. Its kinetic energy is
+
+   A. $-4\times10^9$ J
+   B. $+4\times10^9$ J
+   C. $-8\times10^9$ J
+   D. $+8\times10^9$ J
+
+**Key:** B
+**Solution:** $K=-E$ for a circular orbit.
 
 ### [Q-ab11c73a] Question (integer, main, origin: generated)
 

@@ -7,6 +7,7 @@ import { AppText, Button, Card, Chip, EmptyState, ErrorState, Field, Icon, Loadi
 import { useDb } from '../../src/database/DatabaseProvider';
 import { contentRepo } from '../../src/database/repositories/content';
 import { notesRepo } from '../../src/database/repositories/notes';
+import { reviewRepo } from '../../src/database/repositories/review';
 import { pyqRepo } from '../../src/database/repositories/pyq';
 import { syllabusRepo } from '../../src/database/repositories/syllabus';
 import { videoRepo } from '../../src/database/repositories/videos';
@@ -37,14 +38,14 @@ export default function Lesson() {
   const { data, error, loading, reload } = useAsync(async () => {
     const chapter = await syllabusRepo.chapter(db, chapterId);
     if (!chapter) return null;
-    const [topics, lessons, formulas, videos, pyqs, practice, notes] = await Promise.all([
+    const [topics, lessons, formulas, videos, pyqs, practice, notes, waiting] = await Promise.all([
       contentRepo.topics(db, chapterId), contentRepo.lessons(db, chapterId, lang), contentRepo.formulas(db, chapterId),
-      videoRepo.forChapter(db, chapterId), pyqRepo.list(db, chapterId, tid), pyqRepo.practiceCounts(db, chapterId, tid), notesRepo.forTopic(db, chapterId, tid),
+      videoRepo.forChapter(db, chapterId), pyqRepo.list(db, chapterId, tid), pyqRepo.practiceCounts(db, chapterId, tid), notesRepo.forTopic(db, chapterId, tid), reviewRepo.counts(db, chapterId),
     ]);
     return {
       chapter, topic: topics.find((t) => t.id === tid) ?? null,
       lessons: lessons.filter((l) => l.topicId === tid), formulas: formulas.filter((f) => f.topicId === tid),
-      videos: videos.filter((v) => v.topicId === tid), pyqs, practice, notes,
+      videos: videos.filter((v) => v.topicId === tid), pyqs, practice, notes, waitingQuestions: waiting.question,
     };
   }, [db, chapterId, tid, lang]);
 
@@ -56,7 +57,7 @@ export default function Lesson() {
 
   if (error) return <ErrorState message={error} onRetry={reload} />;
   if (!data) return loading ? <LoadingState /> : <ErrorState message="Chapter not found." />;
-  const { chapter, topic, lessons, formulas, videos, pyqs, practice, notes } = data;
+  const { chapter, topic, lessons, formulas, videos, pyqs, practice, notes, waitingQuestions } = data;
   const shown = lessons.filter((l) => level === 'all' || l.level === level);
   const sectionCounts: Record<string, number> = {};
   for (const l of lessons) sectionCounts[l.section] = (sectionCounts[l.section] ?? 0) + 1;
@@ -128,8 +129,9 @@ export default function Lesson() {
         <Button variant="secondary" icon="add-circle-outline" title="Add a lesson video" onPress={() => add('/content/video')} />
       </>);
       case 'practice': return practice.chapter === 0 ? (
-        <EmptyState icon="create-outline" title="No verified practice questions yet" body="Add questions and confirm their answer keys. Only confirmed questions are used for practice and mastery."
-          action={{ label: 'Add a question', onPress: () => router.push({ pathname: '/question/new', params: { chapterId } }) }} />
+        <EmptyState icon="create-outline" title="No checked practice questions yet"
+          body={waitingQuestions > 0 ? `${waitingQuestions} question${waitingQuestions === 1 ? ' is' : 's are'} in this chapter but not yet checked. Only checked questions are used for practice and mastery.` : 'Add questions and confirm their answer keys. Only confirmed questions are used for practice and mastery.'}
+          action={waitingQuestions > 0 ? { label: 'Check the questions', onPress: () => router.push({ pathname: '/review', params: { chapterId } }) } : { label: 'Add a question', onPress: () => router.push({ pathname: '/question/new', params: { chapterId } }) }} />
       ) : (
         <Card style={{ gap: space.sm }}>
           <AppText variant="body">{practice.chapter} verified question{practice.chapter === 1 ? '' : 's'} in this chapter{tid ? ` (${practice.topic} tagged to this topic)` : ''}.</AppText>

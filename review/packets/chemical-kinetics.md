@@ -50,25 +50,6 @@ The unit of the rate constant of a first-order reaction is
 **Key:** B
 **Solution:** $(\mathrm{mol\,L^{-1}})^{1-n}\mathrm{s^{-1}}$ with $n=1$.
 
-### [Q-5fda171c] Question (single, main, origin: generated)
-
-The rate of a reaction is $k[A]^2[B]$. If the volume is reduced to $\tfrac13$ the rate changes by a factor of
-
-   A. 3
-   B. 9
-   C. 27
-   D. 81
-
-**Key:** C
-**Solution:** Each concentration triples, so $3^2\times3=27$.
-
-### [Q-7d6ffc20] Question (integer, main, origin: generated)
-
-For a reaction, doubling $[A]$ raises the rate $4$ times and doubling $[B]$ doubles the rate. The overall order is
-
-**Key:** 3
-**Solution:** Order in $A$ is $2$ ($2^m=4$), in $B$ is $1$: total $3$.
-
 ### [Q-75d6f9c0] Question (single, advanced, origin: generated)
 
 A mechanism has a fast reversible step $2NO\rightleftharpoons N_2O_2$ followed by a slow step $N_2O_2+O_2\to2NO_2$. The overall order is
@@ -88,6 +69,25 @@ A first-order reaction is $75\%$ complete in $32$ minutes. Its half-life in minu
 **Key:** 16
 **Solution:** $25\%$ left is two half-lives.
 
+### [Q-5fda171c] Question (single, main, origin: generated)
+
+The rate of a reaction is $k[A]^2[B]$. If the volume is reduced to $\tfrac13$ the rate changes by a factor of
+
+   A. 3
+   B. 9
+   C. 27
+   D. 81
+
+**Key:** C
+**Solution:** Each concentration triples, so $3^2\times3=27$.
+
+### [Q-7d6ffc20] Question (integer, main, origin: generated)
+
+For a reaction, doubling $[A]$ raises the rate $4$ times and doubling $[B]$ doubles the rate. The overall order is
+
+**Key:** 3
+**Solution:** Order in $A$ is $2$ ($2^m=4$), in $B$ is $1$: total $3$.
+
 ### [Q-4776d3b9] Question (multi, main, origin: generated)
 
 Which statements about order and molecularity are correct?
@@ -99,6 +99,25 @@ Which statements about order and molecularity are correct?
 
 **Key:** A, C
 **Solution:** Order is experimental and may be zero or fractional; molecularity is a whole number for an elementary step.
+
+### [Q-4eba44d2] Question (single, advanced, origin: generated)
+
+A first-order reaction is $20\%$ complete in $10$ min. The time for $80\%$ completion (min) is closest to
+
+   A. 50
+   B. 72
+   C. 80
+   D. 100
+
+**Key:** B
+**Solution:** $k=\dfrac{\ln1.25}{10}=0.02231$; $t=\dfrac{\ln5}{k}=72$ min.
+
+### [Q-0c844d59] Question (integer, advanced, origin: generated)
+
+For $A(g)\to B(g)+C(g)$ (first order) the initial pressure is $100$ mm Hg and the total pressure after $10$ min is $150$ mm Hg. The half-life in minutes is
+
+**Key:** 10
+**Solution:** $P_A=2P_0-P_t=50=P_0/2$, so $10$ min is one half-life.
 
 ### [Q-3f566ea5] Question (single, main, origin: generated)
 
@@ -131,24 +150,24 @@ The time for $99.9\%$ completion of a first-order reaction is $x$ times its half
 **Key:** 10
 **Solution:** $\ln1000/\ln2=9.97\approx10$.
 
-### [Q-4eba44d2] Question (single, advanced, origin: generated)
+### [Q-bc49b6c9] Question (single, main, origin: generated)
 
-A first-order reaction is $20\%$ complete in $10$ min. The time for $80\%$ completion (min) is closest to
+The half-life is $20$ min at $0.10$ M and $40$ min at $0.05$ M. The order is
 
-   A. 50
-   B. 72
-   C. 80
-   D. 100
+   A. 0
+   B. 1
+   C. 2
+   D. 3
 
-**Key:** B
-**Solution:** $k=\dfrac{\ln1.25}{10}=0.02231$; $t=\dfrac{\ln5}{k}=72$ min.
+**Key:** C
+**Solution:** $t_{1/2}\propto1/[A]_0\Rightarrow n=2$.
 
-### [Q-0c844d59] Question (integer, advanced, origin: generated)
+### [Q-c17d9850] Question (integer, advanced, origin: generated)
 
-For $A(g)\to B(g)+C(g)$ (first order) the initial pressure is $100$ mm Hg and the total pressure after $10$ min is $150$ mm Hg. The half-life in minutes is
+For a reaction $t_{1/2}$ is $100$ s at $[A]_0=0.8$ M and $50$ s at $0.4$ M. The order is
 
-**Key:** 10
-**Solution:** $P_A=2P_0-P_t=50=P_0/2$, so $10$ min is one half-life.
+**Key:** 0
+**Solution:** Half-life halves when concentration halves, so $t_{1/2}\propto[A]_0$ and $n=0$.
 
 ### [Q-9ac8deca] Question (single, foundation, origin: generated)
 
@@ -162,17 +181,17 @@ A plot of $\ln[A]$ against $t$ is a straight line. The reaction is
 **Key:** B
 **Solution:** That is the first-order test.
 
-### [Q-bc49b6c9] Question (single, main, origin: generated)
+### [Q-f70dc52c] Question (single, foundation, origin: generated)
 
-The half-life is $20$ min at $0.10$ M and $40$ min at $0.05$ M. The order is
+The slope of a plot of $\ln k$ against $1/T$ equals
 
-   A. 0
-   B. 1
-   C. 2
-   D. 3
+   A. $E_a/R$
+   B. $-E_a/R$
+   C. $-E_a$
+   D. $\ln A$
 
-**Key:** C
-**Solution:** $t_{1/2}\propto1/[A]_0\Rightarrow n=2$.
+**Key:** B
+**Solution:** From $\ln k=\ln A-\dfrac{E_a}{R}\cdot\dfrac1T$.
 
 ### [Q-84c83d30] Question (single, main, origin: generated)
 
@@ -186,12 +205,17 @@ The half-life of a reaction is directly proportional to the initial concentratio
 **Key:** A
 **Solution:** $t_{1/2}\propto[A]_0^{1-n}$ and $1-n=1$ gives $n=0$.
 
-### [Q-c17d9850] Question (integer, advanced, origin: generated)
+### [Q-af505ad4] Question (single, main, origin: generated)
 
-For a reaction $t_{1/2}$ is $100$ s at $[A]_0=0.8$ M and $50$ s at $0.4$ M. The order is
+The rate constant doubles when $T$ rises from $300$ K to $310$ K. $E_a$ in kJ mol⁻¹ is closest to
 
-**Key:** 0
-**Solution:** Half-life halves when concentration halves, so $t_{1/2}\propto[A]_0$ and $n=0$.
+   A. 27
+   B. 54
+   C. 108
+   D. 5.4
+
+**Key:** B
+**Solution:** $E_a=\dfrac{R\ln2}{1/300-1/310}=53.6$ kJ mol⁻¹.
 
 ### [Q-f4f040b1] Question (single, advanced, origin: generated)
 
@@ -205,29 +229,12 @@ A catalyst lowers $E_a$ from $75$ to $60$ kJ mol⁻¹ at $300$ K. The rate const
 **Key:** C
 **Solution:** $e^{15000/(8.314\times300)}=e^{6.01}\approx4\times10^2$.
 
-### [Q-f70dc52c] Question (single, foundation, origin: generated)
+### [Q-03fb8a0b] Question (integer, advanced, origin: generated)
 
-The slope of a plot of $\ln k$ against $1/T$ equals
+A reaction has $E_{a,\text{forward}}=95$ and $E_{a,\text{reverse}}=70$ kJ mol⁻¹. $\Delta H$ in kJ mol⁻¹ is
 
-   A. $E_a/R$
-   B. $-E_a/R$
-   C. $-E_a$
-   D. $\ln A$
-
-**Key:** B
-**Solution:** From $\ln k=\ln A-\dfrac{E_a}{R}\cdot\dfrac1T$.
-
-### [Q-af505ad4] Question (single, main, origin: generated)
-
-The rate constant doubles when $T$ rises from $300$ K to $310$ K. $E_a$ in kJ mol⁻¹ is closest to
-
-   A. 27
-   B. 54
-   C. 108
-   D. 5.4
-
-**Key:** B
-**Solution:** $E_a=\dfrac{R\ln2}{1/300-1/310}=53.6$ kJ mol⁻¹.
+**Key:** 25
+**Solution:** $\Delta H=E_{a,f}-E_{a,r}=+25$ (endothermic).
 
 ### [Q-c2c399fc] Question (single, main, origin: generated)
 
@@ -240,13 +247,6 @@ At $300$ K, $k=1.0\times10^{-3}$ s⁻¹ and $E_a=50$ kJ mol⁻¹. $k$ at $320$ K
 
 **Key:** B
 **Solution:** $\ln(k_2/k_1)=1.253$ so $k_2/k_1=3.50$.
-
-### [Q-03fb8a0b] Question (integer, advanced, origin: generated)
-
-A reaction has $E_{a,\text{forward}}=95$ and $E_{a,\text{reverse}}=70$ kJ mol⁻¹. $\Delta H$ in kJ mol⁻¹ is
-
-**Key:** 25
-**Solution:** $\Delta H=E_{a,f}-E_{a,r}=+25$ (endothermic).
 
 ### [Q-edb0145c] Question (multi, main, origin: generated)
 

@@ -62,25 +62,6 @@ The sum of the coefficients in the expansion of $(3x-2)^4$ is
 **Key:** A
 **Solution:** Put $x=1$: $(3-2)^4=1$.
 
-### [Q-5d2f1017] Question (single, main, origin: generated)
-
-The coefficient of $x$ in the expansion of $(2x-3)^3$ is
-
-   A. 36
-   B. -36
-   C. 54
-   D. -27
-
-**Key:** C
-**Solution:** $\binom31\cdot2x\cdot(-3)^2=3\cdot2\cdot9=54$.
-
-### [Q-434223f9] Question (integer, advanced, origin: generated)
-
-If the coefficients of three consecutive terms in $(1+x)^n$ are in the ratio $1:7:42$, find $n$.
-
-**Key:** 55
-**Solution:** Ratios give $n=8r-1$ and $n=7r+6$, so $r=7$ and $n=55$.
-
 ### [Q-b804071f] Question (single, foundation, origin: generated)
 
 The middle term of $\left(x+\dfrac1x\right)^{10}$ is
@@ -92,6 +73,18 @@ The middle term of $\left(x+\dfrac1x\right)^{10}$ is
 
 **Key:** A
 **Solution:** $T_6=\binom{10}5=252$.
+
+### [Q-5d2f1017] Question (single, main, origin: generated)
+
+The coefficient of $x$ in the expansion of $(2x-3)^3$ is
+
+   A. 36
+   B. -36
+   C. 54
+   D. -27
+
+**Key:** C
+**Solution:** $\binom31\cdot2x\cdot(-3)^2=3\cdot2\cdot9=54$.
 
 ### [Q-3d1fde6d] Question (single, main, origin: generated)
 
@@ -119,24 +112,12 @@ Find the coefficient of $x^3$ in $\left(2x^2-\dfrac3x\right)^{6}$.
 **Key:** -4320
 **Solution:** $12-3r=3\Rightarrow r=3$, coefficient $\binom63\cdot2^3\cdot(-3)^3=-4320$.
 
-### [Q-bf9064ad] Question (single, main, origin: generated)
+### [Q-434223f9] Question (integer, advanced, origin: generated)
 
-The 4th term in the expansion of $(x-2y)^7$ has coefficient
+If the coefficients of three consecutive terms in $(1+x)^n$ are in the ratio $1:7:42$, find $n$.
 
-   A. 280
-   B. -280
-   C. 35
-   D. -560
-
-**Key:** B
-**Solution:** $T_4=\binom73x^4(-2y)^3$, coefficient $35\cdot(-8)=-280$.
-
-### [Q-6f6e1711] Question (integer, advanced, origin: generated)
-
-Find $\binom{20}{0}+\binom{20}{2}+\binom{20}{4}+\dots+\binom{20}{20}$ divided by $2^{15}$.
-
-**Key:** 16
-**Solution:** The sum is $2^{19}$, and $2^{19}/2^{15}=16$.
+**Key:** 55
+**Solution:** Ratios give $n=8r-1$ and $n=7r+6$, so $r=7$ and $n=55$.
 
 ### [Q-174ad8c6] Question (single, foundation, origin: generated)
 
@@ -149,6 +130,18 @@ $\binom{10}{0}+\binom{10}{1}+\dots+\binom{10}{10}$ equals
 
 **Key:** B
 **Solution:** Put $x=1$ in $(1+x)^{10}$.
+
+### [Q-bf9064ad] Question (single, main, origin: generated)
+
+The 4th term in the expansion of $(x-2y)^7$ has coefficient
+
+   A. 280
+   B. -280
+   C. 35
+   D. -560
+
+**Key:** B
+**Solution:** $T_4=\binom73x^4(-2y)^3$, coefficient $35\cdot(-8)=-280$.
 
 ### [Q-703788c8] Question (single, main, origin: generated)
 
@@ -186,6 +179,13 @@ $\sum_{r=0}^{5}\binom5r^2$ equals
 **Key:** C
 **Solution:** $\binom{10}{5}=252$.
 
+### [Q-6f6e1711] Question (integer, advanced, origin: generated)
+
+Find $\binom{20}{0}+\binom{20}{2}+\binom{20}{4}+\dots+\binom{20}{20}$ divided by $2^{15}$.
+
+**Key:** 16
+**Solution:** The sum is $2^{19}$, and $2^{19}/2^{15}=16$.
+
 ### [Q-d6b8a1d4] Question (single, advanced, origin: generated)
 
 The remainder when $7^{103}$ is divided by $25$ is
@@ -197,18 +197,6 @@ The remainder when $7^{103}$ is divided by $25$ is
 
 **Key:** B
 **Solution:** $7^{103}=7(50-1)^{51}\equiv-7\equiv18\pmod{25}$.
-
-### [Q-f5bb2cca] Question (single, advanced, origin: generated)
-
-For $(1+2x)^8$ at $x=1$ the numerically greatest term(s) are
-
-   A. $T_5$ only
-   B. $T_6$ and $T_7$
-   C. $T_7$ only
-   D. $T_4$ and $T_5$
-
-**Key:** B
-**Solution:** $k=2$, $m=\dfrac{9\cdot2}{3}=6$ is an integer so $T_6=T_7$ are both greatest (each $=1792$).
 
 ### [Q-89763ed0] Question (integer, foundation, origin: generated)
 
@@ -240,6 +228,18 @@ The last two digits of $11^{10}$ are
 
 **Key:** A
 **Solution:** $(10+1)^{10}\equiv1+100\equiv1\pmod{100}$.
+
+### [Q-f5bb2cca] Question (single, advanced, origin: generated)
+
+For $(1+2x)^8$ at $x=1$ the numerically greatest term(s) are
+
+   A. $T_5$ only
+   B. $T_6$ and $T_7$
+   C. $T_7$ only
+   D. $T_4$ and $T_5$
+
+**Key:** B
+**Solution:** $k=2$, $m=\dfrac{9\cdot2}{3}=6$ is an integer so $T_6=T_7$ are both greatest (each $=1792$).
 
 ### [Q-1b2fbbb4] Question (integer, main, origin: generated)
 
