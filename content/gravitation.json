@@ -1,0 +1,944 @@
+{
+ "chapter": "Gravitation",
+ "topics": [
+  "Newton's law of gravitation and the gravitational field",
+  "Acceleration due to gravity and its variation",
+  "Gravitational potential energy and escape velocity",
+  "Satellites and Kepler's laws"
+ ],
+ "lessons": [
+  {
+   "section": "introduction",
+   "level": "foundation",
+   "language": "en",
+   "body": "**The one idea.** Every piece of matter pulls on every other piece of matter. The pull between everyday objects is far too weak to notice, but between a planet and anything near it, it dominates. Gravitation explains why things fall, why the Moon orbits the Earth, why planets orbit the Sun, and why a rocket needs a very large speed to leave Earth.\n\n**Prerequisites.** (1) Newton's laws of motion and the meaning of force as $F=ma$. (2) Circular motion and centripetal acceleration $a=v^2/r$. (3) Work, kinetic energy and the work-energy theorem, and the idea of potential energy. (4) Basic algebra with powers and square roots. If circular motion or energy conservation feels uncertain, revise them first because satellites and escape velocity use both.\n\n**What you will be able to do.** Calculate the gravitational force and field from point masses and spheres; find how $g$ changes with height and depth; use energy to get escape velocity; and work out orbital speed, period and energy of a satellite.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme."
+  },
+  {
+   "section": "why_it_matters",
+   "level": "main",
+   "language": "en",
+   "body": "Gravitation is one of the most predictable chapters in JEE mechanics: almost every question reduces to Newton's law of gravitation, energy conservation, or circular-orbit equations. The same few expressions are combined in different ways, so a student who understands where $v_{orbit}=\\sqrt{GM/r}$ and $v_{escape}=\\sqrt{2GM/R}$ come from can rebuild any variant instead of memorising each one. Gravitation also trains habits needed in later chapters: choosing a reference for potential energy, using ratios to avoid numbers, and checking dimensions.\n\n**Syllabus note.** The official JEE syllabus lists universal law of gravitation, acceleration due to gravity and its variation with altitude and depth, Kepler's laws, gravitational potential energy and potential, escape velocity, and orbital velocity of a satellite. The four-topic grouping is ORBIT's provisional crosswalk, not the confirmed Chaitanya IPL scheme.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme."
+  },
+  {
+   "section": "introduction",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Why does an apple fall but the Moon does not?** Newton's insight was that the same force acts in both cases. The apple falls straight down; the Moon also falls toward Earth, but it moves sideways so fast that it keeps missing the Earth. The force law that covers both is the **universal law of gravitation**.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "section": "explanation",
+   "level": "foundation",
+   "language": "en",
+   "body": "**The law.** Two point masses $m_1$ and $m_2$ a distance $r$ apart attract each other with a force\n$$F=\\frac{G\\,m_1m_2}{r^2}.$$\n$G=6.67\\times10^{-11}\\ \\mathrm{N\\,m^2\\,kg^{-2}}$ is the universal gravitational constant.\n\n**What each part says.**\n- The force is proportional to **each** mass: doubling one mass doubles the force.\n- The force falls as the **square of the distance**: doubling the distance cuts the force to a quarter.\n- The force is always **attractive** and acts along the line joining the masses.\n- Forces on the two bodies are equal and opposite (Newton's third law), even if the masses differ.\n\n**Gravitational field.** The field at a point is the force per unit mass on a small test mass placed there: $\\vec g=\\vec F/m$. For a point mass $M$ at distance $r$, $g=\\dfrac{GM}{r^2}$, directed toward $M$. Fields from several masses add as vectors (**superposition**).\n\n**Spheres.** A uniform solid sphere or thin shell attracts outside bodies as if all its mass were at its centre (for $r\\ge R$). Inside a thin uniform shell the field is zero.\n\n**Why $G$ is tiny.** For two 1 kg masses 1 m apart, $F=6.67\\times10^{-11}$ N, about the weight of a few bacteria. Gravity matters only when at least one mass is astronomical.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "section": "derivation",
+   "level": "main",
+   "language": "en",
+   "body": "**Where the inverse-square law comes from (conceptually).** Imagine the pull of a mass spreading out equally in all directions, like light from a bulb. At distance $r$ it is spread over a sphere of area $4\\pi r^2$. If the total \"amount of pull\" is conserved, its strength per unit area falls as $1/r^2$. Newton also showed it fits Kepler's observations: for circular orbits $T^2\\propto r^3$ requires the force to fall as $1/r^2$.\n\n**Check with the Moon.** The Moon is about $60R$ from Earth's centre. If gravity falls as $1/r^2$, the Moon's acceleration should be $g/3600\\approx2.7\\times10^{-3}\\ \\mathrm{m\\,s^{-2}}$. Its centripetal acceleration from its period (27.3 days) and distance ($3.84\\times10^8$ m) is $\\dfrac{4\\pi^2r}{T^2}\\approx2.7\\times10^{-3}\\ \\mathrm{m\\,s^{-2}}$. The numbers match, which is how Newton confirmed the law.\n\n**Field of a uniform shell (idea).** Add up the forces from all small patches of a thin shell on a test mass inside it. The nearer patches pull harder but there are fewer of them, since the area scales as $r^2$ while the force scales as $1/r^2$; the pulls from opposite sides cancel exactly for every position inside. Hence $g=0$ inside a uniform thin shell.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "section": "example",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Example 1.** Two masses of $10$ kg and $10$ kg are $0.1$ m apart. Find the attractive force.\n$F=\\dfrac{G m_1m_2}{r^2}=\\dfrac{6.67\\times10^{-11}\\times10\\times10}{(0.1)^2}=6.67\\times10^{-7}$ N.\nThis is far below anything we can feel, which is why we do not notice attraction between everyday objects.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2 (a point of zero field).** Masses $M$ and $4M$ are $3$ m apart. Find where, on the line between them, the net gravitational field is zero.\nLet the point be $x$ from $M$ (so $3-x$ from $4M$). The fields point toward their own masses, in opposite directions, so they cancel when\n$\\dfrac{GM}{x^2}=\\dfrac{G\\cdot4M}{(3-x)^2}\\Rightarrow(3-x)^2=4x^2\\Rightarrow3-x=2x\\Rightarrow x=1$ m.\n(We took the positive root because the point lies between the masses.) The point is $1$ m from $M$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "section": "example",
+   "level": "advanced",
+   "language": "en",
+   "body": "**Example 3 (force scaling).** The distance between two masses is increased from $r$ to $3r$ and one of the masses is doubled. By what factor does the force change?\n$F\\propto\\dfrac{m_1m_2}{r^2}$. New force $=\\dfrac{2}{(3)^2}=\\dfrac29$ of the old force.\n\n**Example 4 (ring of masses, symmetry).** Four equal masses $m$ sit at the corners of a square of side $a$. Find the net force on one of them.\nLet the mass be at one corner. The two adjacent masses (distance $a$) each give $\\dfrac{Gm^2}{a^2}$ along the sides, at right angles. The diagonal mass (distance $a\\sqrt2$) gives $\\dfrac{Gm^2}{2a^2}$ along the diagonal. Resolve along the diagonal toward the centre: each side force contributes $\\dfrac{Gm^2}{a^2}\\cos45^\\circ=\\dfrac{Gm^2}{a^2\\sqrt2}$, so two of them give $\\dfrac{\\sqrt2\\,Gm^2}{a^2}$. Total $=\\dfrac{Gm^2}{a^2}\\left(\\sqrt2+\\dfrac12\\right)$, directed toward the centre of the square.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "section": "common_mistakes",
+   "level": "foundation",
+   "language": "en",
+   "body": "1. Using the distance between **surfaces** instead of **centres** for spheres. For a body at height $h$ above Earth, $r=R+h$.\n2. Treating the field as a scalar and adding magnitudes. Fields are vectors; draw directions first.\n3. Thinking the heavier body pulls harder on the lighter one than vice versa. The forces are equal in magnitude.\n4. Confusing $G$ (universal constant) with $g$ (local acceleration).\n5. Using $g=GM/r^2$ inside a shell, where the field is zero.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "section": "tips",
+   "level": "main",
+   "language": "en",
+   "body": "- Prefer ratios: when a question changes masses or distances, write $F\\propto\\dfrac{m_1m_2}{r^2}$ and compute the factor, avoiding $G$ altogether.\n- For zero-field points between two masses, equate the two magnitudes and take the root that lies between them. Outside the pair, the fields point the same way, so the field cannot vanish there when both masses attract.\n- For symmetric arrangements, find the net force by components along a symmetry axis.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "section": "summary",
+   "level": "foundation",
+   "language": "en",
+   "body": "$F=\\dfrac{Gm_1m_2}{r^2}$; always attractive; equal and opposite on the two bodies. Field $g=\\dfrac{GM}{r^2}$ toward the mass; fields add as vectors. Sphere/shell acts as a point at its centre for outside points; zero field inside a thin shell. $G=6.67\\times10^{-11}$ N m² kg⁻².",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "section": "mini_assessment",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Check yourself.**\n1. If the distance between two masses is doubled, by what factor does the force change?\n2. Does the Earth pull on you harder than you pull on the Earth?\n3. What is the gravitational field inside a hollow uniform shell?\n\n**Answers.** 1. Becomes $\\tfrac14$. 2. No: the forces are equal and opposite (the Earth barely accelerates because its mass is huge). 3. Zero.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "section": "introduction",
+   "level": "main",
+   "language": "en",
+   "body": "**Earth's pull is not the same everywhere.** The value $g=9.8\\ \\mathrm{m\\,s^{-2}}$ is the field at Earth's surface. It changes as you go up a mountain, down a mine, or toward the equator. JEE asks for the size of these changes, usually as fractions of $g$.\n\n**Prerequisites.** The law of gravitation and field of a sphere; the binomial approximation $(1+x)^n\\approx1+nx$ for small $x$; the idea of density for a uniform sphere.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "section": "explanation",
+   "level": "main",
+   "language": "en",
+   "body": "**At the surface.** $g=\\dfrac{GM}{R^2}$ where $M$ is Earth's mass and $R$ its radius. This also shows that $GM=gR^2$, a relation used constantly.\n\n**At height $h$ above the surface.** The distance from the centre is $R+h$:\n$$g_h=\\frac{GM}{(R+h)^2}=g\\left(\\frac{R}{R+h}\\right)^2.$$\nFor $h\\ll R$: $g_h\\approx g\\left(1-\\dfrac{2h}{R}\\right)$.\n\n**At depth $d$ below the surface (uniform-density Earth).** Only the mass inside the radius $R-d$ attracts you (the outer shell contributes zero):\n$$g_d=g\\left(1-\\frac dR\\right).$$\nSo $g$ decreases linearly to zero at the centre.\n\n**Effect of rotation.** At latitude $\\lambda$ the apparent $g$ is $g'=g-\\omega^2R\\cos^2\\lambda$. At the poles ($\\lambda=90^\\circ$) there is no correction; at the equator the correction is largest, $\\omega^2R\\approx0.034\\ \\mathrm{m\\,s^{-2}}$ (about $0.35\\%$ of $g$). Also Earth is slightly flattened, so $g$ is slightly larger at the poles for that reason too.\n\n**Graph.** $g$ inside rises linearly from $0$ at the centre to its maximum at the surface, then falls as $1/r^2$ outside.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "section": "derivation",
+   "level": "main",
+   "language": "en",
+   "body": "**Depth formula.** Assume uniform density $\\rho$. At radius $r<R$ only the sphere of radius $r$ attracts (the shell outside gives no net field), with mass $M_r=\\tfrac43\\pi r^3\\rho$. So\n$g_r=\\dfrac{GM_r}{r^2}=\\dfrac{G\\cdot\\tfrac43\\pi r^3\\rho}{r^2}=\\tfrac43\\pi G\\rho\\,r$.\nAt the surface $g=\\tfrac43\\pi G\\rho R$, so $g_r=g\\,\\dfrac rR$. With $r=R-d$: $g_d=g\\left(1-\\dfrac dR\\right)$.\n\n**Small-height approximation.** $g_h=g(1+h/R)^{-2}$. For $h/R\\ll1$ the binomial approximation gives $g(1-2h/R)$. The approximation is good when $h/R$ is below about $0.05$; for larger $h$ use the exact formula.\n\n**Rotation correction.** A person at latitude $\\lambda$ moves in a circle of radius $R\\cos\\lambda$ with angular speed $\\omega$. The centripetal acceleration needed is $\\omega^2R\\cos\\lambda$, directed toward the axis. Its component along the line to Earth's centre is $\\omega^2R\\cos^2\\lambda$, which reduces the apparent weight: $g'=g-\\omega^2R\\cos^2\\lambda$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "section": "example",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Example 1.** At what height above the surface is $g$ one quarter of its surface value?\n$g_h=\\dfrac g4\\Rightarrow\\left(\\dfrac R{R+h}\\right)^2=\\dfrac14\\Rightarrow R+h=2R\\Rightarrow h=R$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2.** At what depth is $g$ half of its surface value?\n$g_d=g\\left(1-\\dfrac dR\\right)=\\dfrac g2\\Rightarrow d=\\dfrac R2$.\n\n**Example 3 (when the approximation is allowed).** By what fraction does $g$ decrease at $h=\\dfrac R{200}$?\nUsing $g_h\\approx g(1-2h/R)$: decrease $=\\dfrac{2h}R=\\dfrac{2}{200}=1\\%$.\n*Exact check:* $\\left(\\dfrac{200}{201}\\right)^2=0.99007$, so the decrease is $0.993\\%$, which rounds to $1\\%$. The approximation is excellent here.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "section": "example",
+   "level": "advanced",
+   "language": "en",
+   "body": "**Example 4 (same $g$ up and down).** Find $h$ (above the surface) and $d$ (below it) such that $g$ has the same value at both places, assuming $h\\ll R$.\n$g\\left(1-\\dfrac{2h}R\\right)=g\\left(1-\\dfrac dR\\right)\\Rightarrow d=2h$.\n\n**Example 5 (rotation).** What angular speed must Earth have for objects at the equator to be weightless?\nAt the equator $g'=g-\\omega^2R=0\\Rightarrow\\omega=\\sqrt{g/R}\\approx\\sqrt{9.8/6.4\\times10^6}=1.24\\times10^{-3}\\ \\mathrm{rad\\,s^{-1}}$, about $17$ times Earth's actual angular speed ($7.3\\times10^{-5}$). The day would last about $84$ minutes.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "section": "common_mistakes",
+   "level": "main",
+   "language": "en",
+   "body": "1. Using $g(1-h/R)$ for height (that is the **depth** formula). Height gives $1-2h/R$.\n2. Using $h$ instead of $R+h$ in the exact formula.\n3. Applying the binomial approximation for $h$ comparable to $R$.\n4. Assuming $g$ is zero at the centre only in a hollow Earth; for a solid uniform Earth it is zero at the centre because the enclosed mass shrinks to zero.\n5. Forgetting that the depth formula assumes uniform density; the real Earth's core is denser, so real $g$ first rises slightly below the surface.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "section": "tips",
+   "level": "main",
+   "language": "en",
+   "body": "- Write $GM=gR^2$ and replace $GM$ by it whenever $g$ and $R$ are given.\n- Height: $1-2h/R$; depth: $1-d/R$. Remember \"twice as sensitive going up\".\n- For a ratio like $g_h/g_d$, divide the two expressions rather than computing each separately.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "section": "summary",
+   "level": "main",
+   "language": "en",
+   "body": "$g=\\dfrac{GM}{R^2}$, $GM=gR^2$. Height: $g_h=g\\left(\\dfrac R{R+h}\\right)^2\\approx g(1-\\tfrac{2h}R)$. Depth: $g_d=g(1-\\tfrac dR)$. Latitude: $g'=g-\\omega^2R\\cos^2\\lambda$. Zero at the centre, maximum at the surface, $1/r^2$ outside.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "section": "mini_assessment",
+   "level": "main",
+   "language": "en",
+   "body": "**Check yourself.**\n1. Find $g$ at height $R$ above the surface in terms of $g$.\n2. Find the depth at which $g$ is $75\\%$ of the surface value.\n3. What is the apparent weight change at the equator due to rotation, as a fraction of $g$ (roughly)?\n\n**Answers.** 1. $g/4$. 2. $d=\\dfrac R4$. 3. About $0.35\\%$ less.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "section": "introduction",
+   "level": "main",
+   "language": "en",
+   "body": "**Energy is a better tool than force here.** The pull of gravity changes with distance, so using $W=Fd$ directly is awkward. Gravity is a **conservative** force: the work it does depends only on the start and end points. That lets us define a potential energy and solve \"how fast to leave Earth\" with energy conservation instead of integrating motion.\n\n**Prerequisites.** Work done by a variable force (area under an $F$–$r$ graph, or a simple integral); conservation of mechanical energy; the law of gravitation. Where an integral appears we show every step.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "section": "explanation",
+   "level": "main",
+   "language": "en",
+   "body": "**Reference.** Gravitational potential energy is measured from infinity, where it is defined to be zero. Because gravity is attractive, energy is **negative** at any finite distance:\n$$U(r)=-\\frac{GMm}{r}.$$\nThe **gravitational potential** at a point is the potential energy per unit mass: $V=-\\dfrac{GM}{r}$ (units J kg⁻¹).\n\n**Near the surface** the change in potential energy for a small rise $h$ is $mgh$. The familiar $mgh$ is the difference of two values of $-\\dfrac{GMm}{r}$, not a different law.\n\n**Escape velocity.** The minimum speed that lets a body leave Earth's gravity and never return (ignoring air and other bodies):\n$$v_e=\\sqrt{\\frac{2GM}{R}}=\\sqrt{2gR}\\approx11.2\\ \\mathrm{km\\,s^{-1}}.$$\nIt does not depend on the mass of the body or the direction of launch (if it does not hit anything), and it equals $\\sqrt2$ times the speed of a circular orbit just above the surface.\n\n**Binding energy.** The energy needed to take a body from rest at distance $r$ to infinity is $\\dfrac{GMm}{r}$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "section": "derivation",
+   "level": "advanced",
+   "language": "en",
+   "body": "**Potential energy.** Move a mass $m$ in slowly from infinity to distance $r$ from $M$. Gravity pulls it inward with $F=\\dfrac{GMm}{x^2}$ when it is at distance $x$, and the displacement is also inward, so gravity does positive work:\n$W_g=\\int_r^\\infty\\dfrac{GMm}{x^2}\\,dx=GMm\\left[-\\dfrac1x\\right]_r^\\infty=\\dfrac{GMm}{r}$.\nPotential energy is defined as minus the work done by the force when the body moves from the reference point (infinity) to the point in question, so $U(r)=-W_g=-\\dfrac{GMm}{r}$ with $U(\\infty)=0$.\n\n**Escape velocity.** Launch from the surface with speed $v_e$ and require that the speed just reaches $0$ at infinity. Energy conservation:\n$\\tfrac12mv_e^2-\\dfrac{GMm}{R}=0+0\\Rightarrow v_e=\\sqrt{\\dfrac{2GM}{R}}$.\nUsing $GM=gR^2$: $v_e=\\sqrt{2gR}$. With $g=9.8$ and $R=6.4\\times10^6$ m: $v_e=\\sqrt{1.254\\times10^8}=1.12\\times10^4$ m/s.\n\n**Link to $mgh$.** $U(R+h)-U(R)=GMm\\left(\\dfrac1R-\\dfrac1{R+h}\\right)=\\dfrac{GMm\\,h}{R(R+h)}\\approx\\dfrac{GMm\\,h}{R^2}=mgh$ for $h\\ll R$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "section": "example",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Example 1.** Find the escape velocity from Earth using $g=9.8$ m s⁻² and $R=6.4\\times10^6$ m.\n$v_e=\\sqrt{2gR}=\\sqrt{2\\times9.8\\times6.4\\times10^6}=\\sqrt{1.2544\\times10^8}=1.12\\times10^4$ m s⁻¹ $=11.2$ km s⁻¹.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2 (another planet).** A planet has $\\tfrac1{10}$ of Earth's mass and $\\tfrac12$ of Earth's radius. Find its escape velocity in terms of Earth's.\n$v_e\\propto\\sqrt{M/R}$, so the ratio is $\\sqrt{\\dfrac{1/10}{1/2}}=\\sqrt{0.2}=0.447$. The escape velocity is about $0.447\\times11.2=5.0$ km s⁻¹.\n\n**Example 3 (energy to lift).** How much energy is needed to raise a $1$ kg mass from Earth's surface to a height $R$?\n$\\Delta U=GMm\\left(\\dfrac1R-\\dfrac1{2R}\\right)=\\dfrac{GMm}{2R}=\\dfrac{mgR}2=\\dfrac{1\\times9.8\\times6.4\\times10^6}2=3.1\\times10^7$ J.\n*Trap.* Using $mgh=mgR$ would give twice the correct value, because $g$ is not constant over such a height.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "section": "example",
+   "level": "advanced",
+   "language": "en",
+   "body": "**Example 4 (speed at a distance).** A body is projected from the surface with speed $v=\\dfrac{v_e}{2}$. Find the maximum height above the surface.\nAt the top the speed is zero. Energy: $\\tfrac12mv^2-\\dfrac{GMm}R=-\\dfrac{GMm}{R+h}$. With $v^2=\\dfrac{v_e^2}4=\\dfrac{GM}{2R}$:\n$\\dfrac{GMm}{4R}-\\dfrac{GMm}R=-\\dfrac{GMm}{R+h}\\Rightarrow-\\dfrac34\\cdot\\dfrac1R=-\\dfrac1{R+h}\\Rightarrow R+h=\\dfrac{4R}3\\Rightarrow h=\\dfrac R3$.\n\n**Example 5 (speed at infinity).** A body leaves the surface with $v=2v_e$. Find its speed when far away (at infinity).\n$\\tfrac12mv_\\infty^2=\\tfrac12m(2v_e)^2-\\dfrac{GMm}R=2mv_e^2-\\tfrac12mv_e^2$ (since $\\dfrac{GM}R=\\tfrac12v_e^2$) $=\\tfrac32mv_e^2$. So $v_\\infty=\\sqrt3\\,v_e$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "section": "common_mistakes",
+   "level": "main",
+   "language": "en",
+   "body": "1. Using $mgh$ for large heights.\n2. Giving $U$ a positive sign: gravitational potential energy of an attractive pair is negative.\n3. Thinking escape velocity depends on the mass of the projectile.\n4. Mixing up escape velocity ($\\sqrt{2gR}$) and orbital velocity near the surface ($\\sqrt{gR}$).\n5. Taking the height above the surface as the distance in $U=-GMm/r$; $r$ is measured from the centre.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "section": "tips",
+   "level": "main",
+   "language": "en",
+   "body": "- Energy conservation between two positions is almost always the fastest route; avoid kinematics for variable-force motion.\n- Replace $GM$ by $gR^2$ and $\\dfrac{GM}{R}$ by $gR$ to simplify.\n- If a question mentions \"just escapes\", set total energy $=0$; \"bound\" means total energy $<0$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "section": "summary",
+   "level": "main",
+   "language": "en",
+   "body": "$U=-\\dfrac{GMm}r$ (zero at infinity), $V=-\\dfrac{GM}r$. Escape velocity $v_e=\\sqrt{2GM/R}=\\sqrt{2gR}\\approx11.2$ km/s; independent of mass and direction; $v_e=\\sqrt2\\,v_o$. Total energy zero at escape; binding energy $=GMm/r$. $mgh$ is the small-height limit.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "section": "mini_assessment",
+   "level": "main",
+   "language": "en",
+   "body": "**Check yourself.**\n1. Is the potential energy of a mass in Earth's field positive or negative? Why?\n2. By what factor must the escape velocity change if Earth's radius doubles at constant mass?\n3. What happens to the escape velocity of a body if its mass is doubled?\n\n**Answers.** 1. Negative, because gravity is attractive and $U=0$ is chosen at infinity. 2. It becomes $\\tfrac1{\\sqrt2}$ of the original. 3. Nothing; it is independent of the body's mass.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "section": "introduction",
+   "level": "main",
+   "language": "en",
+   "body": "**Falling around the Earth.** Fire a cannonball horizontally from a very high mountain. At low speed it lands nearby. At higher speed it lands farther away. At about $7.9$ km/s the ground curves away beneath it as fast as it falls, and it never lands: it is in orbit. A satellite is a body in continuous free fall around a planet.\n\n**Prerequisites.** Centripetal force; the law of gravitation; energy; the idea of period and angular speed.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "section": "explanation",
+   "level": "main",
+   "language": "en",
+   "body": "**Circular orbit of radius $r$ around mass $M$.** Gravity provides the centripetal force, so $\\dfrac{GMm}{r^2}=\\dfrac{mv^2}{r}$:\n- Orbital speed $v=\\sqrt{\\dfrac{GM}{r}}$ (independent of the satellite's mass).\n- Period $T=2\\pi\\sqrt{\\dfrac{r^3}{GM}}$, so $T^2\\propto r^3$.\n- Close to the surface, $r\\approx R$ and $v_o=\\sqrt{gR}\\approx7.9$ km/s, $T\\approx84$ minutes.\n\n**Energies in a circular orbit.**\n$K=\\dfrac{GMm}{2r}$, $U=-\\dfrac{GMm}{r}$, $E=K+U=-\\dfrac{GMm}{2r}$. So $K=-E$ and $U=2E$. The total energy is negative: the satellite is bound. To escape it needs extra energy $\\dfrac{GMm}{2r}$.\n\n**Weightlessness.** Inside an orbiting satellite everything falls with the same acceleration, so there is no contact force between you and the floor. Gravity has not vanished: at the altitude of the International Space Station, $g$ is still about $90\\%$ of its surface value.\n\n**Geostationary satellite.** Its period is one sidereal day ($\\approx23$ h $56$ min), it orbits above the equator in the same direction as Earth's rotation, and it hovers over one point. Its orbital radius is about $4.22\\times10^7$ m, i.e. a height of about $3.6\\times10^7$ m ($36{,}000$ km) above the surface.\n\n**Kepler's laws.**\n1. **Orbits:** each planet moves in an ellipse with the Sun at one focus.\n2. **Areas:** the line from the Sun to a planet sweeps equal areas in equal times (this is conservation of angular momentum).\n3. **Periods:** $T^2\\propto a^3$, where $a$ is the semi-major axis.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "section": "derivation",
+   "level": "advanced",
+   "language": "en",
+   "body": "**Orbital speed and period.** Equate gravity to the centripetal requirement: $\\dfrac{GMm}{r^2}=\\dfrac{mv^2}r\\Rightarrow v^2=\\dfrac{GM}r$. The period is distance over speed: $T=\\dfrac{2\\pi r}v=2\\pi r\\sqrt{\\dfrac r{GM}}=2\\pi\\sqrt{\\dfrac{r^3}{GM}}$. Squaring: $T^2=\\dfrac{4\\pi^2}{GM}r^3$, which is Kepler's third law for circular orbits, with constant $\\dfrac{4\\pi^2}{GM}$.\n\n**Energies.** $K=\\tfrac12mv^2=\\tfrac12\\cdot\\dfrac{GMm}r=\\dfrac{GMm}{2r}$. Adding $U=-\\dfrac{GMm}r$ gives $E=-\\dfrac{GMm}{2r}$.\n\n**Kepler's second law from angular momentum.** Gravity is a central force, so the torque about the Sun is zero and angular momentum $L=mr^2\\dot\\theta$ is constant. The area swept per unit time is $\\dfrac{dA}{dt}=\\tfrac12r^2\\dot\\theta=\\dfrac L{2m}$, a constant.\n\n**Why decaying orbits speed up.** Drag removes energy, so $E=-\\dfrac{GMm}{2r}$ becomes more negative, which requires smaller $r$. But $v=\\sqrt{GM/r}$ increases as $r$ decreases. So a satellite losing energy to drag moves to a lower orbit and goes faster.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "section": "example",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Example 1.** Find the orbital speed of a satellite just above Earth's surface. $v_o=\\sqrt{gR}=\\sqrt{9.8\\times6.4\\times10^6}=7.9\\times10^3$ m s⁻¹.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2 (Kepler's third law).** Planet A orbits a star at a distance $r$ and has period $T$. Planet B orbits at distance $4r$. Find its period.\n$T^2\\propto r^3\\Rightarrow\\dfrac{T_B}{T_A}=\\left(\\dfrac{4r}{r}\\right)^{3/2}=4^{3/2}=8$. So $T_B=8T$.\n\n**Example 3 (energy of a satellite).** A $500$ kg satellite orbits at $r=7.0\\times10^6$ m from Earth's centre. Find its total energy. Use $GM=3.986\\times10^{14}\\ \\mathrm{m^3s^{-2}}$.\n$E=-\\dfrac{GMm}{2r}=-\\dfrac{3.986\\times10^{14}\\times500}{2\\times7.0\\times10^6}=-1.42\\times10^{10}$ J.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "section": "example",
+   "level": "advanced",
+   "language": "en",
+   "body": "**Example 4 (changing orbits).** A satellite in a circular orbit has speed $v$. By what factor must its speed be increased (suddenly, tangentially) so that it just escapes?\nEscape speed from radius $r$ is $\\sqrt{\\dfrac{2GM}r}=\\sqrt2\\,v$. So the speed must be multiplied by $\\sqrt2\\approx1.41$.\n\n**Example 5 (conceptual).** A satellite is moved to an orbit of twice the radius. How do its (a) orbital speed, (b) period, (c) kinetic energy, (d) total energy change?\n(a) $v\\propto r^{-1/2}$: $v'=\\dfrac v{\\sqrt2}$. (b) $T\\propto r^{3/2}$: $T'=2\\sqrt2\\,T\\approx2.83T$. (c) $K\\propto\\dfrac1r$: $K'=\\dfrac K2$. (d) $E=-\\dfrac{GMm}{2r}$ rises from $-\\dfrac{GMm}{2r}$ to $-\\dfrac{GMm}{4r}$, i.e. $E$ increases by $\\dfrac{GMm}{4r}$ (less negative). The satellite has a larger total energy but a smaller kinetic energy.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "section": "common_mistakes",
+   "level": "main",
+   "language": "en",
+   "body": "1. Using the Earth's radius $R$ instead of the orbital radius $r=R+h$.\n2. Believing satellites are weightless because there is no gravity. Gravity is what keeps them in orbit; weightlessness is free fall.\n3. Writing $E=+\\dfrac{GMm}{2r}$ or forgetting that $K=-E$.\n4. Thinking a satellite at a higher orbit moves faster. It moves slower.\n5. Saying the satellite's speed depends on its mass.\n6. Using Kepler's third law with radius instead of semi-major axis for elliptical orbits.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "section": "tips",
+   "level": "main",
+   "language": "en",
+   "body": "- Memorise the chain: $v\\propto r^{-1/2}$, $T\\propto r^{3/2}$, $K\\propto r^{-1}$, $|E|\\propto r^{-1}$.\n- For close-to-surface orbits use $v=\\sqrt{gR}$ and $T=2\\pi\\sqrt{R/g}$ to avoid $G$.\n- To compare two satellites around the same body, form ratios; $GM$ cancels.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "section": "summary",
+   "level": "main",
+   "language": "en",
+   "body": "Circular orbit: $v=\\sqrt{GM/r}$, $T=2\\pi\\sqrt{r^3/GM}$, $K=\\frac{GMm}{2r}$, $U=-\\frac{GMm}r$, $E=-\\frac{GMm}{2r}$. Kepler: ellipses; equal areas (angular momentum); $T^2\\propto a^3$. Near-surface: $v=\\sqrt{gR}\\approx7.9$ km/s, $T\\approx84$ min. Geostationary: $r\\approx4.22\\times10^7$ m. Escape from orbit needs speed $\\sqrt2\\,v$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "section": "mini_assessment",
+   "level": "main",
+   "language": "en",
+   "body": "**Check yourself.**\n1. A satellite's orbital radius is doubled. What happens to its speed?\n2. Why do astronauts float inside the space station?\n3. Total energy of a satellite is $-4\\times10^9$ J. What is its kinetic energy?\n\n**Answers.** 1. It decreases by a factor of $\\sqrt2$. 2. They and the station fall freely together, so there is no contact force; gravity still acts. 3. $K=-E=+4\\times10^9$ J.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws"
+  }
+ ],
+ "formulas": [
+  {
+   "name": "Newton's law of gravitation",
+   "latex": "F = \\dfrac{G\\,m_1 m_2}{r^{2}}",
+   "variables": [
+    {
+     "symbol": "F",
+     "meaning": "attractive force",
+     "unit": "N"
+    },
+    {
+     "symbol": "G",
+     "meaning": "gravitational constant, 6.67 × 10⁻¹¹",
+     "unit": "N m² kg⁻²"
+    },
+    {
+     "symbol": "m₁, m₂",
+     "meaning": "the two masses",
+     "unit": "kg"
+    },
+    {
+     "symbol": "r",
+     "meaning": "distance between the centres",
+     "unit": "m"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Newton's law of gravitation and the gravitational field",
+   "conditions": "Point masses, or spheres with spherically symmetric mass distribution",
+   "explanation": "Inverse-square; equal and opposite on the two bodies.",
+   "units": "N"
+  },
+  {
+   "name": "Gravitational field of a point mass",
+   "latex": "g = \\dfrac{G M}{r^{2}}",
+   "variables": [
+    {
+     "symbol": "g",
+     "meaning": "field (force per unit mass)",
+     "unit": "N kg⁻¹"
+    },
+    {
+     "symbol": "M",
+     "meaning": "the source mass",
+     "unit": "kg"
+    },
+    {
+     "symbol": "r",
+     "meaning": "distance from the centre",
+     "unit": "m"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Newton's law of gravitation and the gravitational field",
+   "conditions": "r ≥ R for a sphere; zero inside a thin uniform shell"
+  },
+  {
+   "name": "Surface value of g",
+   "latex": "g = \\dfrac{G M}{R^{2}}\\ \\Longrightarrow\\ GM = gR^{2}",
+   "variables": [
+    {
+     "symbol": "M",
+     "meaning": "mass of the planet",
+     "unit": "kg"
+    },
+    {
+     "symbol": "R",
+     "meaning": "radius of the planet",
+     "unit": "m"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation",
+   "explanation": "Used to replace GM whenever g and R are given."
+  },
+  {
+   "name": "g at height h",
+   "latex": "g_h = g\\left(\\dfrac{R}{R+h}\\right)^{2} \\approx g\\left(1-\\dfrac{2h}{R}\\right)",
+   "variables": [
+    {
+     "symbol": "h",
+     "meaning": "height above the surface",
+     "unit": "m"
+    },
+    {
+     "symbol": "R",
+     "meaning": "radius of the planet",
+     "unit": "m"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation",
+   "conditions": "The approximate form needs h much smaller than R"
+  },
+  {
+   "name": "g at depth d",
+   "latex": "g_d = g\\left(1-\\dfrac{d}{R}\\right)",
+   "variables": [
+    {
+     "symbol": "d",
+     "meaning": "depth below the surface",
+     "unit": "m"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation",
+   "conditions": "Uniform-density planet"
+  },
+  {
+   "name": "Apparent g at latitude λ",
+   "latex": "g' = g - \\omega^{2}R\\cos^{2}\\lambda",
+   "variables": [
+    {
+     "symbol": "ω",
+     "meaning": "angular speed of the planet",
+     "unit": "rad s⁻¹"
+    },
+    {
+     "symbol": "λ",
+     "meaning": "latitude"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Acceleration due to gravity and its variation",
+   "conditions": "Spherical rotating Earth; correction is zero at the poles"
+  },
+  {
+   "name": "Gravitational potential energy",
+   "latex": "U = -\\dfrac{G M m}{r}",
+   "variables": [
+    {
+     "symbol": "U",
+     "meaning": "potential energy",
+     "unit": "J"
+    },
+    {
+     "symbol": "m",
+     "meaning": "the test mass",
+     "unit": "kg"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Gravitational potential energy and escape velocity",
+   "conditions": "Zero at infinity; r measured from the centre of M"
+  },
+  {
+   "name": "Escape velocity",
+   "latex": "v_e = \\sqrt{\\dfrac{2GM}{R}} = \\sqrt{2gR}",
+   "variables": [
+    {
+     "symbol": "v_e",
+     "meaning": "escape speed",
+     "unit": "m s⁻¹"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Gravitational potential energy and escape velocity",
+   "conditions": "Ignores air resistance and other bodies; independent of the body’s mass",
+   "explanation": "≈ 11.2 km/s for Earth"
+  },
+  {
+   "name": "Orbital speed (circular orbit)",
+   "latex": "v = \\sqrt{\\dfrac{GM}{r}}",
+   "variables": [
+    {
+     "symbol": "r",
+     "meaning": "orbital radius, from the centre of the planet",
+     "unit": "m"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws",
+   "conditions": "Circular orbit",
+   "explanation": "Near the surface: √(gR) ≈ 7.9 km/s"
+  },
+  {
+   "name": "Time period (circular orbit)",
+   "latex": "T = 2\\pi\\sqrt{\\dfrac{r^{3}}{GM}}",
+   "variables": [
+    {
+     "symbol": "T",
+     "meaning": "period",
+     "unit": "s"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws",
+   "conditions": "Circular orbit; for ellipses use the semi-major axis a in place of r"
+  },
+  {
+   "name": "Energies of a circular orbit",
+   "latex": "K = \\dfrac{GMm}{2r},\\quad U = -\\dfrac{GMm}{r},\\quad E = -\\dfrac{GMm}{2r}",
+   "variables": [
+    {
+     "symbol": "K",
+     "meaning": "kinetic energy",
+     "unit": "J"
+    },
+    {
+     "symbol": "E",
+     "meaning": "total energy",
+     "unit": "J"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Satellites and Kepler's laws",
+   "conditions": "Circular orbit",
+   "explanation": "K = −E and U = 2E"
+  }
+ ],
+ "questions": [
+  {
+   "type": "single",
+   "stem": "The distance between two masses is doubled and one mass is also doubled. The force becomes",
+   "options": [
+    "$\\tfrac12$ of the original",
+    "$\\tfrac14$ of the original",
+    "the same",
+    "$2$ times"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "$F\\propto m_1m_2/r^2$: $2/4=1/2$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "type": "single",
+   "stem": "Two masses $M$ and $4M$ are $3$ m apart. The gravitational field is zero at a distance (from $M$, on the line between them) of",
+   "options": [
+    "0.5 m",
+    "1 m",
+    "1.5 m",
+    "2 m"
+   ],
+   "correct": [
+    "B"
+   ],
+   "difficulty": "main",
+   "explanation": "$\\dfrac{1}{x^2}=\\dfrac{4}{(3-x)^2}\\Rightarrow x=1$ m.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "type": "single",
+   "stem": "The gravitational field at a point inside a thin uniform spherical shell is",
+   "options": [
+    "zero",
+    "$GM/R^2$",
+    "$GM/r^2$ with $r$ the distance from the centre",
+    "maximum at the centre"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "By symmetry the pulls of the shell cancel everywhere inside.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "type": "single",
+   "stem": "Four equal masses $m$ at the corners of a square of side $a$. The net force on one is",
+   "options": [
+    "$\\dfrac{Gm^2}{a^2}\\left(\\sqrt2+\\tfrac12\\right)$",
+    "$\\dfrac{Gm^2}{a^2}\\left(2+\\tfrac12\\right)$",
+    "$\\dfrac{4Gm^2}{a^2}$",
+    "$\\dfrac{Gm^2}{a^2}\\left(\\tfrac{1}{\\sqrt2}+\\tfrac12\\right)$"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "advanced",
+   "explanation": "Two side forces resolve to $\\sqrt2\\,Gm^2/a^2$ along the diagonal; the diagonal mass adds $Gm^2/2a^2$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Newton's law of gravitation and the gravitational field"
+  },
+  {
+   "type": "single",
+   "stem": "At what height above the surface is $g$ equal to $\\tfrac14$ of its surface value?",
+   "options": [
+    "$R/2$",
+    "$R$",
+    "$2R$",
+    "$3R$"
+   ],
+   "correct": [
+    "B"
+   ],
+   "difficulty": "foundation",
+   "explanation": "$(R/(R+h))^2=1/4\\Rightarrow h=R$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "type": "single",
+   "stem": "At a depth $d=R/2$ the value of $g$ (uniform Earth) is",
+   "options": [
+    "$g/4$",
+    "$g/2$",
+    "$3g/4$",
+    "$g$"
+   ],
+   "correct": [
+    "B"
+   ],
+   "difficulty": "foundation",
+   "explanation": "$g_d=g(1-d/R)=g/2$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "type": "single",
+   "stem": "For small height $h$ the fractional decrease in $g$ is approximately",
+   "options": [
+    "$h/R$",
+    "$2h/R$",
+    "$h/2R$",
+    "$h^2/R^2$"
+   ],
+   "correct": [
+    "B"
+   ],
+   "difficulty": "main",
+   "explanation": "$g_h\\approx g(1-2h/R)$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "type": "integer",
+   "stem": "The height $h$ (in km, rounded to the nearest integer) at which $g$ decreases by $1\\%$, using $R=6400$ km and the exact formula, is closest to",
+   "numeric": 32,
+   "tolerance": 0,
+   "difficulty": "advanced",
+   "explanation": "$(R/(R+h))^2=0.99\\Rightarrow h=R(1/\\sqrt{0.99}-1)=0.005038R\\approx32$ km.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "type": "single",
+   "stem": "If $g$ is the same at height $h$ and depth $d$ ($h\\ll R$), then",
+   "options": [
+    "$d=h$",
+    "$d=2h$",
+    "$d=h/2$",
+    "$d=4h$"
+   ],
+   "correct": [
+    "B"
+   ],
+   "difficulty": "main",
+   "explanation": "$1-2h/R=1-d/R\\Rightarrow d=2h$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Acceleration due to gravity and its variation"
+  },
+  {
+   "type": "single",
+   "stem": "The escape velocity from Earth is closest to",
+   "options": [
+    "7.9 km/s",
+    "11.2 km/s",
+    "15.0 km/s",
+    "3.0 km/s"
+   ],
+   "correct": [
+    "B"
+   ],
+   "difficulty": "foundation",
+   "explanation": "$\\sqrt{2gR}=11.2$ km/s.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "type": "single",
+   "stem": "A planet has $\\tfrac14$ of Earth’s mass and $\\tfrac14$ of Earth’s radius. Its escape velocity is",
+   "options": [
+    "same as Earth’s",
+    "$\\tfrac12$ of Earth’s",
+    "twice Earth’s",
+    "$\\tfrac14$ of Earth’s"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "main",
+   "explanation": "$v_e\\propto\\sqrt{M/R}$, ratio $=1$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "type": "integer",
+   "stem": "A body is projected from Earth’s surface with speed $v_e/2$. The maximum height reached is $R/k$. Find $k$.",
+   "numeric": 3,
+   "tolerance": 0,
+   "difficulty": "advanced",
+   "explanation": "Energy conservation gives $R+h=\\tfrac43R$, so $h=R/3$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "type": "single",
+   "stem": "A body leaves Earth with speed $2v_e$. Its speed far away is",
+   "options": [
+    "$v_e$",
+    "$\\sqrt3\\,v_e$",
+    "$2v_e$",
+    "$\\sqrt2\\,v_e$"
+   ],
+   "correct": [
+    "B"
+   ],
+   "difficulty": "advanced",
+   "explanation": "$\\tfrac12v_\\infty^2=\\tfrac12(2v_e)^2-\\tfrac12v_e^2=\\tfrac32v_e^2$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "type": "single",
+   "stem": "The energy needed to raise $1$ kg from the surface to height $R$ is closest to",
+   "options": [
+    "$6.3\\times10^7$ J",
+    "$3.1\\times10^7$ J",
+    "$9.8\\times10^6$ J",
+    "$1.2\\times10^8$ J"
+   ],
+   "correct": [
+    "B"
+   ],
+   "difficulty": "main",
+   "explanation": "$\\Delta U=mgR/2=3.1\\times10^7$ J.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "type": "single",
+   "stem": "The orbital speed of a satellite close to Earth’s surface is about",
+   "options": [
+    "7.9 km/s",
+    "11.2 km/s",
+    "3.1 km/s",
+    "9.8 km/s"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "$\\sqrt{gR}=7.9$ km/s.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "type": "single",
+   "stem": "A planet orbits at four times the distance of another planet from the same star. Its period is",
+   "options": [
+    "$2$ times",
+    "$4$ times",
+    "$8$ times",
+    "$16$ times"
+   ],
+   "correct": [
+    "C"
+   ],
+   "difficulty": "main",
+   "explanation": "$T\\propto r^{3/2}$: $4^{3/2}=8$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "type": "single",
+   "stem": "The total energy of a satellite is $-4\\times10^9$ J. Its kinetic energy is",
+   "options": [
+    "$-4\\times10^9$ J",
+    "$+4\\times10^9$ J",
+    "$-8\\times10^9$ J",
+    "$+8\\times10^9$ J"
+   ],
+   "correct": [
+    "B"
+   ],
+   "difficulty": "main",
+   "explanation": "$K=-E$ for a circular orbit.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "type": "single",
+   "stem": "A satellite in circular orbit loses energy slowly to atmospheric drag. Its speed",
+   "options": [
+    "increases",
+    "decreases",
+    "stays constant",
+    "first decreases then increases"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "advanced",
+   "explanation": "$E=-GMm/2r$ falls so $r$ falls; $v=\\sqrt{GM/r}$ rises.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "type": "multi",
+   "stem": "A satellite moves to an orbit of twice the radius. Which statements are correct?",
+   "options": [
+    "Its orbital speed decreases by a factor of $\\sqrt2$",
+    "Its period increases by a factor of $2\\sqrt2$",
+    "Its kinetic energy doubles",
+    "Its total energy increases (becomes less negative)"
+   ],
+   "correct": [
+    "A",
+    "B",
+    "D"
+   ],
+   "difficulty": "advanced",
+   "explanation": "$v\\propto r^{-1/2}$, $T\\propto r^{3/2}$, $K\\propto1/r$ halves, and $E=-GMm/2r$ rises toward zero.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "type": "integer",
+   "stem": "A satellite’s circular-orbit speed is increased by a factor $\\sqrt{n}$ so that it just escapes. Find $n$.",
+   "numeric": 2,
+   "tolerance": 0,
+   "difficulty": "main",
+   "explanation": "Escape speed is $\\sqrt2$ times the circular speed.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Satellites and Kepler's laws"
+  }
+ ],
+ "videos": [
+  {
+   "url": "https://www.youtube.com/watch?v=Q6GDswAsY6o",
+   "title": "3 Gravitation potential | Escape velocity | Kepler's law |Gravitation class 11|JEE Mains & Advanced",
+   "channel": "Mohit Tyagi",
+   "purpose": "classroom",
+   "level": "main",
+   "language": "en",
+   "why": "Covers potential, escape velocity and Kepler’s laws at JEE Main and Advanced level.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded.",
+   "topic": "Gravitational potential energy and escape velocity"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=kjmSi9i8QYo",
+   "title": "Gravitation | Kepler's Law, Satellite Motion & Escape Velocity | Class 11 | JEE Main 2022",
+   "channel": "Vedantu JEE",
+   "purpose": "classroom",
+   "level": "main",
+   "language": "en",
+   "why": "A lesson on Kepler’s laws, satellite motion and escape velocity; matches topics 3 and 4.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=7brE-xK33Q0",
+   "title": "Gravitation JEE L3 [Satellites & Kepler's laws] JEE 2023 (11th Physics) | Shreyas Sir | Vedantu",
+   "channel": "Vedantu JEE English",
+   "purpose": "examples",
+   "level": "main",
+   "language": "en",
+   "why": "Lecture 3 of a series on satellites and Kepler’s laws; use it for problem practice after the lesson here.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded.",
+   "topic": "Satellites and Kepler's laws"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=R995rOk92aE",
+   "title": "Gravitation and Kepler's Laws of Planetary Motion (AP Physics C)",
+   "channel": "Physics Done Phast",
+   "purpose": "concept",
+   "level": "advanced",
+   "language": "en",
+   "why": "An English concept video on Kepler’s laws at AP Physics C level (calculus-based). Useful for the derivations; the exam format differs from JEE.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded.",
+   "topic": "Satellites and Kepler's laws"
+  }
+ ]
+}
