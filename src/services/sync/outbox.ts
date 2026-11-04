@@ -14,7 +14,7 @@ export const backoffMs = (attempts: number) => Math.min(15 * 60_000, 2_000 * 2 *
 export const SYNC_ORDER = [
   'profiles', 'exam_templates', 'exam_sections', 'scoring_rules', 'exams', 'topics', 'learning_content', 'formulas', 'questions', 'question_solutions',
   'exam_subject_results', 'question_attempts', 'mock_attempts', 'study_tasks', 'study_sessions',
-  'mistake_entries', 'revision_schedule', 'topic_mastery', 'ai_conversations', 'ai_messages', 'notes',
+  'mistake_entries', 'revision_schedule', 'topic_mastery', 'ai_conversations', 'ai_messages', 'notes', 'video_resources',
 ] as const;
 
 /** Server tables that have no owner_id column (their access is derived from the parent template). */
@@ -26,7 +26,7 @@ export const JSON_ALIAS: Record<string, string> = {
   answer_json: 'answer', config_json: 'config', result_json: 'result', variables_json: 'variables',
 };
 /** 0/1 in SQLite, boolean in Postgres. */
-export const BOOL_COLS = new Set(['hint_used', 'marked_for_review', 'ocr_confirmed', 'review_concept', 'saved_to_notes', 'negative_marking_enabled', 'external']);
+export const BOOL_COLS = new Set(['hint_used', 'marked_for_review', 'ocr_confirmed', 'review_concept', 'saved_to_notes', 'negative_marking_enabled', 'external', 'saved']);
 /** Columns that exist only on the device (files are not uploaded yet; recovery state is private). */
 export const LOCAL_ONLY_COLS = ['image_uri', 'session_state_json'];
 

@@ -24,7 +24,7 @@ async function fresh() {
 describe('migrations and seed', () => {
   it('is idempotent', async () => {
     const db = await fresh();
-    expect(await migrate(db)).toBe(5);
+    expect(await migrate(db)).toBe(6);
     await db.run("DELETE FROM app_meta WHERE key='seed_v1'");
     await seedInitialData(db);
     expect((await db.first<{ n: number }>('SELECT COUNT(*) n FROM chapters'))!.n).toBe(4);

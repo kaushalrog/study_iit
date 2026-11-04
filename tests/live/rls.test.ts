@@ -145,6 +145,29 @@ d('live Postgres: schema and row-level security', () => {
     });
   });
 
+  describe('video catalogue', () => {
+    const video = (id: string, status: string, owner?: string) =>
+      `insert into video_resources (id, ${owner ? 'owner_id, ' : ''}chapter_id, kind, youtube_id, url, title, channel, purpose, verification_status) values ('${id}', ${owner ? `'${owner}', ` : ''}'${chapterId}', 'video', 'dQw4w9WgXcQ', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'T1', 'Teacher', 'concept', '${status}')`;
+    it('a student manages her own videos and can verify them, but never publish', () => {
+      const v = newUuid();
+      expect(exec(as('authenticated', A), video(v, 'verified')).ok).toBe(true);
+      expect(exec(as('authenticated', A), video(newUuid(), 'published')).ok).toBe(false);
+      expect(exec(as('authenticated', A), `update video_resources set saved = true where id='${v}'`).count).toBe(1);
+      expect(exec(as('authenticated', A), video(newUuid(), 'draft', B)).ok).toBe(false);
+    });
+    it("another student cannot see or change them, and anon cannot read", () => {
+      const v = newUuid();
+      exec(as('authenticated', A), video(v, 'needs_review'));
+      expect(select(as('authenticated', B), 'select id from video_resources')).toHaveLength(0);
+      expect(exec(as('authenticated', B), `delete from video_resources where id='${v}'`).count).toBe(0);
+      expect(exec(as('anon'), 'select 1 from video_resources').ok).toBe(false);
+    });
+    it('question provenance columns exist and reject unknown exam categories', () => {
+      expect(exec(as('authenticated', A), `insert into questions (id, chapter_id, type, stem, origin, exam_category, exam_year, citation) values ('${newUuid()}', '${chapterId}', 'single', 's?', 'official', 'jee_main', 2023, 'JEE Main 2023 Q1')`).ok).toBe(true);
+      expect(exec(as('authenticated', A), `insert into questions (id, chapter_id, type, stem, exam_category) values ('${newUuid()}', '${chapterId}', 'single', 's?', 'made_up')`).ok).toBe(false);
+    });
+  });
+
   it('updated_at moves forward on every update', () => {
     const id = newUuid();
     exec(as('authenticated', A), mistake(id));

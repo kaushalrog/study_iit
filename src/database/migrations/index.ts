@@ -283,6 +283,43 @@ ALTER TABLE study_tasks ADD COLUMN needs_setup TEXT;
 CREATE INDEX idx_sessions_task ON study_sessions(task_id);
 `,
   },
+  {
+    version: 6,
+    name: 'video_catalogue_and_question_provenance',
+    sql: `
+-- Curated lessons live in their own table (never hard-coded in screens). A video is only 'verified' after a person has opened it.
+CREATE TABLE video_resources (${meta},
+  chapter_id TEXT NOT NULL REFERENCES chapters(id),
+  topic_id TEXT REFERENCES topics(id),
+  kind TEXT NOT NULL CHECK (kind IN ('video','playlist')),
+  youtube_id TEXT NOT NULL,
+  url TEXT NOT NULL,
+  title TEXT NOT NULL, channel TEXT NOT NULL,
+  language TEXT NOT NULL DEFAULT 'en' CHECK (language IN ('en','te','hi')),
+  purpose TEXT NOT NULL CHECK (purpose IN ('concept','classroom','examples','main','advanced','revision')),
+  level TEXT NOT NULL DEFAULT 'main' CHECK (level IN ('foundation','main','advanced')),
+  duration_seconds INTEGER,
+  why TEXT,
+  link_checked_at TEXT,
+  source_note TEXT,
+  watched_at TEXT,
+  saved INTEGER NOT NULL DEFAULT 0,
+  personal_note TEXT,
+  ${content}
+);
+CREATE INDEX idx_videos_chapter ON video_resources(chapter_id, topic_id);
+CREATE INDEX idx_videos_youtube ON video_resources(youtube_id);
+
+-- Where a question really came from. A question counts as a previous-year question only with exam, year and a citation.
+ALTER TABLE questions ADD COLUMN exam_category TEXT CHECK (exam_category IN ('jee_main','jee_advanced','other_official'));
+ALTER TABLE questions ADD COLUMN exam_year INTEGER;
+ALTER TABLE questions ADD COLUMN exam_session TEXT;
+ALTER TABLE questions ADD COLUMN citation TEXT;
+ALTER TABLE questions ADD COLUMN citation_url TEXT;
+ALTER TABLE questions ADD COLUMN license TEXT NOT NULL DEFAULT 'unknown' CHECK (license IN ('open','permission','personal_use','unknown'));
+CREATE INDEX idx_questions_exam ON questions(exam_category, exam_year);
+`,
+  },
 ];
 
 export async function migrate(db: SqlDb): Promise<number> {

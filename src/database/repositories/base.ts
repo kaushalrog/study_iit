@@ -7,7 +7,7 @@ const ident = /^[a-z_][a-z0-9_]*$/;
 export const SYNCED_TABLES = [
   'profiles', 'exam_templates', 'exam_sections', 'scoring_rules', 'exams', 'topics', 'questions', 'question_solutions',
   'learning_content', 'formulas', 'exam_subject_results', 'question_attempts', 'mock_attempts', 'study_tasks', 'study_sessions',
-  'mistake_entries', 'revision_schedule', 'topic_mastery', 'ai_conversations', 'ai_messages', 'notes',
+  'mistake_entries', 'revision_schedule', 'topic_mastery', 'ai_conversations', 'ai_messages', 'notes', 'video_resources',
 ] as const;
 
 /**
