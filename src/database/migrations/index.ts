@@ -320,6 +320,29 @@ ALTER TABLE questions ADD COLUMN license TEXT NOT NULL DEFAULT 'unknown' CHECK (
 CREATE INDEX idx_questions_exam ON questions(exam_category, exam_year);
 `,
   },
+  {
+    version: 7,
+    name: 'content_reviews',
+    sql: `
+-- Append-only review history. A student's tick never makes material academically verified: only an authorised academic
+-- reviewer's 'approved' decision, recorded against the exact content hash that was reviewed, does.
+CREATE TABLE content_reviews (${meta},
+  record_kind TEXT NOT NULL CHECK (record_kind IN ('lesson','formula','question','video')),
+  record_id TEXT NOT NULL,
+  chapter_id TEXT REFERENCES chapters(id),
+  decision TEXT NOT NULL CHECK (decision IN ('approved','rejected','needs_research','edited','comment')),
+  reviewer_name TEXT NOT NULL,
+  reviewer_role TEXT NOT NULL CHECK (reviewer_role IN ('academic_reviewer','student','automated','ai_assistant')),
+  checks_json TEXT NOT NULL DEFAULT '{}',
+  feedback TEXT,
+  evidence TEXT,
+  content_hash TEXT NOT NULL,
+  reviewed_at TEXT NOT NULL
+);
+CREATE INDEX idx_reviews_record ON content_reviews(record_kind, record_id, reviewed_at);
+CREATE INDEX idx_reviews_chapter ON content_reviews(chapter_id, record_kind);
+`,
+  },
 ];
 
 export async function migrate(db: SqlDb): Promise<number> {

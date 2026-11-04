@@ -1,6 +1,7 @@
 import { richToReadable } from '../../features/syllabus/math';
 import type { SqlDb } from '../sqlite/types';
 import { updateRow } from './base';
+import { reviewsRepo } from './reviews';
 
 export type ReviewKind = 'lesson' | 'formula' | 'question' | 'video';
 export interface ReviewItem { kind: ReviewKind; id: string; title: string; detail: string; topic: string | null; meta: string }
@@ -49,12 +50,14 @@ export const reviewRepo = {
   /** Mark one item as checked by a person. Questions also confirm their answer key. */
   async confirm(db: SqlDb, kind: ReviewKind, id: string): Promise<void> {
     await db.tx(async () => {
-      if (kind === 'video') { await updateRow(db, 'video_resources', id, { verification_status: 'verified', link_checked_at: new Date().toISOString() }); return; }
-      await updateRow(db, TABLE[kind], id, { verification_status: 'verified' });
+      if (kind === 'video') await updateRow(db, 'video_resources', id, { verification_status: 'verified', link_checked_at: new Date().toISOString() });
+      else await updateRow(db, TABLE[kind], id, { verification_status: 'verified' });
       if (kind === 'question') {
         const s = await db.first<{ id: string }>('SELECT id FROM question_solutions WHERE question_id = ?', [id]);
         if (s) await updateRow(db, 'question_solutions', s.id, { verification_status: 'verified' });
       }
+      // The student's own check is recorded in the history. It is evidence for the reviewer, never academic approval.
+      await reviewsRepo.add(db, { kind, recordId: id, decision: 'approved', reviewerName: 'Student', role: 'student', feedback: 'Checked by the student against a book or teacher.' });
     });
   },
 };

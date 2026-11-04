@@ -4,6 +4,7 @@ import { newId, seedId } from '../../utils/ids';
 import type { SqlDb } from '../sqlite/types';
 import { updateRow, upsertRow } from './base';
 import { questionRepo } from './questions';
+import { reviewsRepo } from './reviews';
 import { parseYoutube } from '../../features/content/youtube';
 import { videoRepo } from './videos';
 
@@ -81,7 +82,11 @@ export const contentRepo = {
     if (body.length < 3) throw new Error('Write the lesson text.');
     const row: Record<string, string | number | null> = { body };
     if (patch.verified !== undefined) row.verification_status = status(patch.verified);
-    await updateRow(db, 'learning_content', id, row);
+    await db.tx(async () => {
+      await updateRow(db, 'learning_content', id, row);
+      // Revision history: keep the previous text so an earlier version can be recovered and a reviewer can see what changed.
+      if (body !== cur.body) await reviewsRepo.add(db, { kind: 'lesson', recordId: id, decision: 'edited', reviewerName: 'Student', role: 'student', feedback: 'Text edited.', evidence: `Previous text:\n${cur.body}` });
+    });
   },
   async removeLesson(db: SqlDb, id: string): Promise<void> {
     await updateRow(db, 'learning_content', id, { deleted_at: new Date().toISOString() });

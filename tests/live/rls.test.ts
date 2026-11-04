@@ -168,6 +168,28 @@ d('live Postgres: schema and row-level security', () => {
     });
   });
 
+  describe('content reviews', () => {
+    const review = (role: string, rid = newUuid()) =>
+      `insert into content_reviews (id, record_kind, record_id, chapter_id, decision, reviewer_name, reviewer_role, content_hash, reviewed_at) values ('${newUuid()}', 'lesson', '${rid}', '${chapterId}', 'approved', 'R', '${role}', 'h', now())`;
+    it('a student account can record its own checks but can never record an academic reviewer decision', () => {
+      expect(exec(as('authenticated', A), review('student')).ok).toBe(true);
+      expect(exec(as('authenticated', A), review('ai_assistant')).ok).toBe(true);
+      expect(exec(as('authenticated', A), review('academic_reviewer')).ok).toBe(false);
+    });
+    it('only an account listed in academic_reviewers can record academic decisions, and the list is not writable by students', () => {
+      expect(exec(as('authenticated', A), `insert into academic_reviewers (user_id, display_name) values ('${A}', 'Me')`).ok).toBe(false);
+      exec(as('postgres'), `insert into academic_reviewers (user_id, display_name) values ('${B}', 'Dr Rao') on conflict do nothing`);
+      expect(exec(as('authenticated', B), review('academic_reviewer')).ok).toBe(true);
+      exec(as('postgres'), `delete from academic_reviewers where user_id = '${B}'`);
+    });
+    it('reviews are private to their owner and cannot be deleted', () => {
+      const id = newUuid();
+      exec(as('authenticated', A), `insert into content_reviews (id, record_kind, record_id, decision, reviewer_name, reviewer_role, content_hash, reviewed_at) values ('${id}', 'video', '${newUuid()}', 'comment', 'S', 'student', 'h', now())`);
+      expect(select(as('authenticated', B), 'select id from content_reviews')).toHaveLength(0);
+      expect(exec(as('authenticated', A), `delete from content_reviews where id = '${id}'`).ok).toBe(false);
+    });
+  });
+
   it('updated_at moves forward on every update', () => {
     const id = newUuid();
     exec(as('authenticated', A), mistake(id));

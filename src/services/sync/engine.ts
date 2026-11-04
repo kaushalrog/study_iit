@@ -12,7 +12,7 @@ export interface RemoteStore extends RemoteWriter {
  * Rows that are only ever added, never edited, are inserted if missing and never overwritten.
  * This is how historical attempts are protected from being clobbered by a stale device.
  */
-export const APPEND_ONLY = new Set(['question_attempts', 'mock_attempts', 'ai_messages', 'study_sessions']);
+export const APPEND_ONLY = new Set(['question_attempts', 'mock_attempts', 'ai_messages', 'study_sessions', 'content_reviews']);
 
 export const PAGE = 500;
 

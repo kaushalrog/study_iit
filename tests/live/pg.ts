@@ -39,7 +39,7 @@ export const newUuid = () => require('crypto').randomUUID() as string;
 
 /** Remove every student-owned row (child tables first) without touching shared reference rows. */
 export function reset() {
-  const tables = ['ai_messages', 'ai_conversations', 'revision_schedule', 'mistake_entries', 'question_attempts', 'mock_attempts', 'exam_subject_results', 'study_sessions', 'study_tasks',
+  const tables = ['ai_messages', 'ai_conversations', 'revision_schedule', 'mistake_entries', 'content_reviews', 'question_attempts', 'mock_attempts', 'exam_subject_results', 'study_sessions', 'study_tasks',
     'topic_mastery', 'question_solutions', 'scoring_rules', 'exam_sections', 'questions', 'notes', 'exams', 'learning_content', 'formulas', 'video_resources', 'topics', 'exam_templates', 'profiles'];
   psql(tables.map((t) => `delete from ${t};`).join('\n') + "\ndelete from content_sources where owner_id is not null;");
 }
