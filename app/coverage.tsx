@@ -24,7 +24,6 @@ export default function Coverage() {
 
   return (
     <Page>
-      <AppText variant="display">Content coverage</AppText>
       <AppText variant="caption" style={{ marginBottom: space.md }}>● verified   ◐ exists but unverified   ○ missing. A chapter is complete only when every row has verified material.</AppText>
       {data.map((c) => (
         <View key={c.chapterId}>
@@ -40,8 +39,8 @@ export default function Coverage() {
               const s = itemState(n);
               return (
                 <View key={i} style={{ flexDirection: 'row', justifyContent: 'space-between', gap: space.sm }} accessible accessibilityLabel={`${ITEM_LABEL[i]}: ${n.verified} verified, ${n.unverified} unverified, ${word(s)}`}>
-                  <AppText variant="body" color={s === 'missing' ? colors.textMuted : colors.text}>{mark(s)}  {ITEM_LABEL[i]}</AppText>
-                  <AppText variant="caption">{n.verified} verified · {n.unverified} unverified</AppText>
+                  <AppText variant="body" style={{ flexShrink: 1 }} color={s === 'missing' ? colors.textMuted : colors.text}>{mark(s)}  {ITEM_LABEL[i]}</AppText>
+                  <AppText variant="caption" style={{ flexShrink: 0 }}>{n.verified} ✓ · {n.unverified} unverified</AppText>
                 </View>
               );
             })}
