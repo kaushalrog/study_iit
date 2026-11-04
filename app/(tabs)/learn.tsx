@@ -1,8 +1,10 @@
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { AppText, Button, Card, EmptyState, ErrorState, FadeIn, Icon, LoadingState, Page, SubjectDot, Tag, space, useTheme } from '../../src/components/design-system';
 import { useDb } from '../../src/database/DatabaseProvider';
+import { loadStarterLibrary, starterTotals } from '../../src/content/starter';
+import { reviewRepo } from '../../src/database/repositories/review';
 import { syllabusRepo } from '../../src/database/repositories/syllabus';
 import { useAsync } from '../../src/hooks/useAsync';
 
@@ -10,17 +12,36 @@ export default function Learn() {
   const db = useDb();
   const router = useRouter();
   const { colors } = useTheme();
-  const { data, error, reload } = useAsync(() => syllabusRepo.chapters(db), [db]);
+  const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState<string | null>(null);
+  const { data, error, reload } = useAsync(async () => {
+    const chapters = await syllabusRepo.chapters(db);
+    let waiting = 0;
+    for (const c of chapters) { const n = await reviewRepo.counts(db, c.id); waiting += n.lesson + n.formula + n.question + n.video; }
+    return { chapters, waiting };
+  }, [db]);
   if (error) return <ErrorState message={error} onRetry={reload} />;
   if (!data) return <LoadingState />;
-  if (data.length === 0) return <EmptyState title="No chapters yet" body="Your syllabus will appear here." icon="book-outline" />;
+  const { chapters: all, waiting } = data;
+  if (all.length === 0) return <EmptyState title="No chapters yet" body="Your syllabus will appear here." icon="book-outline" />;
 
   const groups = (['math', 'physics', 'chemistry'] as const)
-    .map((s) => ({ s, chapters: data.filter((c) => c.subject === s) })).filter((g) => g.chapters.length);
+    .map((s) => ({ s, chapters: all.filter((c) => c.subject === s) })).filter((g) => g.chapters.length);
 
   return (
     <Page>
       <AppText variant="caption">2026–2027 · Class 9 · Sri Chaitanya IPL</AppText>
+      <Card tone="accent" style={{ marginTop: space.sm, gap: space.sm }}>
+        <AppText variant="heading" color={colors.onAccent}>ORBIT starter library</AppText>
+        <AppText variant="caption" color={colors.onAccent}>{(() => { const t = starterTotals(); return `${t.lessons} lessons, ${t.formulas} formulas, ${t.questions} practice questions and ${t.videos} video links for the four current chapters. Original material, checked by computer where numbers are involved, but NOT yet checked by a teacher. It loads as "needs review".`; })()}</AppText>
+        <Button title="Load the starter library" icon="download-outline" loading={loading} onPress={async () => {
+          setLoading(true);
+          try { const r = await loadStarterLibrary(db); const n = r.reduce((a, x) => a + x.added.lessons + x.added.formulas + x.added.questions + x.added.videos, 0); setLoaded(n ? `Added ${n} items. Now check them.` : 'Already loaded. Nothing new to add.'); reload(); }
+          catch (e) { setLoaded(e instanceof Error ? e.message : 'Could not load'); } finally { setLoading(false); }
+        }} />
+        {loaded ? <AppText variant="caption" color={colors.onAccent} accessibilityRole="alert">{loaded}</AppText> : null}
+        <Button title={waiting ? `Check material (${waiting} waiting)` : 'Check material'} icon="checkmark-done-outline" variant="secondary" onPress={() => router.push('/review')} />
+      </Card>
       <Button title="IIT roadmap: the long view" icon="map-outline" variant="secondary" onPress={() => router.push('/roadmap')} style={{ marginTop: space.sm }} />
       {groups.map(({ s, chapters }, gi) => (
         <FadeIn key={s} index={gi} style={{ marginTop: space.lg }}>
