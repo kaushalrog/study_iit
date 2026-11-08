@@ -21,6 +21,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     ...config,
     name: config.name ?? 'ORBIT',
     slug: config.slug ?? 'orbit',
+    // GitHub Pages serves the web build from /<repo>/, so the router needs that base path (set only for the web export).
+    experiments: { ...config.experiments, ...(process.env.ORBIT_WEB_BASE ? { baseUrl: process.env.ORBIT_WEB_BASE } : {}) },
     runtimeVersion: { policy: 'fingerprint' },
     updates: url
       ? {

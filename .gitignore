@@ -56,3 +56,4 @@ dist-ota/
 ota-server.log
 content-feed/
 content-feed.log
+dist-web/
