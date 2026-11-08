@@ -108,3 +108,6 @@ Automated tests: content sync (11 integration tests with a fake server: versions
 
 ## Production status
 See `docs/PRODUCTION_RELEASE_PROOF.md`. Expo project, channels, EAS environment variables and the production APK are set up and two EAS updates have reached an installed app. Run `supabase/dist/orbit_upgrade_0007_to_0011.sql` once, then `npm run content:publish`.
+
+## Web version (GitHub Pages)
+The app also runs in a browser (SQLite via WebAssembly) and is published at https://kaushalrog.github.io/orbit-web/ from a separate public repository (`kaushalrog/orbit-web`), so this source repository can stay private. Redeploy with `scripts/deploy-web.sh` (build, publish, enable Pages). Data lives in each browser (not shared with the phone unless signed in). The site is public and contains the starter content and the Supabase public URL and key; it has no offline cache of its own, so the first visit needs internet. Over-the-air updates do not apply to the web build: redeploy it. `@expo/log-box` is pinned in `package.json` so adding the web packages does not change the Android runtime (checked: still `7b0a46ed…`).

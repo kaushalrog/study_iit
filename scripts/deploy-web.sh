@@ -8,6 +8,14 @@ REPO="${1:-kaushalrog/orbit-web}"; NAME="${REPO#*/}"; OWNER="${REPO%/*}"
 export ORBIT_WEB_BASE="/$NAME"
 echo "1/4 Build (base path $ORBIT_WEB_BASE)"
 rm -rf dist-web; npx expo export --platform web --output-dir dist-web
+# The single-page export ignores app/+html.tsx, so add the installable-app tags to its index.html here.
+python3 - "$ORBIT_WEB_BASE" <<'PY'
+import sys
+b=sys.argv[1]; p='dist-web/index.html'; s=open(p).read()
+tags=f'<link rel="manifest" href="{b}/manifest.json"><link rel="apple-touch-icon" href="{b}/icon-192.png"><meta name="theme-color" content="#FAF7F0">'
+if 'rel="manifest"' not in s: s=s.replace('</head>', tags+'</head>',1)
+open(p,'w').write(s)
+PY
 cp dist-web/index.html dist-web/404.html        # Pages serves 404.html for unknown paths, so deep links and refreshes still open the app
 touch dist-web/.nojekyll                        # without this Pages hides the _expo folder
 echo "2/4 Make sure the repository exists"
