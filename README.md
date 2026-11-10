@@ -3,7 +3,7 @@
 Offline-first React Native (Expo) app for S. Mahitha (Class 9, Sri Chaitanya IPL, 2026–27).
 Local SQLite is the source of truth; Supabase is the optional backup/sync layer; the AI tutor runs only through an authenticated Edge Function.
 
-## Quick start
+### Quick start
 ```bash
 npm install            # (or bun install)
 npx expo start --android   # dev build / emulator or Expo Go
