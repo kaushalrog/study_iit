@@ -12,7 +12,7 @@ npm run typecheck
 ```
 The app runs fully **without any cloud setup** (local-only mode). Cloud features show an honest "not connected" state.
 
-## Environment
+### Environment
 Copy `.env.example` to `.env`:
 | Variable | Where | Purpose |
 |---|---|---|
