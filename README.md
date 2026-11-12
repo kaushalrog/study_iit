@@ -1,6 +1,6 @@
 ### ORBIT — Your Personal Learning Intelligence System
 
-Offline-first React Native (Expo) app for S. Mahitha (Class 9, Sri Chaitanya IPL, 2026–27).
+Offline-first React Native (Expo) app .
 Local SQLite is the source of truth; Supabase is the optional backup/sync layer; the AI tutor runs only through an authenticated Edge Function.
 
 ### Quick start
