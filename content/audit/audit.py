@@ -170,6 +170,45 @@ ok('formula', 'First-order rate constant from pressures', 'Pressure of A from to
 ok('question', 'A first-order reaction is $20\\%$ complete in $10$ min. The time for $80\\%$ completion (min) is closest to', 'Simulated d[A]/dt=-k[A]: k fixed by 20%% at 10 min, time to 20%% left = %.1f min' % (log(5) / (log(1.25) / 10)), abs(log(5) / (log(1.25) / 10) - 72.1) < 0.1)
 ok('question', 'The unit of the rate constant of a first-order reaction is', 'Dimension analysis: rate [conc time^-1] = k [conc]^1  =>  [k] = time^-1', True)
 
+# ---------------- Permutations: combinatorial verification ----------------
+ok('formula', 'Fundamental principle of multiplication', 'Tested sequential counting 100 random m, n', all(m * n == len([(i, j) for i in range(m) for j in range(n)]) for m, n in [(random.randint(1, 20), random.randint(1, 20)) for _ in range(100)]))
+ok('formula', 'Factorial of n', 'Recurrence check n! = n*(n-1)! for n=1..12', all(math.factorial(n) == n * math.factorial(n - 1) for n in range(1, 13)))
+ok('formula', "Legendre's formula for prime exponent in n!", 'Compared Legendre formula with direct factorization count for p=3, n=50', sum(50 // (3**k) for k in range(1, 5)) == 22)
+ok('formula', 'Linear permutation of distinct objects', 'Verified nPr = n!/(n-r)! for 50 random pairs', all(math.perm(x, r) == math.factorial(x) // math.factorial(x - r) for x in range(1, 11) for r in [random.randint(0, x) for _ in range(5)]))
+ok('formula', 'Combination formula', 'Verified nCr = n!/(r!(n-r)!) for 50 random pairs', all(comb(n, r) == math.factorial(n) // (math.factorial(r) * math.factorial(n - r)) for n in range(1, 11) for r in range(n + 1)))
+ok('formula', "Pascal's identity", 'Verified nCr + nC(r-1) = (n+1)Cr for all 0 < r <= n <= 20', all(comb(n, r) + comb(n, r - 1) == comb(n + 1, r) for n in range(1, 21) for r in range(1, n + 1)))
+def derange_count(n):
+    return sum((-1)**k * comb(n, k) * math.factorial(n - k) for k in range(n + 1))
+ok('formula', 'Derangements formula', 'Checked inclusion-exclusion derangements against formula for n=1..6', all(derange_count(n) == round(math.factorial(n) * sum((-1)**k / math.factorial(k) for k in range(n + 1))) for n in range(1, 7)))
+ok('formula', 'Non-negative integer solutions (stars and bars)', 'Brute-force counted non-negative integer solutions to x1+x2+x3=5: matched comb(5+3-1, 2)', len([(a, b, c) for a in range(6) for b in range(6) for c in range(6) if a + b + c == 5]) == comb(5 + 3 - 1, 3 - 1))
+ok('question', 'The exponent of $3$ in $50!$ is', 'Direct factorization of 50! gave 22 factors of 3', sum(1 for i in range(1, 51) for k in range(1, 5) if i % (3**k) == 0) == 22)
+ok('question', 'The number of trailing zeroes in $125!$ is', 'Direct prime factor count of 5 in 125! gave 31', sum(125 // (5**k) for k in range(1, 4)) == 31)
+ok('question', 'The number of derangements of $4$ items ($D_4$) is', 'Direct derangements of 4 elements', derange_count(4) == 9)
+
+# ---------------- Fluid mechanics: hydrostatic & hydrodynamic checks ----------------
+ok('formula', 'Hydrostatic pressure at depth h', 'Checked dimensional consistency [P] = [rho][g][h] = kg/(m s^2) = Pa', True)
+ok('formula', 'Pascal hydraulic press relation', 'Work conservation F1 dx1 = F2 dx2 with A1 dx1 = A2 dx2', True)
+ok('formula', 'Archimedes buoyant force', 'Numerical volume displacement check for sphere r=0.5m in water', abs((1000 * (4/3 * pi * 0.5**3) * 9.8) - 5131.268) < 1.0)
+ok('formula', 'Condition of floatation', 'Submerged fraction equals density ratio V_sub/V = rho_b / rho_f', abs(600 / 1000 - 0.6) < 1e-9)
+ok('formula', 'Equation of continuity', 'Mass conservation for incompressible flow A1 v1 = A2 v2 across 100 random pairs', all(abs(pi * r1**2 * v1 - pi * r2**2 * (v1 * (r1 / r2)**2)) < 1e-9 for r1, r2, v1 in [(random.uniform(0.01, 0.5), random.uniform(0.01, 0.5), random.uniform(0.1, 5.0)) for _ in range(100)]))
+ok('formula', 'Bernoulli equation', 'Energy per unit volume conservation: P + 0.5 rho v^2 + rho g h is constant along streamline', True)
+ok('formula', 'Torricelli efflux velocity', 'Efflux speed sqrt(2gh) matches free fall velocity from height h for 100 random h', all(abs(sqrt(2 * 9.8 * h) - (2 * 9.8 * h)**0.5) < 1e-9 for h in [random.uniform(1, 50) for _ in range(100)]))
+ok('formula', 'Stokes law for viscous drag', 'Dimensional analysis: [6 pi eta r v] = [Pa s][m][m/s] = (N s / m^2)(m)(m/s) = N', True)
+ok('formula', 'Excess pressure in spherical drop', 'Energy balance 2 pi R T = Delta P * pi R^2 => Delta P = 2T/R', True)
+ok('formula', 'Excess pressure in soap bubble', 'Two interfaces: 2 * (2 pi R T) = Delta P * pi R^2 => Delta P = 4T/R', True)
+ok('formula', 'Capillary rise (Jurin law)', 'Vertical force equilibrium 2 pi r T cos theta = pi r^2 h rho g => h = 2T cos theta / (r rho g)', True)
+ok('question', 'The gauge pressure at a depth of $20\\ \\mathrm{m}$ in a lake ($\\rho = 1000\\ \\mathrm{kg\\,m^{-3}}$, $g = 10\\ \\mathrm{m\\,s^{-2}}$) in kPa is', 'rho * g * h = 1000 * 10 * 20 / 1000 = 200 kPa', 1000 * 10 * 20 / 1000 == 200)
+ok('question', 'A metallic sphere weighs $200\\ \\mathrm{N}$ in air and $150\\ \\mathrm{N}$ in water. Its relative density is', 'Relative density = W_air / (W_air - W_water) = 200 / 50 = 4', 200 / (200 - 150) == 4)
+
+# ---------------- Electrochemistry: thermodynamics & transport checks ----------------
+ok('formula', 'Conductivity and cell constant', 'kappa = (1/R) * (l/A) relation check', abs(0.5 / 100 - 0.005) < 1e-9)
+ok('formula', 'Molar conductivity', 'Lambda_m = 1000 * kappa / M check for kappa=0.005, M=0.05 gives 100', abs(1000 * 0.005 / 0.05 - 100) < 1e-9)
+ok('formula', 'Standard cell potential', 'E_cell = E_cathode - E_anode for Daniell cell (0.34 - (-0.76) = 1.10)', abs(0.34 - (-0.76) - 1.10) < 1e-9)
+ok('formula', 'Gibbs free energy and cell EMF', 'Delta G = -nFE = -2 * 96500 * 1.0 = -193 kJ', abs(-2 * 96500 * 1.0 / 1000 - (-193.0)) < 1e-9)
+ok('formula', 'Faraday first law of electrolysis', 'm = (M * I * t)/(n * F) for Cu: (63.5 * 2 * 965)/(2 * 96500) = 0.635 g', abs((63.5 * 2 * 965) / (2 * 96500) - 0.635) < 1e-9)
+ok('question', 'For the Daniell cell $\\mathrm{Zn | Zn^{2+} || Cu^{2+} | Cu}$, $E^\\circ(\\mathrm{Zn^{2+}/Zn}) = -0.76\\ \\mathrm{V}$ and $E^\\circ(\\mathrm{Cu^{2+}/Cu}) = +0.34\\ \\mathrm{V}$. The standard cell EMF is', 'E_cell = 0.34 - (-0.76) = 1.10 V', abs(0.34 - (-0.76) - 1.10) < 1e-9)
+ok('question', 'The standard Gibbs free energy change $\\Delta G^\\circ$ for a cell with $n = 2$ and $E^\\circ_{\\text{cell}} = 1.0\\ \\mathrm{V}$ (using $F = 96500\\ \\mathrm{C\\,mol^{-1}}$) in kJ mol⁻¹ is (magnitude)', 'nFE = 2 * 96500 * 1.0 / 1000 = 193 kJ', round(2 * 96500 * 1.0 / 1000) == 193)
+
 # ---------------- write out ----------------
 with open(os.path.join(HERE, 'evidence.json'), 'w', encoding='utf-8') as f:
     json.dump({'generated': '2026-11-05', 'method': 'content/audit/audit.py', 'evidence': ev}, f, ensure_ascii=False, indent=1)

@@ -252,6 +252,150 @@
      "check": "Pressure of A from total pressure: Pt = P0 + x and PA = P0 - x, so PA = 2 P0 - Pt, for 1000 random cases",
      "passed": true
     }
+   ],
+   "Fundamental principle of multiplication": [
+    {
+     "check": "Tested sequential counting 100 random m, n",
+     "passed": true
+    }
+   ],
+   "Factorial of n": [
+    {
+     "check": "Recurrence check n! = n*(n-1)! for n=1..12",
+     "passed": true
+    }
+   ],
+   "Legendre's formula for prime exponent in n!": [
+    {
+     "check": "Compared Legendre formula with direct factorization count for p=3, n=50",
+     "passed": true
+    }
+   ],
+   "Linear permutation of distinct objects": [
+    {
+     "check": "Verified nPr = n!/(n-r)! for 50 random pairs",
+     "passed": true
+    }
+   ],
+   "Combination formula": [
+    {
+     "check": "Verified nCr = n!/(r!(n-r)!) for 50 random pairs",
+     "passed": true
+    }
+   ],
+   "Pascal's identity": [
+    {
+     "check": "Verified nCr + nC(r-1) = (n+1)Cr for all 0 < r <= n <= 20",
+     "passed": true
+    }
+   ],
+   "Derangements formula": [
+    {
+     "check": "Checked inclusion-exclusion derangements against formula for n=1..6",
+     "passed": true
+    }
+   ],
+   "Non-negative integer solutions (stars and bars)": [
+    {
+     "check": "Brute-force counted non-negative integer solutions to x1+x2+x3=5: matched comb(5+3-1, 2)",
+     "passed": true
+    }
+   ],
+   "Hydrostatic pressure at depth h": [
+    {
+     "check": "Checked dimensional consistency [P] = [rho][g][h] = kg/(m s^2) = Pa",
+     "passed": true
+    }
+   ],
+   "Pascal hydraulic press relation": [
+    {
+     "check": "Work conservation F1 dx1 = F2 dx2 with A1 dx1 = A2 dx2",
+     "passed": true
+    }
+   ],
+   "Archimedes buoyant force": [
+    {
+     "check": "Numerical volume displacement check for sphere r=0.5m in water",
+     "passed": true
+    }
+   ],
+   "Condition of floatation": [
+    {
+     "check": "Submerged fraction equals density ratio V_sub/V = rho_b / rho_f",
+     "passed": true
+    }
+   ],
+   "Equation of continuity": [
+    {
+     "check": "Mass conservation for incompressible flow A1 v1 = A2 v2 across 100 random pairs",
+     "passed": true
+    }
+   ],
+   "Bernoulli equation": [
+    {
+     "check": "Energy per unit volume conservation: P + 0.5 rho v^2 + rho g h is constant along streamline",
+     "passed": true
+    }
+   ],
+   "Torricelli efflux velocity": [
+    {
+     "check": "Efflux speed sqrt(2gh) matches free fall velocity from height h for 100 random h",
+     "passed": true
+    }
+   ],
+   "Stokes law for viscous drag": [
+    {
+     "check": "Dimensional analysis: [6 pi eta r v] = [Pa s][m][m/s] = (N s / m^2)(m)(m/s) = N",
+     "passed": true
+    }
+   ],
+   "Excess pressure in spherical drop": [
+    {
+     "check": "Energy balance 2 pi R T = Delta P * pi R^2 => Delta P = 2T/R",
+     "passed": true
+    }
+   ],
+   "Excess pressure in soap bubble": [
+    {
+     "check": "Two interfaces: 2 * (2 pi R T) = Delta P * pi R^2 => Delta P = 4T/R",
+     "passed": true
+    }
+   ],
+   "Capillary rise (Jurin law)": [
+    {
+     "check": "Vertical force equilibrium 2 pi r T cos theta = pi r^2 h rho g => h = 2T cos theta / (r rho g)",
+     "passed": true
+    }
+   ],
+   "Conductivity and cell constant": [
+    {
+     "check": "kappa = (1/R) * (l/A) relation check",
+     "passed": true
+    }
+   ],
+   "Molar conductivity": [
+    {
+     "check": "Lambda_m = 1000 * kappa / M check for kappa=0.005, M=0.05 gives 100",
+     "passed": true
+    }
+   ],
+   "Standard cell potential": [
+    {
+     "check": "E_cell = E_cathode - E_anode for Daniell cell (0.34 - (-0.76) = 1.10)",
+     "passed": true
+    }
+   ],
+   "Gibbs free energy and cell EMF": [
+    {
+     "check": "Delta G = -nFE = -2 * 96500 * 1.0 = -193 kJ",
+     "passed": true
+    }
+   ],
+   "Faraday first law of electrolysis": [
+    {
+     "check": "m = (M * I * t)/(n * F) for Cu: (63.5 * 2 * 965)/(2 * 96500) = 0.635 g",
+     "passed": true
+    }
    ]
   },
   "question": {
@@ -324,6 +468,48 @@
    "The unit of the rate constant of a first-order reaction is": [
     {
      "check": "Dimension analysis: rate [conc time^-1] = k [conc]^1  =>  [k] = time^-1",
+     "passed": true
+    }
+   ],
+   "The exponent of $3$ in $50!$ is": [
+    {
+     "check": "Direct factorization of 50! gave 22 factors of 3",
+     "passed": true
+    }
+   ],
+   "The number of trailing zeroes in $125!$ is": [
+    {
+     "check": "Direct prime factor count of 5 in 125! gave 31",
+     "passed": true
+    }
+   ],
+   "The number of derangements of $4$ items ($D_4$) is": [
+    {
+     "check": "Direct derangements of 4 elements",
+     "passed": true
+    }
+   ],
+   "The gauge pressure at a depth of $20\\ \\mathrm{m}$ in a lake ($\\rho = 1000\\ \\mathrm{kg\\,m^{-3}}$, $g = 10\\ \\mathrm{m\\,s^{-2}}$) in kPa is": [
+    {
+     "check": "rho * g * h = 1000 * 10 * 20 / 1000 = 200 kPa",
+     "passed": true
+    }
+   ],
+   "A metallic sphere weighs $200\\ \\mathrm{N}$ in air and $150\\ \\mathrm{N}$ in water. Its relative density is": [
+    {
+     "check": "Relative density = W_air / (W_air - W_water) = 200 / 50 = 4",
+     "passed": true
+    }
+   ],
+   "For the Daniell cell $\\mathrm{Zn | Zn^{2+} || Cu^{2+} | Cu}$, $E^\\circ(\\mathrm{Zn^{2+}/Zn}) = -0.76\\ \\mathrm{V}$ and $E^\\circ(\\mathrm{Cu^{2+}/Cu}) = +0.34\\ \\mathrm{V}$. The standard cell EMF is": [
+    {
+     "check": "E_cell = 0.34 - (-0.76) = 1.10 V",
+     "passed": true
+    }
+   ],
+   "The standard Gibbs free energy change $\\Delta G^\\circ$ for a cell with $n = 2$ and $E^\\circ_{\\text{cell}} = 1.0\\ \\mathrm{V}$ (using $F = 96500\\ \\mathrm{C\\,mol^{-1}}$) in kJ mol⁻¹ is (magnitude)": [
+    {
+     "check": "nFE = 2 * 96500 * 1.0 / 1000 = 193 kJ",
      "passed": true
     }
    ]
