@@ -1,0 +1,4 @@
+# Native folders are generated from app config and dependencies (which are already part of the fingerprint).
+# Hashing them as well would make a local Gradle build and `eas update` compute different runtimes.
+/android
+/ios

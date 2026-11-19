@@ -57,3 +57,7 @@ ota-server.log
 content-feed/
 content-feed.log
 dist-web/
+
+# Python
+__pycache__/
+*.py[cod]
