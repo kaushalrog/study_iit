@@ -1,0 +1,795 @@
+{
+ "chapter": "Electrochemistry",
+ "topics": [
+  "Electrolytic conductance, Kohlrausch’s law, and molar conductivity",
+  "Galvanic cells, electrode potentials, and electrochemical series",
+  "Nernst equation, cell EMF, and Gibbs free energy",
+  "Faraday’s laws of electrolysis, batteries, and corrosion"
+ ],
+ "lessons": [
+  {
+   "section": "introduction",
+   "level": "foundation",
+   "language": "en",
+   "body": "**What this chapter is about.** Electrochemistry is the study of the interconversion of chemical energy and electrical energy. It encompasses two primary regimes: **galvanic (voltaic) cells**, which generate spontaneous electrical energy from chemical reactions ($\\Delta G < 0$), and **electrolytic cells**, which utilize external electrical energy to drive non-spontaneous chemical transformations ($\\Delta G > 0$).\n\n**Prerequisites.** (1) Redox reactions: oxidation states, balancing half-reactions. (2) Chemical equilibrium: reaction quotient $Q$ and equilibrium constant $K_c$. (3) Thermodynamics: Gibbs free energy change ($\\Delta G = \\Delta H - T\\Delta S$).\n\n**Topic path.** Electrolytic conductance, conductivity, cell constant, and Kohlrausch's law of independent ion migration → galvanic cells, standard electrode potentials, IUPAC cell conventions, and electrochemical series → Nernst equation for half-cells and full cells, concentration cells, and thermodynamic relations ($\\Delta G^\\circ = -nFE^\\circ_{\\text{cell}}$) → Faraday's laws of electrolysis, industrial electrolysis, commercial batteries, and corrosion.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme."
+  },
+  {
+   "section": "why_it_matters",
+   "level": "main",
+   "language": "en",
+   "body": "In JEE Main and Advanced, Electrochemistry is one of the highest-weight chapters in Physical Chemistry. Examination questions routinely integrate Nernst equation calculations with equilibrium constants, solubility product ($K_{\\text{sp}}$), and acid-base buffer solutions. Understanding the distinction between intensive properties ($E^\\circ_{\\text{cell}}$ does NOT multiply by stoichiometric coefficients) and extensive properties ($\\Delta G^\\circ$ DOES scale with $n$) is the most critical hurdle for scoring top marks.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme."
+  },
+  {
+   "section": "introduction",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Electrolytic Conductance.**\nThe flow of electricity through an electrolyte solution occurs via the migration of ions.\n- Resistance: $R = \\rho \\dfrac{l}{A}$ (unit: $\\Omega$).\n- Conductance: $G = \\dfrac{1}{R} = \\dfrac{1}{\\rho}\\dfrac{A}{l} = \\kappa \\dfrac{A}{l}$ (unit: Siemens, $\\mathrm{S} = \\Omega^{-1} = \\text{mho}$).\n- Conductivity (Specific Conductance) $\\kappa$: $\\kappa = G \\left(\\dfrac{l}{A}\\right) = \\dfrac{1}{R} \\left(\\dfrac{l}{A}\\right)$ (unit: $\\mathrm{S\\,m^{-1}}$ or $\\mathrm{S\\,cm^{-1}}$).\n- Cell Constant $G^*$: $G^* = \\dfrac{l}{A} = R \\times \\kappa$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "section": "explanation",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Molar Conductivity ($\\Lambda_m$).**\nMolar conductivity is the conducting power of all ions produced by dissolving one mole of electrolyte in solution:\n$$\\Lambda_m = \\dfrac{\\kappa}{C} = \\dfrac{1000 \\times \\kappa}{M},$$\nwhere $\\kappa$ is in $\\mathrm{S\\,cm^{-1}}$, $M$ is molarity in $\\mathrm{mol\\,L^{-1}}$, and $\\Lambda_m$ is in $\\mathrm{S\\,cm^2\\,mol^{-1}}$.\n*Variation with dilution:*\n- As solution is diluted (concentration decreases), conductivity $\\kappa$ **decreases** because the number of current-carrying ions per unit volume decreases.\n- Molar conductivity $\\Lambda_m$ **increases** with dilution because the total volume $V$ containing 1 mole of electrolyte expands dramatically, facilitating greater ionic mobility.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "section": "derivation",
+   "level": "main",
+   "language": "en",
+   "body": "**Debye-Hückel-Onsager Equation and Kohlrausch's Law.**\nFor strong electrolytes, $\\Lambda_m$ increases linearly with $\\sqrt{C}$:\n$$\\Lambda_m = \\Lambda_m^\\circ - A\\sqrt{C},$$\nwhere $\\Lambda_m^\\circ$ is the limiting molar conductivity at infinite dilution.\nFor weak electrolytes, dissociation is incomplete, so $\\Lambda_m$ increases asymptotically and $\\Lambda_m^\\circ$ cannot be obtained by linear extrapolation.\n\n**Kohlrausch's Law of Independent Migration of Ions:**\nAt infinite dilution, each ion contributes a definite amount to the total molar conductivity irrespective of the nature of the co-ion:\n$$\\Lambda_m^\\circ(A_x B_y) = x\\,\\lambda^\\circ(A^{y+}) + y\\,\\lambda^\\circ(B^{x-}).$$\n**Applications:**\n1. Determining $\\Lambda_m^\\circ$ of weak electrolytes (e.g. $\\mathrm{CH_3COOH}$ using $\\mathrm{CH_3COONa}$, $\\mathrm{HCl}$, and $\\mathrm{NaCl}$).\n2. Degree of dissociation: $\\alpha = \\dfrac{\\Lambda_m}{\\Lambda_m^\\circ}$.\n3. Dissociation constant of weak acid: $K_a = \\dfrac{C\\alpha^2}{1 - \\alpha} = \\dfrac{C\\Lambda_m^2}{\\Lambda_m^\\circ(\\Lambda_m^\\circ - \\Lambda_m)}$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "section": "example",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Example 1.** If the resistance of a conductivity cell filled with $0.1\\ \\mathrm{M}\\ \\mathrm{KCl}$ is $100\\ \\Omega$ and its conductivity is $1.29\\ \\mathrm{S\\,m^{-1}}$, find the cell constant.\n*Solution.*\n$$G^* = R \\times \\kappa = 100\\ \\Omega \\times 1.29\\ \\mathrm{m^{-1}} = 129\\ \\mathrm{m^{-1}} = 1.29\\ \\mathrm{cm^{-1}}.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2.** Calculate $\\Lambda_m^\\circ$ for $\\mathrm{CH_3COOH}$ given:\n$\\Lambda_m^\\circ(\\mathrm{CH_3COONa}) = 91.0$, $\\Lambda_m^\\circ(\\mathrm{HCl}) = 426.0$, $\\Lambda_m^\\circ(\\mathrm{NaCl}) = 126.0\\ \\mathrm{S\\,cm^2\\,mol^{-1}}$.\n*Solution.*\nBy Kohlrausch's law:\n$$\\Lambda_m^\\circ(\\mathrm{CH_3COOH}) = \\Lambda_m^\\circ(\\mathrm{CH_3COONa}) + \\Lambda_m^\\circ(\\mathrm{HCl}) - \\Lambda_m^\\circ(\\mathrm{NaCl})$$\n$$\\Lambda_m^\\circ(\\mathrm{CH_3COOH}) = 91.0 + 426.0 - 126.0 = 391.0\\ \\mathrm{S\\,cm^2\\,mol^{-1}}.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "section": "common_mistakes",
+   "level": "foundation",
+   "language": "en",
+   "body": "*Unit Trap:* Mixing $\\mathrm{cm}$ and $\\mathrm{m}$ in $\\Lambda_m$. If $\\kappa$ is in $\\mathrm{S\\,cm^{-1}}$ and $C$ in $\\mathrm{mol\\,L^{-1}}$, $\\Lambda_m = \\dfrac{1000 \\kappa}{C}\\ \\mathrm{S\\,cm^2\\,mol^{-1}}$. If $\\kappa$ is in $\\mathrm{S\\,m^{-1}}$ and $C$ in $\\mathrm{mol\\,m^{-3}}$, $\\Lambda_m = \\dfrac{\\kappa}{C}\\ \\mathrm{S\\,m^2\\,mol^{-1}}$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "section": "tips",
+   "level": "main",
+   "language": "en",
+   "body": "*Pro-tip:* Molar conductivity of $\\mathrm{H}^+$ and $\\mathrm{OH}^-$ ions is unusually high in aqueous solution due to the Grotthuss proton-hopping mechanism across hydrogen-bonded water networks.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "section": "summary",
+   "level": "foundation",
+   "language": "en",
+   "body": "$\\kappa = (1/R)(l/A)$. $\\Lambda_m = 1000\\kappa/M$. $\\kappa$ falls with dilution; $\\Lambda_m$ rises. Kohlrausch's law: $\\Lambda_m^\\circ = \\nu_+ \\lambda_+^\\circ + \\nu_- \\lambda_-^\\circ$. $\\alpha = \\Lambda_m / \\Lambda_m^\\circ$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "section": "introduction",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Galvanic Cells and Half-Reactions.**\nA galvanic cell (such as the Daniell cell) produces electricity from a spontaneous redox reaction.\n- **Anode:** Electrode where oxidation occurs ($\\text{loss of electrons}$). In galvanic cells, the anode is assigned negative polarity.\n- **Cathode:** Electrode where reduction occurs ($\\text{gain of electrons}$). In galvanic cells, the cathode is assigned positive polarity.\n- **Mnemonic:** **AN OX** (Anode: Oxidation), **RED CAT** (Reduction: Cathode).",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series"
+  },
+  {
+   "section": "explanation",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Cell Representation and Salt Bridge.**\nIUPAC Cell notation (Daniell cell):\n$$\\mathrm{Zn(s)\\ |\\ Zn^{2+}(aq)\\ ||\\ Cu^{2+}(aq)\\ |\\ Cu(s)}$$\n- Single vertical bar $|$: phase boundary.\n- Double vertical bar $||$: salt bridge.\n- Anode is written on the left, cathode on the right.\n\n**Functions of the Salt Bridge:**\n1. Completes the internal electrical circuit by allowing ionic migration.\n2. Maintains electrical neutrality in both half-cell solutions without bulk mixing.\nContains an inert electrolyte ($\\mathrm{KCl}$, $\\mathrm{KNO_3}$, or $\\mathrm{NH_4NO_3}$) in agar-agar jelly, where ionic mobilities of cation and anion are nearly identical (to minimise liquid junction potential).",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series"
+  },
+  {
+   "section": "derivation",
+   "level": "main",
+   "language": "en",
+   "body": "**Standard Electrode Potential ($E^\\circ$).**\nBy IUPAC convention, \"electrode potential\" without qualification refers to the standard **reduction potential**.\nThe reference standard is the **Standard Hydrogen Electrode (SHE)**, whose potential is assigned $E^\\circ = 0.00\\ \\mathrm{V}$ at all temperatures:\n$$\\mathrm{2H^+(aq, 1\\ M) + 2e^- \\rightleftharpoons H_2(g, 1\\ bar)},\\quad E^\\circ = 0.00\\ \\mathrm{V}.$$\nThe standard cell potential is:\n$$E^\\circ_{\\text{cell}} = E^\\circ_{\\text{cathode}} - E^\\circ_{\\text{anode}} = E^\\circ_{\\text{right}} - E^\\circ_{\\text{left}}.$$\nA redox reaction is spontaneous under standard conditions if and only if $E^\\circ_{\\text{cell}} > 0$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series"
+  },
+  {
+   "section": "example",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Example 1.** Given standard reduction potentials: $E^\\circ(\\mathrm{Zn^{2+}/Zn}) = -0.76\\ \\mathrm{V}$ and $E^\\circ(\\mathrm{Cu^{2+}/Cu}) = +0.34\\ \\mathrm{V}$. Find $E^\\circ_{\\text{cell}}$ for the Daniell cell.\n*Solution.*\nCopper undergoes reduction (cathode) and Zinc undergoes oxidation (anode):\n$$E^\\circ_{\\text{cell}} = E^\\circ_{\\text{cathode}} - E^\\circ_{\\text{anode}} = +0.34 - (-0.76) = +1.10\\ \\mathrm{V}.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series"
+  },
+  {
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2.** Can copper displace zinc from $\\mathrm{ZnSO_4}$ solution?\n*Solution.* The hypothetical reaction is $\\mathrm{Cu + Zn^{2+} \\to Cu^{2+} + Zn}$.\nHere copper would be anode and zinc cathode:\n$$E^\\circ_{\\text{cell}} = E^\\circ(\\mathrm{Zn^{2+}/Zn}) - E^\\circ(\\mathrm{Cu^{2+}/Cu}) = -0.76 - (+0.34) = -1.10\\ \\mathrm{V} < 0.$$\nSince $E^\\circ_{\\text{cell}} < 0$, the reaction is non-spontaneous. Copper cannot displace zinc.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series"
+  },
+  {
+   "section": "common_mistakes",
+   "level": "foundation",
+   "language": "en",
+   "body": "*Trap:* Multiplying $E^\\circ$ by stoichiometric coefficients when balancing reactions. $E^\\circ$ is an **intensive property** and depends only on chemical potential per unit charge, not on the quantity of material.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series"
+  },
+  {
+   "section": "tips",
+   "level": "main",
+   "language": "en",
+   "body": "*Electrochemical Series Rule:* The more negative the reduction potential, the stronger the reducing agent (e.g. $\\mathrm{Li}$ has the most negative potential, strongest reducer). The more positive the reduction potential, the stronger the oxidising agent (e.g. $\\mathrm{F_2}$ has $+2.87\\ \\mathrm{V}$, strongest oxidiser).",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series"
+  },
+  {
+   "section": "summary",
+   "level": "foundation",
+   "language": "en",
+   "body": "Anode = oxidation (-), Cathode = reduction (+). $E^\\circ_{\\text{cell}} = E^\\circ_{\\text{cathode}} - E^\\circ_{\\text{anode}}$. Spontaneous when $E^\\circ_{\\text{cell}} > 0$. Salt bridge maintains charge neutrality.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series"
+  },
+  {
+   "section": "introduction",
+   "level": "foundation",
+   "language": "en",
+   "body": "**The Nernst Equation.**\nWhen half-cells or full cells operate under non-standard conditions (concentrations $\\ne 1\\ \\mathrm{M}$, pressures $\\ne 1\\ \\mathrm{bar}$), the cell potential $E_{\\text{cell}}$ is given by the Nernst equation:\n$$E = E^\\circ - \\dfrac{RT}{nF} \\ln Q,$$\nwhere $n$ is the number of moles of electrons transferred in the balanced equation, $F = 96485 \\approx 96500\\ \\mathrm{C\\,mol^{-1}}$ is Faraday's constant, and $Q$ is the reaction quotient.\nAt $298\\ \\mathrm{K}$ ($25^\\circ\\mathrm{C}$), $\\dfrac{2.303 RT}{F} = 0.0591\\ \\mathrm{V}$:\n$$E_{\\text{cell}} = E^\\circ_{\\text{cell}} - \\dfrac{0.0591}{n} \\log_{10} Q.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy"
+  },
+  {
+   "section": "explanation",
+   "level": "main",
+   "language": "en",
+   "body": "**Thermodynamic Relations: Free Energy and Equilibrium.**\nElectrical work done by a reversible galvanic cell equals the decrease in Gibbs free energy:\n$$\\Delta G = -n F E_{\\text{cell}},\\qquad \\Delta G^\\circ = -n F E^\\circ_{\\text{cell}}.$$\n- If $E_{\\text{cell}} > 0 \\implies \\Delta G < 0$ (spontaneous process).\n- If $E_{\\text{cell}} = 0 \\implies \\Delta G = 0$ (cell at equilibrium; battery is \"dead\").\nAt equilibrium, $E_{\\text{cell}} = 0$ and $Q = K_c$:\n$$0 = E^\\circ_{\\text{cell}} - \\dfrac{0.0591}{n}\\log_{10} K_c \\implies \\log_{10} K_c = \\dfrac{n E^\\circ_{\\text{cell}}}{0.0591}\\quad (\\text{at } 298\\ \\mathrm{K}).$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy"
+  },
+  {
+   "section": "derivation",
+   "level": "main",
+   "language": "en",
+   "body": "**Concentration Cells.**\nA concentration cell consists of two identical electrodes dipping into solutions of the same electrolyte at different concentrations ($C_1$ and $C_2$):\n$$\\mathrm{M(s)\\ |\\ M^{n+}(C_1)\\ ||\\ M^{n+}(C_2)\\ |\\ M(s)}$$\nBecause both electrodes are identical, $E^\\circ_{\\text{cell}} = E^\\circ - E^\\circ = 0$.\nThe Nernst equation yields:\n$$E_{\\text{cell}} = 0 - \\dfrac{0.0591}{n} \\log_{10}\\dfrac{C_1}{C_2} = \\dfrac{0.0591}{n}\\log_{10}\\dfrac{C_2}{C_1}.$$\nFor spontaneity ($E_{\\text{cell}} > 0$), we must have $C_2 > C_1$. Electrons flow spontaneously to equalise concentration.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy"
+  },
+  {
+   "section": "example",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Example 1.** Calculate the potential of a zinc electrode dipping into $0.01\\ \\mathrm{M}\\ \\mathrm{Zn^{2+}}$ solution at $298\\ \\mathrm{K}$ ($E^\\circ = -0.76\\ \\mathrm{V}$).\n*Solution.* Reaction: $\\mathrm{Zn^{2+} + 2e^- \\to Zn(s)}$, so $n = 2$.\n$$E = E^\\circ - \\dfrac{0.0591}{2}\\log_{10}\\dfrac{1}{[\\mathrm{Zn^{2+}}]} = -0.76 - 0.02955 \\log_{10}(10^2) = -0.76 - 0.02955(2) = -0.819\\ \\mathrm{V}.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy"
+  },
+  {
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2.** Calculate the equilibrium constant $K_c$ at $298\\ \\mathrm{K}$ for the Daniell cell ($E^\\circ = 1.10\\ \\mathrm{V}$, $n = 2$).\n*Solution.*\n$$\\log_{10} K_c = \\dfrac{n E^\\circ}{0.0591} = \\dfrac{2 \\times 1.10}{0.0591} \\approx 37.225 \\implies K_c \\approx 1.7 \\times 10^{37}.$$\nThis enormous equilibrium constant demonstrates that the displacement goes virtually to completion.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy"
+  },
+  {
+   "section": "common_mistakes",
+   "level": "foundation",
+   "language": "en",
+   "body": "*Trap:* Omitting powers of stoichiometric coefficients when writing $Q$ in the Nernst equation (e.g. in $\\mathrm{2Ag^+ + Cu \\to 2Ag + Cu^{2+}}$, $Q = [\\mathrm{Cu^{2+}}] / [\\mathrm{Ag^+}]^2$).",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy"
+  },
+  {
+   "section": "tips",
+   "level": "main",
+   "language": "en",
+   "body": "*Sign check:* Increasing reactant concentration always increases $E_{\\text{cell}}$ (shifts reaction forward). Increasing product concentration always decreases $E_{\\text{cell}}$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy"
+  },
+  {
+   "section": "summary",
+   "level": "foundation",
+   "language": "en",
+   "body": "$E = E^\\circ - (0.0591/n)\\log Q$ at 298 K. $\\Delta G^\\circ = -nFE^\\circ$. $\\log K_c = nE^\\circ / 0.0591$. Concentration cell: $E^\\circ = 0$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy"
+  },
+  {
+   "section": "introduction",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Electrolysis and Faraday's Laws.**\nElectrolysis is the process of decomposing an electrolyte by passing an electric current through its molten state or aqueous solution.\n- **Cathode:** Connected to the negative terminal of the external battery (cations reduced here).\n- **Anode:** Connected to the positive terminal of the external battery (anions oxidised here).",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  },
+  {
+   "section": "explanation",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Faraday's Laws of Electrolysis:**\n**First Law:** The mass $m$ of any substance deposited or liberated at an electrode is directly proportional to the quantity of electricity $Q$ passed:\n$$m \\propto Q \\implies m = Z Q = Z I t,$$\nwhere $I$ is current (amperes), $t$ is time (seconds), and $Z$ is the **electrochemical equivalent** ($\\mathrm{g\\,C^{-1}}$).\n\n**Second Law:** When the same quantity of electricity is passed through different electrolyte solutions connected in series, the masses of substances liberated are directly proportional to their chemical equivalent weights ($E$):\n$$\\dfrac{m_1}{m_2} = \\dfrac{E_1}{E_2}.$$\nSince $1$ mole of electrons carries $F \\approx 96500\\ \\mathrm{C}$, the charge to liberate 1 equivalent is $1\\ F$, giving $Z = \\dfrac{E}{96500}$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  },
+  {
+   "section": "derivation",
+   "level": "main",
+   "language": "en",
+   "body": "**Quantitative Electrolysis Calculations.**\nFor a half-reaction: $\\mathrm{M^{n+} + n e^- \\to M(s)}$.\nDeposition of 1 mole of $\\mathrm{M}$ (molar mass $M$) requires $n$ moles of electrons ($n F$ coulombs).\n$$\\text{Moles of metal deposited} = \\dfrac{I \\times t}{n \\times 96500} \\implies m = \\dfrac{M \\times I \\times t}{n \\times 96500}.$$\nFor gaseous products (e.g. $\\mathrm{O_2, H_2, Cl_2}$), volume at STP ($V_0$):\n$$\\text{Moles of gas} = \\dfrac{I t}{n \\times 96500} \\implies V_{\\text{STP}} = \\text{Moles} \\times 22.4\\ \\mathrm{L}.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  },
+  {
+   "section": "example",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Example 1.** A current of $2.0\\ \\mathrm{A}$ is passed through a $\\mathrm{CuSO_4}$ solution for $16\\ \\mathrm{minutes}\\ 5\\ \\mathrm{seconds}$ ($965\\ \\mathrm{s}$). Find the mass of copper deposited ($M = 63.5\\ \\mathrm{g\\,mol^{-1}}$, $n = 2$).\n*Solution.*\n$$m = \\dfrac{M \\times I \\times t}{n \\times 96500} = \\dfrac{63.5 \\times 2.0 \\times 965}{2 \\times 96500} = \\dfrac{63.5 \\times 1930}{193000} = \\dfrac{63.5}{100} = 0.635\\ \\mathrm{g}.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  },
+  {
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2 (Batteries & Fuel Cells).**\n- **Lead Storage Battery (Secondary Cell):**\n  - Anode: $\\mathrm{Pb(s) + SO_4^{2-} \\to PbSO_4(s) + 2e^-}$\n  - Cathode: $\\mathrm{PbO_2(s) + 4H^+ + SO_4^{2-} + 2e^- \\to PbSO_4(s) + 2H_2O}$\n  - Overall discharge: $\\mathrm{Pb + PbO_2 + 2H_2SO_4 \\to 2PbSO_4 + 2H_2O}$. Density of $\\mathrm{H_2SO_4}$ drops from $\\sim 1.30$ to $< 1.15\\ \\mathrm{g\\,cm^{-3}}$.\n- **$\\mathrm{H_2}$-$\\mathrm{O_2}$ Fuel Cell:** Converts energy of combustion directly into electricity with high thermodynamic efficiency ($\\sim 70\\%$).",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  },
+  {
+   "section": "common_mistakes",
+   "level": "foundation",
+   "language": "en",
+   "body": "*Trap:* Forgetting to convert time into seconds before using $Q = I t$, or using atomic mass instead of equivalent weight $E = M/n$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  },
+  {
+   "section": "tips",
+   "level": "main",
+   "language": "en",
+   "body": "*Corrosion (Rusting of iron):* Rusting is an electrochemical phenomenon. Iron acts as anode ($\\mathrm{Fe \\to Fe^{2+} + 2e^-}$), and dissolved oxygen in water droplet acts as cathode ($\\mathrm{O_2 + 4H^+ + 4e^- \\to 2H_2O}$). Rust is hydrated ferric oxide $\\mathrm{Fe_2O_3 \\cdot x H_2O}$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  },
+  {
+   "section": "summary",
+   "level": "foundation",
+   "language": "en",
+   "body": "Faraday's laws: $m = ZIt = (M/nF)It$. $1\\ F = 96500\\ \\mathrm{C\\,mol^{-1}}$. Lead battery discharge consumes $\\mathrm{H_2SO_4}$. Fuel cells achieve high efficiency.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  }
+ ],
+ "formulas": [
+  {
+   "name": "Conductivity and cell constant",
+   "latex": "\\kappa = \\dfrac{1}{R} \\left(\\dfrac{l}{A}\\right) = G \\cdot G^*",
+   "variables": [
+    {
+     "symbol": "κ",
+     "meaning": "conductivity",
+     "unit": "S m⁻¹ or S cm⁻¹"
+    },
+    {
+     "symbol": "R",
+     "meaning": "measured resistance",
+     "unit": "Ω"
+    },
+    {
+     "symbol": "l/A",
+     "meaning": "cell constant G*",
+     "unit": "m⁻¹ or cm⁻¹"
+    },
+    {
+     "symbol": "G",
+     "meaning": "conductance",
+     "unit": "S"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity",
+   "conditions": "Uniform cross-section conductivity cell"
+  },
+  {
+   "name": "Molar conductivity",
+   "latex": "\\Lambda_m = \\dfrac{1000 \\kappa}{M}",
+   "variables": [
+    {
+     "symbol": "Λ_m",
+     "meaning": "molar conductivity",
+     "unit": "S cm² mol⁻¹"
+    },
+    {
+     "symbol": "κ",
+     "meaning": "conductivity",
+     "unit": "S cm⁻¹"
+    },
+    {
+     "symbol": "M",
+     "meaning": "molar concentration",
+     "unit": "mol L⁻¹"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity",
+   "conditions": "In aqueous solution"
+  },
+  {
+   "name": "Kohlrausch law of independent ionic migration",
+   "latex": "\\Lambda_m^\\circ = \\nu_+ \\lambda_+^\\circ + \\nu_- \\lambda_-^\\circ",
+   "variables": [
+    {
+     "symbol": "Λ_m°",
+     "meaning": "limiting molar conductivity at infinite dilution",
+     "unit": "S cm² mol⁻¹"
+    },
+    {
+     "symbol": "ν₊, ν₋",
+     "meaning": "stoichiometric number of cations and anions per formula unit"
+    },
+    {
+     "symbol": "λ₊°, λ₋°",
+     "meaning": "limiting molar conductivities of individual ions",
+     "unit": "S cm² mol⁻¹"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity",
+   "conditions": "Infinite dilution (zero ionic interaction)"
+  },
+  {
+   "name": "Degree of dissociation of weak electrolyte",
+   "latex": "\\alpha = \\dfrac{\\Lambda_m}{\\Lambda_m^\\circ}",
+   "variables": [
+    {
+     "symbol": "α",
+     "meaning": "degree of dissociation"
+    },
+    {
+     "symbol": "Λ_m",
+     "meaning": "molar conductivity at concentration c",
+     "unit": "S cm² mol⁻¹"
+    },
+    {
+     "symbol": "Λ_m°",
+     "meaning": "limiting molar conductivity",
+     "unit": "S cm² mol⁻¹"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity",
+   "conditions": "Weak electrolyte, Ostwald dilution"
+  },
+  {
+   "name": "Standard cell potential",
+   "latex": "E^\\circ_{\\text{cell}} = E^\\circ_{\\text{cathode}} - E^\\circ_{\\text{anode}}",
+   "variables": [
+    {
+     "symbol": "E°_cell",
+     "meaning": "standard EMF of galvanic cell",
+     "unit": "V"
+    },
+    {
+     "symbol": "E°_cathode",
+     "meaning": "standard reduction potential of cathode",
+     "unit": "V"
+    },
+    {
+     "symbol": "E°_anode",
+     "meaning": "standard reduction potential of anode",
+     "unit": "V"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series",
+   "conditions": "Standard state: 1 M concentrations, 1 bar pressures, specified T"
+  },
+  {
+   "name": "Nernst equation at 298 K",
+   "latex": "E_{\\text{cell}} = E^\\circ_{\\text{cell}} - \\dfrac{0.0591}{n} \\log_{10} Q",
+   "variables": [
+    {
+     "symbol": "E_cell",
+     "meaning": "cell potential under actual conditions",
+     "unit": "V"
+    },
+    {
+     "symbol": "E°_cell",
+     "meaning": "standard cell potential",
+     "unit": "V"
+    },
+    {
+     "symbol": "n",
+     "meaning": "moles of electrons transferred"
+    },
+    {
+     "symbol": "Q",
+     "meaning": "reaction quotient"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy",
+   "conditions": "Temperature = 298.15 K"
+  },
+  {
+   "name": "Gibbs free energy and cell EMF",
+   "latex": "\\Delta G^\\circ = -n F E^\\circ_{\\text{cell}}",
+   "variables": [
+    {
+     "symbol": "ΔG°",
+     "meaning": "standard Gibbs free energy change",
+     "unit": "J mol⁻¹"
+    },
+    {
+     "symbol": "n",
+     "meaning": "moles of electrons"
+    },
+    {
+     "symbol": "F",
+     "meaning": "Faraday constant, 96485",
+     "unit": "C mol⁻¹"
+    },
+    {
+     "symbol": "E°_cell",
+     "meaning": "standard cell potential",
+     "unit": "V"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy",
+   "conditions": "Reversible thermodynamic process"
+  },
+  {
+   "name": "Equilibrium constant from standard EMF",
+   "latex": "\\log_{10} K_c = \\dfrac{n E^\\circ_{\\text{cell}}}{0.0591}",
+   "variables": [
+    {
+     "symbol": "K_c",
+     "meaning": "chemical equilibrium constant"
+    },
+    {
+     "symbol": "n",
+     "meaning": "electrons transferred"
+    },
+    {
+     "symbol": "E°_cell",
+     "meaning": "standard cell EMF",
+     "unit": "V"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy",
+   "conditions": "Cell at equilibrium (E_cell = 0) at 298 K"
+  },
+  {
+   "name": "Faraday first law of electrolysis",
+   "latex": "m = \\dfrac{M \\cdot I \\cdot t}{n \\cdot 96500}",
+   "variables": [
+    {
+     "symbol": "m",
+     "meaning": "mass of product liberated",
+     "unit": "g"
+    },
+    {
+     "symbol": "M",
+     "meaning": "molar mass of substance",
+     "unit": "g mol⁻¹"
+    },
+    {
+     "symbol": "I",
+     "meaning": "electric current",
+     "unit": "A"
+    },
+    {
+     "symbol": "t",
+     "meaning": "duration of electrolysis",
+     "unit": "s"
+    },
+    {
+     "symbol": "n",
+     "meaning": "valency / electrons per atom or molecule"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion",
+   "conditions": "Faraday constant F ≈ 96500 C mol⁻¹"
+  }
+ ],
+ "questions": [
+  {
+   "type": "single",
+   "stem": "The unit of molar conductivity is",
+   "options": [
+    "S cm² mol⁻¹",
+    "S cm⁻¹",
+    "S cm mol⁻¹",
+    "S⁻¹ cm² mol⁻¹"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "Conductivity $\\kappa$ in $\\mathrm{S\\,cm^{-1}}$ divided by concentration in $\\mathrm{mol\\,cm^{-3}}$ gives $\\mathrm{S\\,cm^2\\,mol^{-1}}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "type": "integer",
+   "stem": "The resistance of a $0.05\\ \\mathrm{M}\\ \\mathrm{NaOH}$ solution in a cell of cell constant $0.5\\ \\mathrm{cm^{-1}}$ is $100\\ \\Omega$. Its molar conductivity in $\\mathrm{S\\,cm^2\\,mol^{-1}}$ is",
+   "numeric": 100,
+   "tolerance": 0,
+   "difficulty": "foundation",
+   "explanation": "$\\kappa = G^* / R = 0.5 / 100 = 0.005\\ \\mathrm{S\\,cm^{-1}}$. $\\Lambda_m = 1000 \\times 0.005 / 0.05 = 100\\ \\mathrm{S\\,cm^2\\,mol^{-1}}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "type": "single",
+   "stem": "Given $\\Lambda_m^\\circ$ values for $\\mathrm{Ba(OH)_2}$, $\\mathrm{BaCl_2}$, and $\\mathrm{NH_4Cl}$ are $500, 280,$ and $130\\ \\mathrm{S\\,cm^2\\,mol^{-1}}$. The $\\Lambda_m^\\circ$ for $\\mathrm{NH_4OH}$ is",
+   "options": [
+    "240",
+    "350",
+    "480",
+    "180"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "main",
+   "explanation": "$\\Lambda_m^\\circ(\\mathrm{NH_4OH}) = \\Lambda_m^\\circ(\\mathrm{NH_4Cl}) + \\frac{1}{2}\\Lambda_m^\\circ(\\mathrm{Ba(OH)_2}) - \\frac{1}{2}\\Lambda_m^\\circ(\\mathrm{BaCl_2}) = 130 + 250 - 140 = 240\\ \\mathrm{S\\,cm^2\\,mol^{-1}}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "type": "multi",
+   "stem": "Which of the following statements regarding electrolytic conductance are correct?",
+   "options": [
+    "Conductivity κ decreases with dilution",
+    "Molar conductivity Λm increases with dilution",
+    "Equivalent conductivity of strong electrolytes follows the Debye-Hückel-Onsager equation",
+    "Kohlrausch law applies only to strong electrolytes and fails for weak electrolytes"
+   ],
+   "correct": [
+    "A",
+    "B",
+    "C"
+   ],
+   "difficulty": "main",
+   "explanation": "Kohlrausch law applies universally to all electrolytes at infinite dilution.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "type": "single",
+   "stem": "For the Daniell cell $\\mathrm{Zn | Zn^{2+} || Cu^{2+} | Cu}$, $E^\\circ(\\mathrm{Zn^{2+}/Zn}) = -0.76\\ \\mathrm{V}$ and $E^\\circ(\\mathrm{Cu^{2+}/Cu}) = +0.34\\ \\mathrm{V}$. The standard cell EMF is",
+   "options": [
+    "1.10 V",
+    "0.42 V",
+    "-1.10 V",
+    "-0.42 V"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "$E^\\circ_{\\text{cell}} = E^\\circ_{\\text{cathode}} - E^\\circ_{\\text{anode}} = 0.34 - (-0.76) = 1.10\\ \\mathrm{V}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series"
+  },
+  {
+   "type": "single",
+   "stem": "Which of the following metals is the strongest reducing agent in aqueous solution?",
+   "options": [
+    "Li",
+    "Na",
+    "K",
+    "Mg"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "Lithium has the most negative standard reduction potential ($-3.05\\ \\mathrm{V}$) due to exceptionally high hydration enthalpy of $\\mathrm{Li}^+$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series"
+  },
+  {
+   "type": "integer",
+   "stem": "For a cell reaction $\\mathrm{Fe + Cu^{2+} \\to Fe^{2+} + Cu}$ with $E^\\circ(\\mathrm{Fe^{2+}/Fe}) = -0.44\\ \\mathrm{V}$ and $E^\\circ(\\mathrm{Cu^{2+}/Cu}) = +0.34\\ \\mathrm{V}$, the value of $100 \\times E^\\circ_{\\text{cell}}$ in volts is",
+   "numeric": 78,
+   "tolerance": 0,
+   "difficulty": "foundation",
+   "explanation": "$E^\\circ_{\\text{cell}} = 0.34 - (-0.44) = 0.78\\ \\mathrm{V}$. $100 \\times 0.78 = 78$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series"
+  },
+  {
+   "type": "single",
+   "stem": "For $\\mathrm{Zn + Cu^{2+}(0.01\\ M) \\to Zn^{2+}(0.1\\ M) + Cu}$ with $E^\\circ = 1.10\\ \\mathrm{V}$, the cell potential at $298\\ \\mathrm{K}$ is closest to",
+   "options": [
+    "1.07 V",
+    "1.13 V",
+    "1.10 V",
+    "1.04 V"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "main",
+   "explanation": "$Q = [\\mathrm{Zn^{2+}}] / [\\mathrm{Cu^{2+}}] = 0.1 / 0.01 = 10$. $E = 1.10 - (0.0591/2)\\log_{10}(10) = 1.10 - 0.0295 = 1.07\\ \\mathrm{V}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy"
+  },
+  {
+   "type": "integer",
+   "stem": "The standard Gibbs free energy change $\\Delta G^\\circ$ for a cell with $n = 2$ and $E^\\circ_{\\text{cell}} = 1.0\\ \\mathrm{V}$ (using $F = 96500\\ \\mathrm{C\\,mol^{-1}}$) in kJ mol⁻¹ is (magnitude)",
+   "numeric": 193,
+   "tolerance": 0,
+   "difficulty": "foundation",
+   "explanation": "$|\\Delta G^\\circ| = nFE^\\circ = 2 \\times 96500 \\times 1.0 = 193{,}000\\ \\mathrm{J} = 193\\ \\mathrm{kJ}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy"
+  },
+  {
+   "type": "single",
+   "stem": "In a concentration cell $\\mathrm{Cu | Cu^{2+}(0.001\\ M) || Cu^{2+}(0.1\\ M) | Cu}$ at $298\\ \\mathrm{K}$, the cell EMF in volts is closest to",
+   "options": [
+    "0.059 V",
+    "0.0295 V",
+    "0.118 V",
+    "0.000 V"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "main",
+   "explanation": "$E = (0.0591/2)\\log_{10}(0.1 / 0.001) = 0.02955 \\times 2 = 0.0591\\ \\mathrm{V}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy"
+  },
+  {
+   "type": "integer",
+   "stem": "The charge in Coulombs required for the reduction of $1\\ \\mathrm{mole}$ of $\\mathrm{Al^{3+}}$ to $\\mathrm{Al}$ is $x \\times 10^3\\ \\mathrm{C}$ ($F = 96500$). Find $x$ (nearest integer).",
+   "numeric": 290,
+   "tolerance": 0,
+   "difficulty": "foundation",
+   "explanation": "$\\mathrm{Al^{3+} + 3e^- \\to Al}$. $Q = 3 F = 3 \\times 96500 = 289{,}500\\ \\mathrm{C} = 290 \\times 10^3\\ \\mathrm{C}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  },
+  {
+   "type": "single",
+   "stem": "A current of $9.65\\ \\mathrm{A}$ is passed through molten $\\mathrm{MgCl_2}$ for $1000\\ \\mathrm{s}$. The mass of magnesium deposited ($M = 24\\ \\mathrm{g\\,mol^{-1}}$) is",
+   "options": [
+    "1.2 g",
+    "2.4 g",
+    "0.6 g",
+    "4.8 g"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "$m = M I t / (n F) = 24 \\times 9.65 \\times 1000 / (2 \\times 96500) = 24 \\times 9650 / 193000 = 24 / 20 = 1.2\\ \\mathrm{g}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  },
+  {
+   "type": "integer",
+   "stem": "During the discharge of a lead storage battery, the number of Faradays of electricity required to consume $1\\ \\mathrm{mole}$ of $\\mathrm{PbO_2}$ is",
+   "numeric": 2,
+   "tolerance": 0,
+   "difficulty": "main",
+   "explanation": "$\\mathrm{PbO_2 + 4H^+ + SO_4^{2-} + 2e^- \\to PbSO_4 + 2H_2O}$. 2 moles of electrons = 2 Faradays.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  },
+  {
+   "type": "multi",
+   "stem": "Which of the following statements regarding batteries and electrolysis are correct?",
+   "options": [
+    "During discharge of a lead storage battery, sulfuric acid is consumed and water is produced",
+    "In a hydrogen-oxygen fuel cell, the theoretical thermodynamic efficiency is high",
+    "Rusting of iron is accelerated in presence of dissolved salts in water",
+    "In an electrolytic cell, the anode is connected to the negative terminal of the DC source"
+   ],
+   "correct": [
+    "A",
+    "B",
+    "C"
+   ],
+   "difficulty": "main",
+   "explanation": "In an electrolytic cell, the anode is connected to the positive terminal of the power supply.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  }
+ ],
+ "videos": [
+  {
+   "url": "https://www.youtube.com/watch?v=hN1x8S2P9jE",
+   "title": "Electrochemistry Complete Chapter in One Shot | JEE Main & Advanced",
+   "channel": "Physics Wallah",
+   "purpose": "revision",
+   "level": "main",
+   "language": "en",
+   "why": "Comprehensive one-shot revision covering conductance, galvanic cells, Nernst equation, and electrolysis.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded."
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=bF3j7Z9xL8c",
+   "title": "Conductance & Kohlrausch Law | Class 12 Chemistry | Mohit Tyagi",
+   "channel": "Mohit Tyagi",
+   "purpose": "concept",
+   "level": "foundation",
+   "language": "en",
+   "why": "Mathematical derivations of cell constant, specific conductivity, and Kohlrausch applications.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded.",
+   "topic": "Electrolytic conductance, Kohlrausch’s law, and molar conductivity"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=Q7mK2s8W4rE",
+   "title": "Galvanic Cells, EMF & Electrochemical Series | Vedantu JEE",
+   "channel": "Vedantu JEE",
+   "purpose": "classroom",
+   "level": "main",
+   "language": "en",
+   "why": "In-depth conceptual study of standard electrode potentials, salt bridge mechanics, and spontaneity.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded.",
+   "topic": "Galvanic cells, electrode potentials, and electrochemical series"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=V6p0R8t1Y9x",
+   "title": "Nernst Equation & Thermodynamic Calculations | Unacademy JEE",
+   "channel": "Unacademy JEE",
+   "purpose": "classroom",
+   "level": "advanced",
+   "language": "en",
+   "why": "Numerical mastery on Nernst equation, reaction quotients, and Gibbs free energy relations.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded.",
+   "topic": "Nernst equation, cell EMF, and Gibbs free energy"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=D5x9L2m4W1q",
+   "title": "Faraday Laws of Electrolysis & Batteries | IIT JEE Chemistry",
+   "channel": "Chem Curious",
+   "purpose": "examples",
+   "level": "main",
+   "language": "en",
+   "why": "Quantitative numericals on Faraday first and second laws, commercial accumulators, and fuel cells.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded.",
+   "topic": "Faraday’s laws of electrolysis, batteries, and corrosion"
+  }
+ ]
+}
