@@ -13,11 +13,14 @@ export const IDS = {
   chapter: {
     invTrig: seedId('chapter:inverse-trigonometry'),
     binomial: seedId('chapter:binomial-theorem'),
+    permutations: seedId('chapter:permutations'),
     gravitation: seedId('chapter:gravitation'),
+    fluidMechanics: seedId('chapter:fluid-mechanics'),
     kinetics: seedId('chapter:chemical-kinetics'),
+    electrochemistry: seedId('chapter:electrochemistry'),
   },
-  examMain: seedId('exam:main:2026-11-10'),
-  examAdv: seedId('exam:advanced:2026-11-11'),
+  examMain: seedId('exam:main:2026-12-08'),
+  examAdv: seedId('exam:advanced:2026-12-09'),
   tplMain: seedId('template:main'),
   tplAdv: seedId('template:advanced-sample'),
   source: seedId('source:brief'),
@@ -26,8 +29,11 @@ export const IDS = {
 export const SYLLABUS = [
   { id: IDS.chapter.invTrig, subject: 'math', title: 'Inverse Trigonometry', note: 'Complete chapter', order: 1 },
   { id: IDS.chapter.binomial, subject: 'math', title: 'Binomial Theorem', note: '', order: 2 },
+  { id: IDS.chapter.permutations, subject: 'math', title: 'Permutations', note: 'Permutations and combinations', order: 3 },
   { id: IDS.chapter.gravitation, subject: 'physics', title: 'Gravitation', note: '', order: 1 },
+  { id: IDS.chapter.fluidMechanics, subject: 'physics', title: 'Fluid Mechanics', note: '', order: 2 },
   { id: IDS.chapter.kinetics, subject: 'chemistry', title: 'Chemical Kinetics', note: '', order: 1 },
+  { id: IDS.chapter.electrochemistry, subject: 'chemistry', title: 'Electrochemistry', note: '', order: 2 },
 ] as const;
 
 export async function seedInitialData(db: SqlDb): Promise<void> {
@@ -81,13 +87,17 @@ export async function seedInitialData(db: SqlDb): Promise<void> {
       );
     }
 
-    const syllabus = JSON.stringify(SYLLABUS.map((c) => ({ chapterId: c.id, title: c.title, subject: c.subject })));
+    const syllabus = JSON.stringify([
+      { chapterId: IDS.chapter.permutations, title: 'Permutations', subject: 'math' },
+      { chapterId: IDS.chapter.fluidMechanics, title: 'Fluid Mechanics', subject: 'physics' },
+      { chapterId: IDS.chapter.electrochemistry, title: 'Electrochemistry', subject: 'chemistry' },
+    ]);
     await db.run(
-      `INSERT OR IGNORE INTO exams (id, template_id, name, style, exam_date, syllabus_json, status) VALUES (?, ?, 'Main-style exam', 'main', '2026-11-10', ?, 'scheduled')`,
+      `INSERT OR IGNORE INTO exams (id, template_id, name, style, exam_date, syllabus_json, status) VALUES (?, ?, 'Main-style exam', 'main', '2026-12-08', ?, 'scheduled')`,
       [IDS.examMain, IDS.tplMain, syllabus],
     );
     await db.run(
-      `INSERT OR IGNORE INTO exams (id, template_id, name, style, exam_date, syllabus_json, status) VALUES (?, ?, 'Advanced-style exam', 'advanced', '2026-11-11', ?, 'scheduled')`,
+      `INSERT OR IGNORE INTO exams (id, template_id, name, style, exam_date, syllabus_json, status) VALUES (?, ?, 'Advanced-style exam', 'advanced', '2026-12-09', ?, 'scheduled')`,
       [IDS.examAdv, IDS.tplAdv, syllabus],
     );
 

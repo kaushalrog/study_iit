@@ -10,7 +10,10 @@ on conflict (id) do nothing;
 insert into chapters (id, subject_id, title, sort_order, verification_status) values
   ('e7b115cc-11a3-4430-aaaf-1c7e709f563c', 'c4b28551-26dc-40f5-ab91-2dc3cfa90421', 'Inverse Trigonometry', 1, 'verified'),
   ('7da621cc-52fe-4788-aa0c-a4ca207860bc', 'c4b28551-26dc-40f5-ab91-2dc3cfa90421', 'Binomial Theorem', 2, 'verified'),
+  ('1386662d-fb34-4221-adfb-f467a8a2675d', 'c4b28551-26dc-40f5-ab91-2dc3cfa90421', 'Permutations', 3, 'verified'),
   ('ae7ceb30-65b2-4f84-a8c6-147af8e32900', 'd6332c6c-4141-4b78-a54f-276ef87147bc', 'Gravitation', 1, 'verified'),
-  ('9e9c43f7-e5ec-4763-aa62-3bb57ea671c7', 'cf3919b7-8614-435b-a7bc-12196e7e5a87', 'Chemical Kinetics', 1, 'verified')
+  ('93820dea-e8a5-41fe-aedd-154c7aaac33a', 'd6332c6c-4141-4b78-a54f-276ef87147bc', 'Fluid Mechanics', 2, 'verified'),
+  ('9e9c43f7-e5ec-4763-aa62-3bb57ea671c7', 'cf3919b7-8614-435b-a7bc-12196e7e5a87', 'Chemical Kinetics', 1, 'verified'),
+  ('bdd95862-5786-43ae-a511-b6fc12d714d2', 'cf3919b7-8614-435b-a7bc-12196e7e5a87', 'Electrochemistry', 2, 'verified')
 on conflict (id) do nothing;
 

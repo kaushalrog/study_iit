@@ -86,7 +86,7 @@ describe('coverage report', () => {
   it('a fresh install reports everything missing, never complete', async () => {
     const db = await fresh();
     const rep = await coverageRepo.load(db);
-    expect(rep).toHaveLength(4);
+    expect(rep).toHaveLength(7);
     expect(rep.every((c) => c.status === 'empty' && itemsCovered(c.counts) === 0)).toBe(true);
   });
   it('counts verified and unverified separately, and PYQs apart from practice', async () => {

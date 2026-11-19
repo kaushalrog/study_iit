@@ -27,14 +27,14 @@ describe('migrations and seed', () => {
     expect(await migrate(db)).toBe(7);
     await db.run("DELETE FROM app_meta WHERE key='seed_v1'");
     await seedInitialData(db);
-    expect((await db.first<{ n: number }>('SELECT COUNT(*) n FROM chapters'))!.n).toBe(4);
+    expect((await db.first<{ n: number }>('SELECT COUNT(*) n FROM chapters'))!.n).toBe(7);
     expect((await db.first<{ n: number }>('SELECT COUNT(*) n FROM exams'))!.n).toBe(2);
   });
-  it('registers the four chapters and the two exam dates, with no invented results', async () => {
+  it('registers the seven chapters and the two exam dates, with no invented results', async () => {
     const db = await fresh();
     const ch = await syllabusRepo.chapters(db);
-    expect(ch.map((c) => c.title)).toEqual(['Inverse Trigonometry', 'Binomial Theorem', 'Gravitation', 'Chemical Kinetics']);
-    expect((await examRepo.list(db)).map((e) => [e.style, e.examDate])).toEqual([['main', '2026-11-10'], ['advanced', '2026-11-11']]);
+    expect(ch.map((c) => c.title)).toEqual(['Inverse Trigonometry', 'Binomial Theorem', 'Permutations', 'Gravitation', 'Fluid Mechanics', 'Chemical Kinetics', 'Electrochemistry']);
+    expect((await examRepo.list(db)).map((e) => [e.style, e.examDate])).toEqual([['main', '2026-12-08'], ['advanced', '2026-12-09']]);
     for (const t of ['questions', 'question_attempts', 'mistake_entries', 'topic_mastery']) {
       expect((await db.first<{ n: number }>(`SELECT COUNT(*) n FROM ${t}`))!.n).toBe(0);
     }
@@ -132,7 +132,7 @@ describe('mastery evidence', () => {
 describe('home data', () => {
   it('shows honest empty state: not assessed, content setup recommended, no overdue', async () => {
     const db = await fresh();
-    const h = await loadHomeData(db, '2026-11-01');
+    const h = await loadHomeData(db, '2026-11-29');
     expect(h.chapters.every((c) => c.mastery.state === 'not_assessed' && c.mastery.score === null)).toBe(true);
     expect(h.action.kind).toBe('setup_content');
     expect(h.exams.map((e) => e.daysLeft)).toEqual([9, 10]);
