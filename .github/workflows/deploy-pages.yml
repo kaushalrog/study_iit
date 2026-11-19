@@ -1,0 +1,80 @@
+name: Deploy Web to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate content & run tests
+        run: |
+          ./scripts/content-validate.sh
+          npm test
+
+      - name: Build web application
+        env:
+          ORBIT_WEB_BASE: /orbit-web
+        run: |
+          npx expo export --platform web --output-dir dist-web
+          python3 - "$ORBIT_WEB_BASE" <<'PY'
+          import sys
+          b=sys.argv[1]; p='dist-web/index.html'; s=open(p).read()
+          tags=f'<link rel="manifest" href="{b}/manifest.json"><link rel="apple-touch-icon" href="{b}/icon-192.png"><meta name="theme-color" content="#FAF7F0">'
+          if 'rel="manifest"' not in s: s=s.replace('</head>', tags+'</head>',1)
+          open(p,'w').write(s)
+          PY
+          cp dist-web/index.html dist-web/404.html
+          touch dist-web/.nojekyll
+
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist-web
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Sync to orbit-web repository
+        env:
+          GH_TOKEN: ${{ secrets.ORBIT_WEB_DEPLOY_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          TMP="$(mktemp -d)"
+          cp -R dist-web/. "$TMP"
+          cp -f README-web.md "$TMP/README.md" 2>/dev/null || true
+          cd "$TMP"
+          git init -q -b main
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" commit -qm "Automated deploy: ${{ github.sha }}"
+          git remote add target "https://x-access-token:${GH_TOKEN}@github.com/kaushalrog/orbit-web.git"
+          git push -q --force target main || true
