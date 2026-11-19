@@ -14,9 +14,9 @@ describe('roadmap data', () => {
     const visit = (k: string, path: string[]): void => { expect(path).not.toContain(k); ROADMAP.find((x) => x.key === k)!.prereqs.forEach((p) => visit(p, [...path, k])); };
     ROADMAP.forEach((n) => visit(n.key, []));
   });
-  it('covers all three subjects and the four current chapters, independent of school class', () => {
+  it('covers all three subjects and the seven current chapters, independent of school class', () => {
     expect(new Set(ROADMAP.map((n) => n.subject))).toEqual(new Set(['math', 'physics', 'chemistry']));
-    expect(ROADMAP.filter((n) => n.chapter).map((n) => n.chapter).sort()).toEqual(['Binomial Theorem', 'Chemical Kinetics', 'Gravitation', 'Inverse Trigonometry']);
+    expect(ROADMAP.filter((n) => n.chapter).map((n) => n.chapter).sort()).toEqual(['Binomial Theorem', 'Chemical Kinetics', 'Electrochemistry', 'Fluid Mechanics', 'Gravitation', 'Inverse Trigonometry', 'Permutations']);
     expect(STAGES).toHaveLength(7);
     expect(ROADMAP.find((n) => n.chapter === 'Chemical Kinetics')!.stage).toBeGreaterThan(ROADMAP.find((n) => n.chapter === 'Gravitation')!.stage);
   });

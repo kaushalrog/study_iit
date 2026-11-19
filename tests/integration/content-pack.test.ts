@@ -14,10 +14,10 @@ import { memoryDb } from '../unit/sqlite-harness';
 async function fresh() { const db = memoryDb(); await migrate(db); await seedInitialData(db); return db; }
 
 describe('starter content pack', () => {
-  it('parses with no issues and covers exactly the four current chapters', () => {
+  it('parses with no issues and covers all seven chapters', () => {
     const { bundles, problems } = starterBundles();
     expect(problems).toEqual([]);
-    expect(bundles.map((b) => b.chapter)).toEqual(['Inverse Trigonometry', 'Binomial Theorem', 'Gravitation', 'Chemical Kinetics']);
+    expect(bundles.map((b) => b.chapter)).toEqual(['Inverse Trigonometry', 'Binomial Theorem', 'Gravitation', 'Chemical Kinetics', 'Permutations', 'Fluid Mechanics', 'Electrochemistry']);
   });
 
   it('every item carries a source note, questions are generated, videos are real links, nothing claims to be a PYQ', () => {

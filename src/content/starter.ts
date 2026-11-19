@@ -17,6 +17,9 @@ const FILES: unknown[] = [
   require('../../content/binomial-theorem.json'),
   require('../../content/gravitation.json'),
   require('../../content/chemical-kinetics.json'),
+  require('../../content/permutations.json'),
+  require('../../content/fluid-mechanics.json'),
+  require('../../content/electrochemistry.json'),
 ];
 
 export function starterBundles(): { bundles: ParsedBundle[]; problems: string[] } {
