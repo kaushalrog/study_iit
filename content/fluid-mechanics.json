@@ -1,0 +1,942 @@
+{
+ "chapter": "Fluid Mechanics",
+ "topics": [
+  "Fluid statics: Pressure, density, and Pascal’s law",
+  "Buoyancy, Archimedes’ principle, and floatation",
+  "Fluid dynamics: Continuity and Bernoulli’s equation",
+  "Viscosity, terminal velocity, and surface tension"
+ ],
+ "lessons": [
+  {
+   "section": "introduction",
+   "level": "foundation",
+   "language": "en",
+   "body": "**What this chapter is about.** Fluids (liquids and gases) are substances that deform continuously under applied shear stress. Fluid mechanics explores how fluids behave at rest (**hydrostatics**) and in motion (**hydrodynamics**).\n\n**Prerequisites.** (1) Newton's laws of motion and free-body diagrams. (2) Work, kinetic energy, and potential energy. (3) Basic geometry (volumes, cross-sectional areas of cylinders and spheres).\n\n**Topic path.** Hydrostatic pressure, Pascal's principle, and U-tube manometers → Archimedes' principle, apparent weight, and floatation stability → streamline flow, continuity equation, and Bernoulli's theorem with practical applications (efflux, Venturimeter) → viscous drag, Stokes' law, terminal velocity, and surface tension with capillarity.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme."
+  },
+  {
+   "section": "why_it_matters",
+   "level": "main",
+   "language": "en",
+   "body": "In JEE Main and Advanced, Fluid Mechanics carries consistent weight, bridging classical mechanics with continuous media. Key examination staples include hydrostatic pressure in accelerated frames (sloshing liquids), Archimedes' principle with multi-layer liquids or melting ice, Bernoulli applications (draining tanks, dynamic lift), and capillary rise with contact angles. Conceptual rigor around non-viscous vs viscous flow and energy conservation makes this chapter a high-yield scoring area.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme."
+  },
+  {
+   "section": "introduction",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Pressure in a Fluid.**\nFluid pressure is defined as the normal compressive force per unit surface area:\n$$P = \\lim_{\\Delta A \\to 0} \\dfrac{\\Delta F_{\\perp}}{\\Delta A}.$$\nSI unit: Pascal ($\\mathrm{Pa} = \\mathrm{N\\,m^{-2}}$). Standard atmospheric pressure: $1\\ \\mathrm{atm} = 1.013 \\times 10^5\\ \\mathrm{Pa} = 760\\ \\mathrm{mm\\ Hg}$. Pressure is a scalar quantity because at any point it acts equally in all directions.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "section": "explanation",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Variation of Pressure with Depth (Hydrostatic Law).**\nIn an incompressible fluid of uniform density $\\rho$ under uniform gravity $g$, pressure increases linearly with depth $h$:\n$$P = P_0 + \\rho g h,$$\nwhere $P_0$ is the pressure at the liquid surface (often atmospheric pressure $P_{\\text{atm}}$).\nThe difference $P - P_0 = \\rho g h$ is called the **gauge pressure**.\nPoints at the same horizontal level in a continuous, static, interconnected body of the same fluid must have the same pressure.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "section": "derivation",
+   "level": "main",
+   "language": "en",
+   "body": "**Pascal's Principle and the Hydraulic Lift.**\n*Pascal's Law:* Pressure applied to an enclosed, incompressible static fluid is transmitted undiminished to every portion of the fluid and to the walls of the containing vessel.\nIn a hydraulic press with pistons of areas $A_1$ and $A_2$:\n$$\\dfrac{F_1}{A_1} = \\dfrac{F_2}{A_2} \\implies F_2 = F_1 \\left(\\dfrac{A_2}{A_1}\\right).$$\n*Work conservation:* Since the fluid is incompressible, $A_1 \\Delta x_1 = A_2 \\Delta x_2$.\n$$W = F_1 \\Delta x_1 = \\left(F_2 \\dfrac{A_1}{A_2}\\right)\\left(\\Delta x_2 \\dfrac{A_2}{A_1}\\right) = F_2 \\Delta x_2.$$\nIdeal mechanical advantage multiplies force without violating energy conservation.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "section": "example",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Example 1.** Calculate the absolute pressure at a depth of $10\\ \\mathrm{m}$ in fresh water ($\\rho = 1000\\ \\mathrm{kg\\,m^{-3}}$, $g = 9.8\\ \\mathrm{m\\,s^{-2}}$, $P_{\\text{atm}} = 1.01 \\times 10^5\\ \\mathrm{Pa}$).\n*Solution.*\n$$P = P_0 + \\rho g h = 1.01 \\times 10^5 + (1000)(9.8)(10) = 101{,}000 + 98{,}000 = 199{,}000\\ \\mathrm{Pa} = 1.99 \\times 10^5\\ \\mathrm{Pa}.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2 (U-tube with two immiscible liquids).** A U-tube contains water ($\\rho_w = 1000\\ \\mathrm{kg\\,m^{-3}}$). Oil of density $\\rho_o = 800\\ \\mathrm{kg\\,m^{-3}}$ is poured into one arm until it forms a column of height $10\\ \\mathrm{cm}$. Find the difference in water levels.\n*Solution.* Equating pressures at the horizontal interface level:\n$$\\rho_o g h_o = \\rho_w g h_w \\implies h_w = h_o \\left(\\dfrac{\\rho_o}{\\rho_w}\\right) = 10 \\times \\dfrac{800}{1000} = 8\\ \\mathrm{cm}.$$\nThe water column is $8\\ \\mathrm{cm}$ above the interface, while the oil column is $10\\ \\mathrm{cm}$. The height difference between the two surfaces is $10 - 8 = 2\\ \\mathrm{cm}$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "section": "common_mistakes",
+   "level": "foundation",
+   "language": "en",
+   "body": "*Hydrostatic Paradox:* The pressure at the bottom of a liquid column depends only on vertical depth $h$ and density $\\rho$, not on the shape, volume, or total weight of the liquid in the container.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "section": "tips",
+   "level": "main",
+   "language": "en",
+   "body": "*Accelerating containers:* If a container accelerates horizontally with acceleration $a$, the effective gravity is $\\vec{g}_{\\text{eff}} = \\vec{g} - \\vec{a}$, and the liquid free surface tilts at an angle $\\tan\\theta = a / g$ to the horizontal.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "section": "summary",
+   "level": "foundation",
+   "language": "en",
+   "body": "$P = P_0 + \\rho gh$. Gauge pressure is $\\rho gh$. Pascal's principle governs hydraulic multiplication. Free surface tilts at $\\tan\\theta = a/g$ under horizontal acceleration.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "section": "introduction",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Archimedes' Principle.**\nWhen a body is wholly or partially submerged in a static fluid, it experiences an upward buoyant force equal to the weight of the fluid displaced by the body:\n$$F_B = \\rho_f V_{\\text{disp}} g,$$\nwhere $\\rho_f$ is fluid density and $V_{\\text{disp}}$ is the submerged volume of the body.\nThe buoyant force acts vertically upwards through the **centre of buoyancy** (the centre of gravity of the displaced fluid).",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation"
+  },
+  {
+   "section": "explanation",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Principle of Floatation.**\nFor a floating body in static equilibrium, the net vertical force is zero:\n$$F_B = W \\implies \\rho_f V_{\\text{sub}} g = \\rho_b V_{\\text{total}} g \\implies \\dfrac{V_{\\text{sub}}}{V_{\\text{total}}} = \\dfrac{\\rho_b}{\\rho_f}.$$\n- If $\\rho_b < \\rho_f$: The body floats partially submerged.\n- If $\\rho_b = \\rho_f$: The body floats fully submerged in neutral equilibrium.\n- If $\\rho_b > \\rho_f$: The body sinks to the bottom.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation"
+  },
+  {
+   "section": "derivation",
+   "level": "main",
+   "language": "en",
+   "body": "**Apparent Weight of a Submerged Body.**\nWhen weighed in a fluid, the apparent weight $W_{\\text{app}}$ recorded by a scale is:\n$$W_{\\text{app}} = W_{\\text{true}} - F_B = \\rho_b V g - \\rho_f V g = W_{\\text{true}}\\left(1 - \\dfrac{\\rho_f}{\\rho_b}\\right).$$\nRelative density (specific gravity) of the solid is:\n$$\\text{Relative Density} = \\dfrac{\\rho_b}{\\rho_w} = \\dfrac{W_{\\text{true}}}{W_{\\text{true}} - W_{\\text{water}}} = \\dfrac{W_{\\text{air}}}{\\text{Loss of weight in water}}.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation"
+  },
+  {
+   "section": "example",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Example 1.** An iceberg of density $900\\ \\mathrm{kg\\,m^{-3}}$ floats in sea water of density $1025\\ \\mathrm{kg\\,m^{-3}}$. What fraction of its volume is submerged?\n*Solution.*\n$$\\dfrac{V_{\\text{sub}}}{V} = \\dfrac{\\rho_{\\text{ice}}}{\\rho_{\\text{water}}} = \\dfrac{900}{1025} \\approx 0.878 \\quad (87.8\\%).$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation"
+  },
+  {
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2 (Melting Ice in Water).** A piece of ice floats in water in a beaker. When the ice melts completely, does the water level change?\n*Solution.*\nFloating condition: Weight of ice = Weight of displaced water $\\implies m_{\\text{ice}} g = \\rho_w V_{\\text{disp}} g \\implies V_{\\text{disp}} = m_{\\text{ice}} / \\rho_w$.\nWhen melted into water of mass $m_{\\text{ice}}$, its new volume is $V_{\\text{melted}} = m_{\\text{ice}} / \\rho_w$.\nSince $V_{\\text{melted}} = V_{\\text{disp}}$, the melted water exactly fills the cavity previously occupied by the submerged portion. The water level **remains unchanged**.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation"
+  },
+  {
+   "section": "common_mistakes",
+   "level": "foundation",
+   "language": "en",
+   "body": "*Trap:* Using the body's density instead of the fluid's density when calculating buoyant force: $F_B = \\rho_{\\text{fluid}} V_{\\text{sub}} g$, NEVER $\\rho_{\\text{body}}$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation"
+  },
+  {
+   "section": "tips",
+   "level": "main",
+   "language": "en",
+   "body": "*Ice with trapped density:* If ice contains a lead pellet ($\\rho_{\\text{lead}} > \\rho_w$), the water level falls upon melting. If ice contains a cork or air bubble ($\\rho < \\rho_w$), the water level remains unchanged.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation"
+  },
+  {
+   "section": "summary",
+   "level": "foundation",
+   "language": "en",
+   "body": "$F_B = \\rho_f V_{\\text{disp}} g$. Submerged fraction is $\\rho_{\\text{body}} / \\rho_{\\text{fluid}}$. Apparent weight is $W(1 - \\rho_f/\\rho_b)$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation"
+  },
+  {
+   "section": "introduction",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Ideal Fluid Flow.**\nAn ideal fluid is assumed to be:\n1. *Incompressible:* Constant density throughout.\n2. *Non-viscous (inviscid):* Zero internal friction between liquid layers.\n3. *Steady (streamline):* Velocity at any fixed spatial point is invariant with time.\n4. *Irrotational:* Elements have zero net angular momentum about their centres.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "section": "explanation",
+   "level": "main",
+   "language": "en",
+   "body": "**Equation of Continuity.**\nDue to conservation of mass, the mass flow rate through any cross-section of a flow tube must remain constant:\n$$\\rho_1 A_1 v_1 = \\rho_2 A_2 v_2.$$\nFor an incompressible fluid ($\\rho_1 = \\rho_2$):\n$$A_1 v_1 = A_2 v_2 = Q = \\text{constant},$$\nwhere $Q$ is the volume flow rate ($\\mathrm{m^3\\,s^{-1}}$). When cross-sectional area decreases, flow speed must increase.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "section": "derivation",
+   "level": "main",
+   "language": "en",
+   "body": "**Bernoulli's Theorem.**\nBernoulli's equation expresses the work-energy theorem for steady streamline flow of an ideal, incompressible fluid:\n$$P + \\dfrac{1}{2}\\rho v^2 + \\rho g h = \\text{constant}.$$\nDividing by $\\rho g$, it is often expressed in heads:\n$$\\dfrac{P}{\\rho g} + \\dfrac{v^2}{2g} + h = \\text{constant},$$\nwhere $\\dfrac{P}{\\rho g}$ is pressure head, $\\dfrac{v^2}{2g}$ is velocity head, and $h$ is datum/elevation head.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "section": "example",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Example 1 (Torricelli's Law of Efflux).** Water is stored in an open tank to height $H$. An orifice is opened at depth $h$ below the free surface. Find the efflux speed.\n*Solution.* Applying Bernoulli's equation between surface and orifice:\n$$P_{\\text{atm}} + \\rho g H + 0 = P_{\\text{atm}} + \\rho g (H - h) + \\dfrac{1}{2}\\rho v^2 \\implies v = \\sqrt{2gh}.$$\nThis equals the velocity of a particle freely falling through height $h$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2 (Venturimeter).** A horizontal pipe of cross-section $A_1$ narrows to a throat of cross-section $A_2$. The pressure difference is measured as $\\Delta P$. Find the flow rate $Q$.\n*Solution.*\nBy continuity: $v_2 = v_1 (A_1 / A_2)$.\nBy horizontal Bernoulli: $P_1 - P_2 = \\dfrac{1}{2}\\rho (v_2^2 - v_1^2) = \\dfrac{1}{2}\\rho v_1^2 \\left[\\left(\\dfrac{A_1}{A_2}\\right)^2 - 1\\right]$.\n$$v_1 = \\sqrt{\\dfrac{2(P_1 - P_2)}{\\rho\\left[(A_1/A_2)^2 - 1\\right]}} \\implies Q = A_1 v_1 = A_1 A_2 \\sqrt{\\dfrac{2\\Delta P}{\\rho(A_1^2 - A_2^2)}}.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "section": "common_mistakes",
+   "level": "foundation",
+   "language": "en",
+   "body": "*Trap:* Applying Bernoulli's equation across different streamlines when flow is rotational, or ignoring the pressure difference created by velocity changes (e.g. thinking high speed means high pressure, when in fact high speed corresponds to low pressure).",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "section": "tips",
+   "level": "main",
+   "language": "en",
+   "body": "*Maximum Range of Efflux:* In a tank of height $H$, an orifice at depth $h = H/2$ gives the maximum horizontal range $R_{\\text{max}} = H$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "section": "summary",
+   "level": "foundation",
+   "language": "en",
+   "body": "Continuity: $A_1 v_1 = A_2 v_2$. Bernoulli: $P + \\frac{1}{2}\\rho v^2 + \\rho gh = \\text{const}$. Efflux speed: $v = \\sqrt{2gh}$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "section": "introduction",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Viscosity and Newton's Law.**\nViscosity is the internal friction between adjacent layers of fluid in relative motion.\nNewton's law of viscosity states that the viscous shear force $F$ between fluid layers of area $A$ separated by velocity gradient $dv/dy$ is:\n$$F = -\\eta A \\dfrac{dv}{dy},$$\nwhere $\\eta$ is the coefficient of viscosity.\nSI unit: $\\mathrm{Pa\\,s} = \\mathrm{N\\,s\\,m^{-2}} = \\mathrm{kg\\,m^{-1}\\,s^{-1}}$. (In CGS: $1\\ \\text{poise} = 0.1\\ \\mathrm{Pa\\,s}$).",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  },
+  {
+   "section": "explanation",
+   "level": "main",
+   "language": "en",
+   "body": "**Stokes' Law and Terminal Velocity.**\nWhen a small sphere of radius $r$ moves with speed $v$ through a fluid of viscosity $\\eta$, the viscous drag is:\n$$F_v = 6\\pi \\eta r v.$$\nWhen dropping under gravity, the sphere reaches a constant **terminal velocity** $v_t$ when weight equals the sum of buoyant force and viscous drag:\n$$W = F_B + F_v \\implies \\dfrac{4}{3}\\pi r^3 \\rho g = \\dfrac{4}{3}\\pi r^3 \\sigma g + 6\\pi \\eta r v_t \\implies v_t = \\dfrac{2}{9}\\dfrac{r^2(\\rho - \\sigma)g}{\\eta},$$\nwhere $\\rho$ is the density of the sphere and $\\sigma$ is the density of the fluid.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  },
+  {
+   "section": "derivation",
+   "level": "main",
+   "language": "en",
+   "body": "**Surface Tension and Capillary Rise.**\nSurface tension $T$ is the tensile force per unit length on an imaginary line on the liquid surface: $T = F / L$ (units $\\mathrm{N\\,m^{-1}} = \\mathrm{J\\,m^{-2}}$).\n**Excess Pressure:**\n- Spherical liquid drop (1 surface): $\\Delta P = \\dfrac{2T}{R}$.\n- Spherical soap bubble (2 surfaces): $\\Delta P = \\dfrac{4T}{R}$.\n- Cylindrical liquid jet: $\\Delta P = \\dfrac{T}{R}$.\n\n**Capillary Ascent (Jurin's Law):**\nA tube of radius $r$ dipped in liquid of density $\\rho$ and contact angle $\\theta$ sustains a column of height $h$:\n$$2\\pi r T \\cos\\theta = \\pi r^2 h \\rho g \\implies h = \\dfrac{2T\\cos\\theta}{r\\rho g}.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  },
+  {
+   "section": "example",
+   "level": "foundation",
+   "language": "en",
+   "body": "**Example 1.** Calculate the excess pressure inside a soap bubble of radius $2\\ \\mathrm{mm}$ in air ($T = 0.03\\ \\mathrm{N\\,m^{-1}}$).\n*Solution.* A soap bubble has two liquid-gas interfaces:\n$$\\Delta P = \\dfrac{4T}{R} = \\dfrac{4 \\times 0.03}{2 \\times 10^{-3}} = \\dfrac{0.12}{0.002} = 60\\ \\mathrm{Pa}.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  },
+  {
+   "section": "example",
+   "level": "main",
+   "language": "en",
+   "body": "**Example 2.** Eight identical spherical rain droplets, each falling with terminal speed $v_0 = 5\\ \\mathrm{cm\\,s^{-1}}$, coalesce into a single larger drop. Find the terminal speed of the new drop.\n*Solution.*\nVolume conservation: $\\dfrac{4}{3}\\pi R^3 = 8 \\left(\\dfrac{4}{3}\\pi r^3\\right) \\implies R = 2r$.\nSince terminal velocity $v_t \\propto r^2$:\n$$\\dfrac{v_t'}{v_0} = \\left(\\dfrac{R}{r}\\right)^2 = 2^2 = 4 \\implies v_t' = 4 \\times 5 = 20\\ \\mathrm{cm\\,s^{-1}}.$$",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  },
+  {
+   "section": "common_mistakes",
+   "level": "foundation",
+   "language": "en",
+   "body": "*Trap:* Forgetting that a soap bubble in air has TWO surfaces (inside and outside), giving $\\Delta P = 4T/R$, whereas a liquid droplet or an air bubble inside liquid has only ONE surface, giving $\\Delta P = 2T/R$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  },
+  {
+   "section": "tips",
+   "level": "main",
+   "language": "en",
+   "body": "*Insufficient tube length:* If a capillary tube of length $L < h$ is used, liquid rises to the top and adjusts its radius of curvature $R'$ such that $h r = L R'$; liquid does NOT overflow.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  },
+  {
+   "section": "summary",
+   "level": "foundation",
+   "language": "en",
+   "body": "Stokes' law: $F = 6\\pi\\eta rv$. Terminal speed: $v_t \\propto r^2$. Drop excess pressure: $2T/R$; bubble: $4T/R$. Capillary rise: $h = 2T\\cos\\theta / (r\\rho g)$.",
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  }
+ ],
+ "formulas": [
+  {
+   "name": "Hydrostatic pressure at depth h",
+   "latex": "P = P_0 + \\rho g h",
+   "variables": [
+    {
+     "symbol": "P",
+     "meaning": "absolute pressure at depth h",
+     "unit": "Pa"
+    },
+    {
+     "symbol": "P₀",
+     "meaning": "surface / atmospheric pressure",
+     "unit": "Pa"
+    },
+    {
+     "symbol": "ρ",
+     "meaning": "liquid density",
+     "unit": "kg m⁻³"
+    },
+    {
+     "symbol": "g",
+     "meaning": "acceleration due to gravity",
+     "unit": "m s⁻²"
+    },
+    {
+     "symbol": "h",
+     "meaning": "vertical depth",
+     "unit": "m"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law",
+   "conditions": "Uniform density, static fluid"
+  },
+  {
+   "name": "Pascal hydraulic press relation",
+   "latex": "\\dfrac{F_1}{A_1} = \\dfrac{F_2}{A_2}\\ \\Longrightarrow\\ F_2 = F_1\\dfrac{A_2}{A_1}",
+   "variables": [
+    {
+     "symbol": "F₁, F₂",
+     "meaning": "forces on pistons 1 and 2",
+     "unit": "N"
+    },
+    {
+     "symbol": "A₁, A₂",
+     "meaning": "cross-sectional areas",
+     "unit": "m²"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law",
+   "conditions": "Incompressible enclosed static fluid"
+  },
+  {
+   "name": "Archimedes buoyant force",
+   "latex": "F_B = \\rho_f V_{\\text{disp}} g",
+   "variables": [
+    {
+     "symbol": "F_B",
+     "meaning": "buoyant upthrust",
+     "unit": "N"
+    },
+    {
+     "symbol": "ρ_f",
+     "meaning": "fluid density",
+     "unit": "kg m⁻³"
+    },
+    {
+     "symbol": "V_disp",
+     "meaning": "volume of fluid displaced",
+     "unit": "m³"
+    },
+    {
+     "symbol": "g",
+     "meaning": "acceleration due to gravity",
+     "unit": "m s⁻²"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation",
+   "conditions": "Static fluid"
+  },
+  {
+   "name": "Condition of floatation",
+   "latex": "\\dfrac{V_{\\text{sub}}}{V} = \\dfrac{\\rho_{\\text{body}}}{\\rho_{\\text{fluid}}}",
+   "variables": [
+    {
+     "symbol": "V_sub",
+     "meaning": "submerged volume",
+     "unit": "m³"
+    },
+    {
+     "symbol": "V",
+     "meaning": "total body volume",
+     "unit": "m³"
+    },
+    {
+     "symbol": "ρ_body",
+     "meaning": "body density",
+     "unit": "kg m⁻³"
+    },
+    {
+     "symbol": "ρ_fluid",
+     "meaning": "fluid density",
+     "unit": "kg m⁻³"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation",
+   "conditions": "Floating body in static equilibrium"
+  },
+  {
+   "name": "Equation of continuity",
+   "latex": "A_1 v_1 = A_2 v_2 = Q",
+   "variables": [
+    {
+     "symbol": "A₁, A₂",
+     "meaning": "pipe cross-sectional areas",
+     "unit": "m²"
+    },
+    {
+     "symbol": "v₁, v₂",
+     "meaning": "flow velocities",
+     "unit": "m s⁻¹"
+    },
+    {
+     "symbol": "Q",
+     "meaning": "volumetric discharge",
+     "unit": "m³ s⁻¹"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation",
+   "conditions": "Incompressible, steady streamline flow"
+  },
+  {
+   "name": "Bernoulli equation",
+   "latex": "P + \\dfrac{1}{2}\\rho v^2 + \\rho g h = \\text{constant}",
+   "variables": [
+    {
+     "symbol": "P",
+     "meaning": "static pressure",
+     "unit": "Pa"
+    },
+    {
+     "symbol": "ρ",
+     "meaning": "fluid density",
+     "unit": "kg m⁻³"
+    },
+    {
+     "symbol": "v",
+     "meaning": "streamline velocity",
+     "unit": "m s⁻¹"
+    },
+    {
+     "symbol": "h",
+     "meaning": "elevation above datum",
+     "unit": "m"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation",
+   "conditions": "Ideal fluid: non-viscous, incompressible, steady, irrotational"
+  },
+  {
+   "name": "Torricelli efflux velocity",
+   "latex": "v = \\sqrt{2gh}",
+   "variables": [
+    {
+     "symbol": "v",
+     "meaning": "efflux speed from orifice",
+     "unit": "m s⁻¹"
+    },
+    {
+     "symbol": "g",
+     "meaning": "gravitational acceleration",
+     "unit": "m s⁻²"
+    },
+    {
+     "symbol": "h",
+     "meaning": "depth of orifice below liquid surface",
+     "unit": "m"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation",
+   "conditions": "Open tank, orifice area much smaller than tank surface area"
+  },
+  {
+   "name": "Stokes law for viscous drag",
+   "latex": "F_v = 6\\pi \\eta r v",
+   "variables": [
+    {
+     "symbol": "F_v",
+     "meaning": "viscous retarding force",
+     "unit": "N"
+    },
+    {
+     "symbol": "η",
+     "meaning": "coefficient of dynamic viscosity",
+     "unit": "Pa s"
+    },
+    {
+     "symbol": "r",
+     "meaning": "radius of spherical particle",
+     "unit": "m"
+    },
+    {
+     "symbol": "v",
+     "meaning": "speed of sphere",
+     "unit": "m s⁻¹"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension",
+   "conditions": "Laminar flow over rigid sphere"
+  },
+  {
+   "name": "Terminal velocity of falling sphere",
+   "latex": "v_t = \\dfrac{2}{9}\\dfrac{r^2(\\rho - \\sigma)g}{\\eta}",
+   "variables": [
+    {
+     "symbol": "v_t",
+     "meaning": "terminal speed",
+     "unit": "m s⁻¹"
+    },
+    {
+     "symbol": "r",
+     "meaning": "sphere radius",
+     "unit": "m"
+    },
+    {
+     "symbol": "ρ",
+     "meaning": "density of sphere",
+     "unit": "kg m⁻³"
+    },
+    {
+     "symbol": "σ",
+     "meaning": "density of fluid",
+     "unit": "kg m⁻³"
+    },
+    {
+     "symbol": "η",
+     "meaning": "fluid viscosity",
+     "unit": "Pa s"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension",
+   "conditions": "Equilibrium of weight, buoyancy and Stokes drag"
+  },
+  {
+   "name": "Excess pressure in spherical drop",
+   "latex": "\\Delta P = \\dfrac{2T}{R}",
+   "variables": [
+    {
+     "symbol": "ΔP",
+     "meaning": "pressure difference across interface",
+     "unit": "Pa"
+    },
+    {
+     "symbol": "T",
+     "meaning": "surface tension",
+     "unit": "N m⁻¹"
+    },
+    {
+     "symbol": "R",
+     "meaning": "radius of drop",
+     "unit": "m"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension",
+   "conditions": "Single liquid-gas surface"
+  },
+  {
+   "name": "Excess pressure in soap bubble",
+   "latex": "\\Delta P = \\dfrac{4T}{R}",
+   "variables": [
+    {
+     "symbol": "ΔP",
+     "meaning": "excess pressure inside bubble",
+     "unit": "Pa"
+    },
+    {
+     "symbol": "T",
+     "meaning": "surface tension of soap solution",
+     "unit": "N m⁻¹"
+    },
+    {
+     "symbol": "R",
+     "meaning": "bubble radius",
+     "unit": "m"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension",
+   "conditions": "Two interfaces: inside and outside air surfaces"
+  },
+  {
+   "name": "Capillary rise (Jurin law)",
+   "latex": "h = \\dfrac{2T\\cos\\theta}{r\\rho g}",
+   "variables": [
+    {
+     "symbol": "h",
+     "meaning": "height of liquid column",
+     "unit": "m"
+    },
+    {
+     "symbol": "T",
+     "meaning": "surface tension",
+     "unit": "N m⁻¹"
+    },
+    {
+     "symbol": "θ",
+     "meaning": "contact angle",
+     "unit": "rad or deg"
+    },
+    {
+     "symbol": "r",
+     "meaning": "capillary radius",
+     "unit": "m"
+    },
+    {
+     "symbol": "ρ",
+     "meaning": "liquid density",
+     "unit": "kg m⁻³"
+    }
+   ],
+   "source": "ORBIT original explanation. Provisional: not yet reviewed against a teacher's notes or the Chaitanya IPL scheme.",
+   "topic": "Viscosity, terminal velocity, and surface tension",
+   "conditions": "Cylindrical tube, steady equilibrium"
+  }
+ ],
+ "questions": [
+  {
+   "type": "single",
+   "stem": "The gauge pressure at a depth of $20\\ \\mathrm{m}$ in a lake ($\\rho = 1000\\ \\mathrm{kg\\,m^{-3}}$, $g = 10\\ \\mathrm{m\\,s^{-2}}$) in kPa is",
+   "options": [
+    "200",
+    "100",
+    "300",
+    "400"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "$P_{\\text{gauge}} = \\rho g h = 1000 \\times 10 \\times 20\\ \\mathrm{Pa} = 200\\ \\mathrm{kPa}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "type": "integer",
+   "stem": "In a hydraulic lift, the piston areas are $5\\ \\mathrm{cm^2}$ and $250\\ \\mathrm{cm^2}$. A force of $40\\ \\mathrm{N}$ on the small piston lifts a load of (in N)",
+   "numeric": 2000,
+   "tolerance": 0,
+   "difficulty": "foundation",
+   "explanation": "$F_2 = F_1 \\times (A_2 / A_1) = 40 \\times (250 / 5) = 40 \\times 50 = 2000\\ \\mathrm{N}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "type": "single",
+   "stem": "A U-tube contains mercury ($\\rho = 13600\\ \\mathrm{kg\\,m^{-3}}$). Water is poured in one arm to height $13.6\\ \\mathrm{cm}$. The mercury level rises in the other arm by",
+   "options": [
+    "0.5 cm",
+    "1.0 cm",
+    "0.25 cm",
+    "2.0 cm"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "main",
+   "explanation": "Difference in mercury levels $h_{\\text{Hg}} = (1000 \\times 13.6) / 13600 = 1.0\\ \\mathrm{cm}$. Rise in other arm is $h_{\\text{Hg}} / 2 = 0.5\\ \\mathrm{cm}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "type": "multi",
+   "stem": "Which of the following statements about hydrostatic pressure are correct?",
+   "options": [
+    "Pressure at a point in a static fluid is independent of orientation",
+    "Hydrostatic pressure depends on the total shape of the container",
+    "In an elevator accelerating upward with acceleration a, the pressure gradient is ρ(g + a)",
+    "Free surface of a liquid tilts at an angle tan θ = a/g under horizontal acceleration a"
+   ],
+   "correct": [
+    "A",
+    "C",
+    "D"
+   ],
+   "difficulty": "main",
+   "explanation": "Hydrostatic pressure depends only on vertical depth, not on container shape.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "type": "single",
+   "stem": "A body of density $600\\ \\mathrm{kg\\,m^{-3}}$ floats in water ($\\rho = 1000\\ \\mathrm{kg\\,m^{-3}}$). The percentage of volume submerged is",
+   "options": [
+    "60%",
+    "40%",
+    "75%",
+    "50%"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "$V_{\\text{sub}} / V = \\rho_{\\text{body}} / \\rho_{\\text{liquid}} = 600 / 1000 = 0.60 = 60\\%$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation"
+  },
+  {
+   "type": "integer",
+   "stem": "A metallic sphere weighs $200\\ \\mathrm{N}$ in air and $150\\ \\mathrm{N}$ in water. Its relative density is",
+   "numeric": 4,
+   "tolerance": 0,
+   "difficulty": "foundation",
+   "explanation": "$\\text{Relative Density} = W_{\\text{air}} / (W_{\\text{air}} - W_{\\text{water}}) = 200 / (200 - 150) = 200 / 50 = 4$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation"
+  },
+  {
+   "type": "single",
+   "stem": "A wooden block with a coin on top floats in water. If the coin slips and drops into the water, the water level will",
+   "options": [
+    "decrease",
+    "increase",
+    "remain unchanged",
+    "first increase then decrease"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "main",
+   "explanation": "When on the block, the coin displaces water equivalent to its weight. When submerged, it displaces water equal only to its own volume ($\\rho_{\\text{coin}} > \\rho_w$). Hence displaced volume decreases and water level falls.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation"
+  },
+  {
+   "type": "integer",
+   "stem": "Water flows through a horizontal pipe of diameter $4\\ \\mathrm{cm}$ at $2\\ \\mathrm{m\\,s^{-1}}$. The speed in a constriction of diameter $2\\ \\mathrm{cm}$ in $\\mathrm{m\\,s^{-1}}$ is",
+   "numeric": 8,
+   "tolerance": 0,
+   "difficulty": "foundation",
+   "explanation": "$A_1 v_1 = A_2 v_2 \\implies v_2 = v_1 (d_1 / d_2)^2 = 2 \\times (4/2)^2 = 8\\ \\mathrm{m\\,s^{-1}}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "type": "single",
+   "stem": "The speed of efflux of water from an orifice $5\\ \\mathrm{m}$ below the surface of a deep open reservoir ($g = 9.8\\ \\mathrm{m\\,s^{-2}}$) in $\\mathrm{m\\,s^{-1}}$ is closest to",
+   "options": [
+    "9.9",
+    "14.0",
+    "7.0",
+    "4.9"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "$v = \\sqrt{2gh} = \\sqrt{2 \\times 9.8 \\times 5} = \\sqrt{98} \\approx 9.9\\ \\mathrm{m\\,s^{-1}}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "type": "integer",
+   "stem": "A cylindrical tank of height $8\\ \\mathrm{m}$ is full of water. An orifice is made at depth $h$ so that the horizontal range of the jet is maximum. The depth $h$ in metres is",
+   "numeric": 4,
+   "tolerance": 0,
+   "difficulty": "main",
+   "explanation": "Maximum range occurs when $h = H / 2 = 8 / 2 = 4\\ \\mathrm{m}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "type": "single",
+   "stem": "In a horizontal pipe, water flows at $2\\ \\mathrm{m\\,s^{-1}}$ where pressure is $20\\ \\mathrm{kPa}$. At another point where speed is $4\\ \\mathrm{m\\,s^{-1}}$, the pressure in kPa is",
+   "options": [
+    "14",
+    "16",
+    "10",
+    "18"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "main",
+   "explanation": "$P_2 = P_1 - \\frac{1}{2}\\rho(v_2^2 - v_1^2) = 20 - 0.5 \\times 1000 \\times (16 - 4)/1000 = 20 - 6 = 14\\ \\mathrm{kPa}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "type": "single",
+   "stem": "The excess pressure inside a spherical water drop of radius $1\\ \\mathrm{mm}$ with $T = 0.07\\ \\mathrm{N\\,m^{-1}}$ is",
+   "options": [
+    "140 Pa",
+    "70 Pa",
+    "280 Pa",
+    "35 Pa"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "$\\Delta P = 2T / R = 2 \\times 0.07 / 10^{-3} = 140\\ \\mathrm{Pa}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  },
+  {
+   "type": "integer",
+   "stem": "The excess pressure inside a soap bubble of radius $0.5\\ \\mathrm{mm}$ ($T = 0.03\\ \\mathrm{N\\,m^{-1}}$) in Pa is",
+   "numeric": 240,
+   "tolerance": 0,
+   "difficulty": "foundation",
+   "explanation": "$\\Delta P = 4T / R = 4 \\times 0.03 / (0.5 \\times 10^{-3}) = 240\\ \\mathrm{Pa}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  },
+  {
+   "type": "single",
+   "stem": "Two spherical soap bubbles have radii $r$ and $2r$. The ratio of their internal excess pressures is",
+   "options": [
+    "2 : 1",
+    "1 : 2",
+    "4 : 1",
+    "1 : 4"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "$\\Delta P \\propto 1/R \\implies \\Delta P_1 / \\Delta P_2 = (2r) / r = 2 : 1$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  },
+  {
+   "type": "integer",
+   "stem": "Twenty-seven small identical liquid drops coalesce to form a single big drop. If the terminal velocity of each small drop was $2\\ \\mathrm{cm\\,s^{-1}}$, the terminal velocity of the big drop in $\\mathrm{cm\\,s^{-1}}$ is",
+   "numeric": 18,
+   "tolerance": 0,
+   "difficulty": "main",
+   "explanation": "$R = 27^{1/3} r = 3r$. Terminal speed $v_t \\propto R^2 \\implies v_{\\text{new}} = 3^2 \\times 2 = 18\\ \\mathrm{cm\\,s^{-1}}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  },
+  {
+   "type": "single",
+   "stem": "Water rises to height $6\\ \\mathrm{cm}$ in a capillary tube of radius $r$. In a tube of radius $2r$, water will rise to a height of",
+   "options": [
+    "3 cm",
+    "12 cm",
+    "6 cm",
+    "1.5 cm"
+   ],
+   "correct": [
+    "A"
+   ],
+   "difficulty": "foundation",
+   "explanation": "Jurin law: $h \\propto 1/r$. Doubling the radius halves the height: $6 / 2 = 3\\ \\mathrm{cm}$.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  },
+  {
+   "type": "multi",
+   "stem": "Which of the following statements about viscosity and surface tension are correct?",
+   "options": [
+    "Stokes law applies to laminar flow past a spherical body",
+    "Terminal velocity of a spherical body falling in viscous medium is proportional to r²",
+    "Surface tension of liquid generally decreases with rise in temperature",
+    "Liquid will overflow from the top of an insufficiently long capillary tube"
+   ],
+   "correct": [
+    "A",
+    "B",
+    "C"
+   ],
+   "difficulty": "main",
+   "explanation": "Liquid adjusts its meniscus radius of curvature rather than overflowing.",
+   "origin": "generated",
+   "source": "ORBIT original question. Answer key machine-checked; awaiting human review.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  }
+ ],
+ "videos": [
+  {
+   "url": "https://www.youtube.com/watch?v=eW8i6A8Q3kQ",
+   "title": "Fluid Mechanics Complete Chapter in One Shot | JEE Physics",
+   "channel": "Physics Wallah",
+   "purpose": "revision",
+   "level": "main",
+   "language": "en",
+   "why": "Complete marathon session covering hydrostatics, hydrodynamics, viscosity and surface tension for JEE.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded."
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=Vb0Xg_Fv_W8",
+   "title": "Fluid Statics & Pascal Law | Physics Class 11 | Mohit Tyagi",
+   "channel": "Mohit Tyagi",
+   "purpose": "concept",
+   "level": "foundation",
+   "language": "en",
+   "why": "Mathematical derivations of pressure variation with depth and accelerating fluid containers.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded.",
+   "topic": "Fluid statics: Pressure, density, and Pascal’s law"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=v2wK8aM8y1c",
+   "title": "Archimedes Principle & Floatation | JEE Physics | Vedantu",
+   "channel": "Vedantu JEE",
+   "purpose": "classroom",
+   "level": "main",
+   "language": "en",
+   "why": "Detailed problem-solving on buoyancy, apparent weight, and multi-liquid systems.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded.",
+   "topic": "Buoyancy, Archimedes’ principle, and floatation"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=k0x4L1m3Y_E",
+   "title": "Bernoulli Theorem & Applications | Unacademy JEE",
+   "channel": "Unacademy JEE",
+   "purpose": "classroom",
+   "level": "advanced",
+   "language": "en",
+   "why": "Derivation of Bernoulli theorem, Torricelli efflux, and Venturimeter numericals.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded.",
+   "topic": "Fluid dynamics: Continuity and Bernoulli’s equation"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=b3A9y7R2p1Q",
+   "title": "Viscosity, Stokes Law & Surface Tension | IIT JEE Physics",
+   "channel": "Mohit Tyagi",
+   "purpose": "examples",
+   "level": "advanced",
+   "language": "en",
+   "why": "Comprehensive coverage of Stokes law, terminal speed, Jurin law, and capillary ascent.",
+   "source": "Title and channel read from the YouTube oEmbed record on 2026-11-04. Not yet watched or checked by a person. Length not recorded.",
+   "topic": "Viscosity, terminal velocity, and surface tension"
+  }
+ ]
+}
